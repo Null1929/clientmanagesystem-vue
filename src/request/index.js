@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Loading } from 'element-ui';
 import router from '@/router';
 
-var host = "http://localhost:80";
+var host = "/api";
 const httpRequest = axios.create({
     baseURL: host,
     timeout: 50 * 1000,
