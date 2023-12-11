@@ -11,7 +11,7 @@
       <tr>
         <td>
           <label>客户编号</label>
-          <input type="text" v-model="client.clientId">
+          <input type="text" v-model="client.clientId" disabled>
         </td>
         <td>
           <label>名称</label>
@@ -185,10 +185,15 @@ export default {
   methods: {
     addClient() {
       httpRequest.post('/clientservice/client/addClient', this.client)
-        .then((response) => {
-          alert(response.data.msg);
-          this.$router.push('/client/pageClients')
-        });
+          .then((response) => {
+            if (response.data.resCode === "000000") {
+              alert(response.data.data)
+              this.$router.push('/client/pageClients')
+            } else {
+              alert(response.data.resDesc);
+              window.location.reload();
+            }
+          });
     }
   },
 };

@@ -283,11 +283,11 @@ const routes = [
         component:()=>import('../components/pages/client-service/orderHistoryManage/detailHistoricalOrder.vue')
     },
     //detailHistoricalOrder
-    {
-        path:'/client/HistoricalOrder/pageHistoricalOrder',
-        name:'pageHistoricalOrder',
-        component:()=>import('../components/pages/client-service/orderHistoryManage/pageHistoricalOrder.vue')
-    }
+    // {
+    //     path:'/client/HistoricalOrder/pageHistoricalOrder',
+    //     name:'pageHistoricalOrder',
+    //     component:()=>import('../components/pages/client-service/orderHistoryManage/pageHistoricalOrder.vue')
+    // }
 
 ]
 

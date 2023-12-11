@@ -43,7 +43,7 @@
                 <td>{{ item.creator }}</td>
                 <td>{{ item.createTime }}</td>
                 <td><select name="" id="" v-model="item.assignee">
-                        <option v-for="item in userList " :key="item">{{ item }}</option>
+                        <option v-for="user in userList " :key="user.id">{{ user.name }}</option>
                     </select>
                     <el-button @click="distribution(item)">分配</el-button>
                 </td>

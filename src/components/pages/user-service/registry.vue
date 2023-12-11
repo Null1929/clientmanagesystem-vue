@@ -74,7 +74,7 @@ export default {
         name: '',
         workId: null,
         identity: null,
-        accountLevel:null
+        accountLevel: null
       }
     };
   },
@@ -86,7 +86,11 @@ export default {
   methods: {
     registry() {
       if (this.user.phone != '' && this.user.password != '') {
-        httpRequest.post('/userservice/user/registry',this.user)
+        httpRequest.post('/userservice/user/registry', {
+          ...this.user,
+          workId: Number(this.user.workId),
+          accountLevel: Number(this.user.accountLevel)
+        })
             .then((response) => {
               if (response.data.resCode === "000000") {
                 alert(response.data.data);

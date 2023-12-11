@@ -124,14 +124,14 @@ export default {
 
     methods: {
         create() {
-            httpRequest.post('/saleservice/sale/createOne', this.salesOpportunitie)
+            httpRequest.post('/saleservice/sale/createSales', this.salesOpportunitie)
                 .then((response) => {
 
-                    if (response.data.code == 1) {
-                        alert(response.data.msg);
+                    if (response.data.resCode ==="000000") {
+                        alert(response.data.data);
                         this.$router.push('/salesOpportunities/pageSales')
                     } else {
-                        alert(response.data.msg);
+                        alert(response.data.resDesc);
                     }
 
                 });

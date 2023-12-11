@@ -65,12 +65,13 @@ export default {
 
     methods: {
         add() {
-            this.$router.push('/client/pageClients/createClient')
+            this.$router.push('/client/createClient')
         },
         update(item) {
-            httpRequest.post('/clientservice/client/update', item).then(response => {
-                this.$router.push('/client/pageClients/updateClient')
-            });
+                this.$router.push({
+                  path:'/client/updateClient',
+                  query:item
+                })
         },
         delOne(clientId) {
             httpRequest.get('/clientservice/client/delClient', {
