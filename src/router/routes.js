@@ -81,21 +81,21 @@ const routes = [
     component:()=>import('../components/pages/salesOpportunities-service/pageSales.vue')
   },
 
-  //pageSales
+  //createSales
   {
     path:'/salesOpportunities/createSales',
     name:'createSales',
     component:()=>import('../components/pages/salesOpportunities-service/createSales.vue')
   },
 
-  //pageSales
+  //designateSale
   {
     path:'/salesOpportunities/designateSale',
     name:'designateSale',
     component:()=>import('../components/pages/salesOpportunities-service/designateSale.vue')
   },
 
-  //pageSales
+  //updateSales
   {
     path:'/salesOpportunities/updateSales',
     name:'updateSales',
