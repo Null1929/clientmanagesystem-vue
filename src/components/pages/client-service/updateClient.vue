@@ -131,8 +131,12 @@ export default {
     updateClient() {
       httpRequest.post('/clientservice/client/updateClient', this.client)
           .then((response) => {
-            alert(response.data.msg);
-            this.$router.push('/client/pageClients')
+            if (response.data.resCode === "000000") {
+              alert(response.data.data);
+              this.$router.push('/client/pageClients')
+            } else {
+              window.location.reload();
+            }
           });
     }
   },

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <table>
+  <table-style>
+    <template #header>
       <tr>
         <td>客户名称: <input type="text" v-model="salesOpportunitie.clientName" @keyup.enter="query()"></td>
         <td>概要: <input type="text" v-model="salesOpportunitie.summary" @keyup.enter="query()"></td>
@@ -14,6 +14,8 @@
           </router-link>
         </td>
       </tr>
+    </template>
+    <table width="100%">
       <tr>
         <td>编号</td>
         <td>客户名称</td>
@@ -37,36 +39,39 @@
         </td>
       </tr>
     </table>
-    <table>
-      <tr>
-        <td>共有{{ pageResult.total }}条记录</td>
-        <td>第{{ pageResult.pageNum }}/共{{ Math.ceil(pageResult.total / pageResult.pageSize) }}页</td>
-        <td>
-          <el-button @click="firstPage()" id="firstPage">第一页</el-button>
-        </td>
-        <td>
-          <el-button @click="lastPage()" id="lastPage">上一页</el-button>
-        </td>
-        <td>
-          <el-button @click="nextPage()" id="nextPage">下一页</el-button>
-        </td>
-        <td>
-          <el-button @click="endPage()" id="endPage">最后一页</el-button>
-        </td>
-        <td>转到<input type="text" v-model="pageResult.forward">页
-          <el-button @click="forward()">Go</el-button>
-        </td>
-      </tr>
-    </table>
-  </div>
+    <template #footer>
+      <table>
+        <tr>
+          <td>共有{{ pageResult.total }}条记录</td>
+          <td>第{{ pageResult.pageNum }}/共{{ Math.ceil(pageResult.total / pageResult.pageSize) }}页</td>
+          <td>
+            <el-button @click="firstPage()" id="firstPage">第一页</el-button>
+          </td>
+          <td>
+            <el-button @click="lastPage()" id="lastPage">上一页</el-button>
+          </td>
+          <td>
+            <el-button @click="nextPage()" id="nextPage">下一页</el-button>
+          </td>
+          <td>
+            <el-button @click="endPage()" id="endPage">最后一页</el-button>
+          </td>
+          <td>转到<input type="text" v-model="pageResult.forward">页
+            <el-button @click="forward()">Go</el-button>
+          </td>
+        </tr>
+      </table>
+    </template>
+  </table-style>
 </template>
 
 <script>
 import httpRequest from '@/request';
+import TableStyle from "@/components/slot/tableStyle";
 
 export default {
   name: 'ClientmanagesystemPageSales',
-
+  components: {TableStyle},
   data() {
     return {
       salesOpportunitie: {
