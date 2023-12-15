@@ -132,14 +132,16 @@ export default {
       this.$router.push({path: '/client/detailClient', query: item})
     },
     record(item) {
-      httpRequest.post('/clientservice/contactRecord/catcheData', item).then(response => {
-        this.$router.push('/client/ContactRecord/pageContactRecord')
-      });
+        this.$router.push({
+          path:'/client/ContactRecord/pageContactRecord',
+          query:item
+        })
     },
     order(item) {
-      httpRequest.post('/clientservice/clientOrder/catcheData', item).then(response => {
-        this.$router.push('/client/HistoricalOrder/pageHistoricalOrder')
-      });
+        this.$router.push({
+          path:'/client/HistoricalOrder/pageHistoricalOrder',
+          query:item
+        })
     },
     warn() {
       httpRequest.get('/clientservice/client/warn', {}).then(response => {

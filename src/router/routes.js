@@ -269,6 +269,12 @@ const routes = [
         name:'pageContactRecord',
         component:()=>import('../components/pages/client-service/contactRecordManage/pageContactRecord.vue')
     },
+
+    {
+        path: '/client/ContactRecord/updateContactRecord',
+        name: 'updateContactRecord',
+        component: () => import('../components/pages/client-service/contactRecordManage/updateContactRecord.vue')
+    },
     //pageHistoricalOrder
     {
         path:'/client/HistoricalOrder/pageHistoricalOrder',
