@@ -35,7 +35,7 @@
         <td>操作</td>
       </tr>
 
-      <tr v-for="(item, index) in clientLostList" :key="item.clientName">
+      <tr v-for="(item, index) in pageResult.result" :key="item.clientName">
         <td>{{ index + 1 }}</td>
         <td>{{ item.clientName }}</td>
         <td>{{ item.clientManager }}</td>
@@ -83,7 +83,6 @@ export default {
   components: {TableStyle},
   data() {
     return {
-      clientLostList: [],
 
       clientLost: {
         clientId: null,
@@ -104,10 +103,7 @@ export default {
   },
 
   mounted() {
-    httpRequest.get('/clientservice/clientLost/pageClientLost', {})
-        .then((response) => {
-          this.clientLostList = response.data.data.result
-        });
+    this.query();
   },
 
   methods: {
@@ -116,11 +112,11 @@ export default {
         clientManager: this.clientLost.clientManager,
         clientName: this.clientLost.clientName,
         status: this.clientLost.status,
-        pageNum: 1,
-        pageSize: 10
+        pageNum: this.pageResult.pageNum,
+        pageSize: this.pageResult.pageSize
       })
           .then((response) => {
-            this.clientLostList = response.data.data.result
+            this.pageResult = response.data.data
           });
     },
     reprieve(item, index) {
