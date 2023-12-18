@@ -157,7 +157,6 @@ export default {
     firstPage() {
       this.pageResult.pageNum = 1;
       this.query();
-
     },
     lastPage() {
       if (this.pageResult.pageNum != 1) {

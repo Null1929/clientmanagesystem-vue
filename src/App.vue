@@ -104,10 +104,10 @@
                 <router-link to="/dataBase/DataDictionary/pageDataDictionary">数据字典管理</router-link>
               </el-menu-item>
               <el-menu-item index="5-2">
-                <router-link to="/dataBase/InventoryInfo/pageProductInfo">查询产品信息</router-link>
+                <router-link to="/dataBase/InventoryInfo/pageProductInfo">产品信息管理</router-link>
               </el-menu-item>
               <el-menu-item index="5-3">
-                <router-link to="/dataBase/ProductInformation/pageInventoryInfo">查询库存</router-link>
+                <router-link to="/dataBase/ProductInformation/pageInventoryInfo">库存管理</router-link>
               </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
