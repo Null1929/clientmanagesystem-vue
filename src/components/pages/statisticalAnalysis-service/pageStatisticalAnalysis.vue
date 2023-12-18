@@ -32,7 +32,7 @@
             <tr>
                 <td>编号</td>
                 <td>客户名称</td>
-                <td>订单金额(元)</td>
+                <td>订单总金额(元)</td>
             </tr>
             <template v-for="(item, index) in ClientList">
                 <!-- <tr v-if="item.allOrders != 0" :key="item.clientName"> -->
