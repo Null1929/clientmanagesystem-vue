@@ -20,6 +20,14 @@
     </div>
 
     <div id="aside">
+
+    </div>
+
+    <div id="main">
+
+    </div>
+
+    <el-row>
       <el-col :span="4" width="1px" style="height:53vh">
         <h3>客户关系管理系统</h3>
         <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
@@ -113,11 +121,8 @@
           </el-submenu>
         </el-menu>
       </el-col>
-    </div>
-
-    <div id="main">
-      <router-view></router-view>
-    </div>
+      <el-col :span="20"><router-view></router-view></el-col>
+    </el-row>
   </div>
 </template>
 <script>

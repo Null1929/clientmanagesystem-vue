@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <table>
       <tr>
         <td>报表方式</td>
@@ -36,19 +36,21 @@
         <td>{{ item.number }}</td>
       </tr>
     </table>
+    <echart-pie class="echartPie" :eData="eData"/>
   </div>
 </template>
 
 <script>
 import httpRequest from '@/request';
+import EchartPie from "@/components/echartCom/echartPie.vue";
 
 export default {
   name: 'ClientmanagesystemPageAnalyzeClient',
+  components: {EchartPie},
 
   data() {
     return {
       reportMode: 1,
-
       clientDataList: [],
     };
   },
@@ -56,7 +58,11 @@ export default {
   mounted() {
     this.query();
   },
-
+  computed:{
+    eData(){
+      return this.clientDataList.map(it=>({value:it.number,name:it.clientDegree}))
+    }
+  },
   methods: {
     query() {
       httpRequest.get('/statisticalanalysisservice/statisticalAnalysis/queryAnalyzeClient', {
@@ -73,4 +79,16 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="less" scoped>
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  >table{
+    align-self: flex-start;
+  }
+  >.echartPie{
+    margin-top: 20px;
+  }
+}
+</style>
