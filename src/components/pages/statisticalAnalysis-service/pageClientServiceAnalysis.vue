@@ -24,12 +24,8 @@
 
             <tr v-for="(item, index) in serviceTypeList" :key="item">
                 <td>{{ index + 1 }}</td>
-                <td>
-                    <label v-if="index == 0">建议</label>
-                    <label v-else-if="index == 1">咨询</label>
-                    <label v-else-if="index == 2">投诉</label>
-                </td>
-                <td>{{ item }}</td>
+                <td>{{item.serverType}}</td>
+                <td>{{ item.serverNumber }}</td>
             </tr>
         </table>
     </div>
@@ -67,8 +63,6 @@ export default {
                 }
             }).then((response) => {
                 this.serviceTypeList = response.data.data;
-            }).catch((err) => {
-
             });
         }
     },
