@@ -5,13 +5,15 @@ export default {
   props: {
     echartConfig: {
       type: Object,
-      default: {
+      required:false,
+      default: ()=>({
         tit: '客户贡献分析',
         type: 'pie'
-      }
+      })
     },
     options: {
-      type: Object
+      type: Object,
+      required:false,
     },
     eData:{
       type:Array
@@ -39,7 +41,7 @@ export default {
         series: [
           {
             name: 'Access From',
-            type: 'pie',
+            type: this.echartConfig.type,
             radius: '50%',
             data: this.eData,
             emphasis: {
@@ -50,7 +52,8 @@ export default {
               }
             }
           }
-        ]
+        ],
+        ...this.options
       }
     },
     mount(){
