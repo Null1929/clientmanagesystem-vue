@@ -89,16 +89,16 @@
             </template>
             <el-menu-item-group>
               <el-menu-item index="4-1">
-                <router-link to="/statisticalAnalysis/pageAnalyzeClient">客户贡献分析</router-link>
+                <router-link to="/statisticalAnalysis/pageStatisticalAnalysis">客户贡献分析</router-link>
               </el-menu-item>
               <el-menu-item index="4-2">
-                <router-link to="/statisticalAnalysis/pageClientChurnAnalysis">客户构成分析</router-link>
+                <router-link to="/statisticalAnalysis/pageAnalyzeClient">客户构成分析</router-link>
               </el-menu-item>
               <el-menu-item index="4-3">
                 <router-link to="/statisticalAnalysis/pageClientServiceAnalysis">客户服务分析</router-link>
               </el-menu-item>
               <el-menu-item index="4-4">
-                <router-link to="/statisticalAnalysis/pageStatisticalAnalysis">客户流失分析</router-link>
+                <router-link to="/statisticalAnalysis/pageClientChurnAnalysis">客户流失分析</router-link>
               </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
