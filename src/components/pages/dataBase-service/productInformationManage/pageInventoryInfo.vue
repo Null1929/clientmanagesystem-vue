@@ -88,18 +88,7 @@ export default {
   },
 
   mounted() {
-    httpRequest.get('/databaseservice/dataBase/pageInventoryInfo', {
-      params: {
-        pageNum: 1,
-        pageSize: 2,
-        productName: null,
-        stash: null,
-      }
-    }).then((response) => {
-      this.pageResult = response.data.data
-    }).catch((err) => {
-
-    });
+    this.query();
   },
 
   methods: {
