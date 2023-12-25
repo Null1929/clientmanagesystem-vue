@@ -43,6 +43,8 @@
           <td>{{ item.amount }}</td>
         </tr>
       </table>
+
+    <statistic-chart :data-d="chartData"/>
     <template #footer>
       <table>
         <tr>
@@ -72,10 +74,11 @@
 <script>
 import httpRequest from '@/request';
 import TableStyle from "@/components/slot/tableStyle";
+import StatisticChart from "@/components/echartCom/statisticChart.vue";
 
 export default {
   name: 'ClientmanagesystemPageStatisticalAnalysis',
-  components: {TableStyle},
+  components: {StatisticChart, TableStyle},
   data() {
     return {
       pageResult: {
@@ -94,7 +97,11 @@ export default {
   mounted() {
     this.query();
   },
-
+computed:{
+  chartData(){
+    return this.pageResult.result.map(it=>({name:it.clientName,value:it.amount}))
+  }
+},
   methods: {
     query() {
       httpRequest.get('/clientservice/clientOrder/yearStatisticalAnalysis', {

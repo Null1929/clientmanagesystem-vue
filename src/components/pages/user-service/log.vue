@@ -40,8 +40,8 @@ export default {
   data() {
     return {
       user: {
-        phone: '',
-        password: ''
+        phone: '19107152769',
+        password: '610816'
       }
     };
   },
