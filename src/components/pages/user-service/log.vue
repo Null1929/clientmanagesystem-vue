@@ -62,7 +62,7 @@ export default {
                 sessionStorage.setItem("accountLevel", response.data.data.accountLevel);
                 this.$router.push('/')
               } else {
-                alert(response.data.msg);
+                alert(response.data.resDesc);
               }
             });
       } else {

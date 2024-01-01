@@ -1,20 +1,27 @@
 <template>
   <table-style>
     <template #header>
+      <table>
+        <tr>
+          <td>
+            <router-link to="/salesOpportunities/createSales">
+              <el-button>新建</el-button>
+            </router-link>
+          </td>
+        </tr>
+      </table>
+    </template>
+    <table>
       <tr>
         <td>客户名称: <input type="text" v-model="salesOpportunitie.clientName" @keyup.enter="query()"></td>
         <td>概要: <input type="text" v-model="salesOpportunitie.summary" @keyup.enter="query()"></td>
         <td>联系人: <input type="text" v-model="salesOpportunitie.liaison" @keyup.enter="query()"></td>
         <td>
           <el-button @click="query()">查询</el-button>
-        </td>
-        <td>
-          <router-link to="/salesOpportunities/createSales">
-            <el-button>新建</el-button>
-          </router-link>
+          <el-button @click="exportExcel()">汇出报表</el-button>
         </td>
       </tr>
-    </template>
+    </table>
     <table width="100%">
       <tr>
         <td>编号</td>
@@ -92,7 +99,7 @@ export default {
       pageResult: {
         total: 0,
         pageNum: 1,
-        pageSize: 10,
+        pageSize: 20,
         forward: 1,
         result: []
       },
@@ -144,6 +151,10 @@ export default {
             //还需要设置路由传参代替后台缓存
             this.$router.push('/salesOpportunities/designateSale')
           });
+    },
+
+    exportExcel(){
+
     },
     /*******************************************/
     /**

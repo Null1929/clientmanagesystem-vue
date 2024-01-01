@@ -1,58 +1,52 @@
 <template>
   <table-style>
     <template #header>
-      <table>
-        <tr>
-          <td>
-            <el-button>帮助</el-button>
-          </td>
-          <td>
-            <el-button @click="query()">查询</el-button>
-          </td>
-        </tr>
-      </table>
+      <el-button @click="create()">新增</el-button>
     </template>
     <table>
       <tr>
-        <td>名称</td>
-        <td><input type="text" v-model="productInfo.productName"></td>
-      </tr>
-      <tr>
-        <td>型号</td>
-        <td><input type="text" v-model="productInfo.productType"></td>
-      </tr>
-      <tr>
-        <td>批次</td>
-        <td><input type="text" v-model="productInfo.productDegree"></td>
+        <td>产品</td>
+        <td>
+          <input type="text" v-model="inventoryInfo.productName">
+        </td>
+        &nbsp;
+        <td>仓库</td>
+        <td><input type="text" v-model="inventoryInfo.stash"></td>
+        &nbsp;&nbsp;&nbsp;
+        <td>
+          <el-button @click="query()">查询</el-button>
+        </td>
       </tr>
     </table>
-
     <table>
       <tr>
-        <td>编号</td>
-        <td>名称</td>
-        <td>型号</td>
-        <td>等级/批次</td>
-        <td>单位</td>
-        <td>单价(元)</td>
+        <td>序号</td>
+        <td>产品</td>
+        <td>仓库</td>
+        <td>货位</td>
+        <td>数量</td>
         <td>备注</td>
+        <td>操作</td>
       </tr>
 
-      <tr v-for="(item, index) in pageResult.data" :key="item.productName">
+      <tr v-for="(item, index) in pageResult.result" :key="item.productName">
         <td>{{ index + 1 }}</td>
         <td>{{ item.productName }}</td>
-        <td>{{ item.productType }}</td>
-        <td>{{ item.productDegree }}</td>
-        <td>{{ item.unit }}</td>
-        <td>{{ item.productPrice }}</td>
+        <td>{{ item.stash }}</td>
+        <td>{{ item.freightSpace }}</td>
+        <td>{{ item.productNum }}</td>
         <td>{{ item.notes }}</td>
+        <td>
+          <el-button @click="deleteById(item.id)">删除</el-button>
+          <el-button @click="update(item)">编辑</el-button>
+        </td>
       </tr>
     </table>
     <template #footer>
       <table>
         <tr>
-          <td>共有{{ pageResult.allData }}条记录</td>
-          <td>第{{ pageResult.nowPage }}/共{{ pageResult.allPages }}页</td>
+          <td>共有{{ pageResult.total }}条记录</td>
+          <td>第{{ pageResult.pageNum }}/共{{ Math.ceil(pageResult.total / pageResult.pageSize) }}页</td>
           <td>
             <el-button @click="firstPage()" id="firstPage">第一页</el-button>
           </td>
@@ -65,7 +59,7 @@
           <td>
             <el-button @click="endPage()" id="endPage">最后一页</el-button>
           </td>
-          <td>转到<input type="text" v-model="forw">页
+          <td>转到<input type="text" v-model="pageResult.forward">页
             <el-button @click="forward()">Go</el-button>
           </td>
         </tr>
@@ -79,23 +73,23 @@ import httpRequest from '@/request';
 import TableStyle from "@/components/slot/tableStyle";
 
 export default {
-  name: 'ClientmanagesystemPageProductInfo',
+  name: 'ClientmanagesystemPageInventoryInfo',
   components: {TableStyle},
   data() {
     return {
-      productInfo: {
+      inventoryInfo: {
         productName: null,
-        productType: null,
-        productDegree: null,
+        stash: null,
       },
 
       pageResult: {
         total: 0,
         pageNum: 1,
-        pageSize: 100,
+        pageSize: 10,
         forward: 1,
         result: []
       },
+
     };
   },
 
@@ -105,50 +99,70 @@ export default {
 
   methods: {
     query() {
-      httpRequest.get('/databaseservice/dataBase/pageProductInfo', {
+      httpRequest.get('/databaseservice/inventoryInfo/queryInventoryInfo', {
         params: {
           pageNum: this.pageResult.pageNum,
           pageSize: this.pageResult.pageSize,
-          productName: this.productInfo.productName,
-          productType: this.productInfo.productType,
-          productDegree: this.productInfo.productDegree,
+          productName: this.inventoryInfo.productName,
+          stash: this.inventoryInfo.stash,
+        }
+      }).then((reponse) => {
+        this.pageResult = reponse.data.data
+      });
+    },
+    create() {
+      this.$router.push("/dataBase/inventoryInfo/createInventoryInfo")
+    },
+    deleteById(id) {
+      httpRequest.get('/databaseservice/inventoryInfo/delInventoryInfo', {
+        params: {
+          id
         }
       }).then((reponse) => {
         if (reponse.data.resCode === "000000") {
-          this.pageResult = reponse.data.data;
+          alert(reponse.data.data);
+          this.query();
+        } else {
+          alert(reponse.data.resDesc);
+          this.query();
         }
       });
     },
-
+    update(item){
+      this.$router.push({
+        path:"/dataBase/inventoryInfo/updateInventoryInfo",
+        query: item
+      })
+    },
     /*******************************************/
     /**
      * 分页方法
      */
     firstPage() {
       this.pageResult.pageNum = 1;
-      this.pageClient();
+      this.query();
 
     },
     lastPage() {
       if (this.pageResult.pageNum != 1) {
         --this.pageResult.pageNum
-        this.pageClient();
+        this.query();
       }
     },
     nextPage() {
       if (this.pageResult.pageNum != Math.ceil(this.pageResult.total / this.pageResult.pageSize)) {
         ++this.pageResult.pageNum
-        this.pageClient();
+        this.query();
       }
     },
     endPage() {
       this.pageResult.pageNum = Math.ceil(this.pageResult.total / this.pageResult.pageSize);
-      this.pageClient();
+      this.query();
     },
     forward() {
       if (this.pageResult.forward >= 1 && this.pageResult.forward <= Math.ceil(this.pageResult.total / this.pageResult.pageSize)) {
         this.pageResult.pageNum = this.pageResult.forward;
-        this.pageClient();
+        this.query();
       } else {
         alert("页数不正确！")
         this.pageResult.forward = null;

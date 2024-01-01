@@ -1,46 +1,37 @@
 <template>
   <table-style>
     <template #header>
-      <table>
-        <tr>
-          <td>产品</td>
-          <td>
-            <input type="text" v-model="inventoryInfo.productName">
-
-            &nbsp;&nbsp;&nbsp;&nbsp;
-          </td>
-          <td>仓库</td>
-          <td><input type="text" v-model="inventoryInfo.stash"></td>
-          <td>
-            <el-button @click="query()">查询</el-button>
-          </td>
-        </tr>
-      </table>
+      <el-button @click="create()">新增</el-button>
     </template>
     <table>
       <tr>
-        <td>序号</td>
-        <td>产品</td>
-        <td>仓库</td>
-        <td>货位</td>
-        <td>件数</td>
-        <td>备注</td>
+        <td>编号</td>
+        <td>名称</td>
+        <td>手机号</td>
+        <td>工号</td>
+        <td>身份</td>
+        <td>账户等级</td>
+        <td>操作</td>
       </tr>
 
-      <tr v-for="(item, index) in pageResult.data" :key="item.productName">
-        <td>{{ index + 1 }}</td>
-        <td>{{ item.productName }}</td>
-        <td>{{ item.stash }}</td>
-        <td>{{ item.freightSpace }}</td>
-        <td>{{ item.productNum }}</td>
-        <td>{{ item.notes }}</td>
+      <tr v-for="item in pageResult.result" :key="item.id">
+        <td>{{ item.id }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.phone }}</td>
+        <td>{{ item.workId }}</td>
+        <td>{{ item.identity }}</td>
+        <td>{{ item.accountLevel }}</td>
+        <td>
+          <el-button @click="deleteById(item.id)">删除</el-button>
+          <el-button @click="update(item)">编辑</el-button>
+        </td>
       </tr>
     </table>
     <template #footer>
       <table>
         <tr>
-          <td>共有{{ pageResult.allData }}条记录</td>
-          <td>第{{ pageResult.nowPage }}/共{{ pageResult.allPages }}页</td>
+          <td>共有{{ pageResult.total }}条记录</td>
+          <td>第{{ pageResult.pageNum }}/共{{ Math.ceil(pageResult.total / pageResult.pageSize) }}页</td>
           <td>
             <el-button @click="firstPage()" id="firstPage">第一页</el-button>
           </td>
@@ -53,7 +44,7 @@
           <td>
             <el-button @click="endPage()" id="endPage">最后一页</el-button>
           </td>
-          <td>转到<input type="text" v-model="forw">页
+          <td>转到<input type="text" v-model="pageResult.forward">页
             <el-button @click="forward()">Go</el-button>
           </td>
         </tr>
@@ -67,19 +58,24 @@ import httpRequest from '@/request';
 import TableStyle from "@/components/slot/tableStyle";
 
 export default {
-  name: 'ClientmanagesystemPageInventoryInfo',
+  name: 'ClientmanagesystemPageUserInfo',
   components: {TableStyle},
   data() {
     return {
-      inventoryInfo: {
-        productName: null,
-        stash: null,
+      user: {
+        id:null,
+        phone: '',
+        password: '',
+        name: '',
+        workId: null,
+        identity: null,
+        accountLevel: null
       },
 
       pageResult: {
         total: 0,
         pageNum: 1,
-        pageSize: 100,
+        pageSize: 10,
         forward: 1,
         result: []
       },
@@ -93,18 +89,41 @@ export default {
 
   methods: {
     query() {
-      httpRequest.get('/databaseservice/dataBase/pageInventoryInfo', {
+      httpRequest.get('/userservice/userInfo/queryUserInfo', {
         params: {
-          pageNum: 1,
-          pageSize: 5,
-          productName: this.inventoryInfo.productName,
-          stash: this.inventoryInfo.stash,
+          pageNum: this.pageResult.pageNum,
+          pageSize: this.pageResult.pageSize,
         }
       }).then((reponse) => {
-        this.pageResult = reponse.data.data
+        if (reponse.data.resCode === '000000') {
+          this.pageResult = reponse.data.data
+        }
       });
     },
-
+    create() {
+      this.$router.push("/userAdmin/userInfo/createUserInfo")
+    },
+    deleteById(id) {
+      httpRequest.get('/userservice/userInfo/delUserInfo', {
+        params: {
+          id
+        }
+      }).then((reponse) => {
+        if (reponse.data.resCode === "000000") {
+          alert(reponse.data.data);
+          this.query();
+        } else {
+          alert(reponse.data.resDesc);
+          this.query();
+        }
+      });
+    },
+    update(item) {
+      this.$router.push({
+        path: "/userAdmin/userInfo/updateUserInfo",
+        query: item
+      })
+    },
     /*******************************************/
     /**
      * 分页方法

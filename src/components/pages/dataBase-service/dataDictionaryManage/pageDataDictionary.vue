@@ -6,9 +6,6 @@
           <td>
             <el-button @click="create()">新建</el-button>
           </td>
-          <td>
-            <el-button @click="query()">查询</el-button>
-          </td>
         </tr>
       </table>
     </template>
@@ -17,17 +14,21 @@
         <td>类别</td>
         <td>
           <select name="" id="" v-model="dataDictionary.category">
-            <option disabled value="">请选择</option>
+            <option  value="">请选择</option>
             <option value="企业客户等级">企业客户等级</option>
             <option value="服务类型">服务类型</option>
           </select>
         </td>
-
+          &nbsp;
         <td>条目</td>
-        <td><input type="text" v-model="dataDictionary.item"></td>
-
+        <td><input type="number" v-model="dataDictionary.item"></td>
+        &nbsp;
         <td>值</td>
         <td><input type="text" v-model="dataDictionary.itemValue"></td>
+        &nbsp;&nbsp;
+        <td>
+          <el-button @click="query()">查询</el-button>
+        </td>
       </tr>
     </table>
     <table>

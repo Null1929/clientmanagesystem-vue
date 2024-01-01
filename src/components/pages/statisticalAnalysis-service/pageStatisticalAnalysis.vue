@@ -11,18 +11,6 @@
             <select name="" id="" v-model="year">
               <option disabled value="">请选择</option>
               <option value="2015">2015</option>
-              <option value="2016">2016</option>
-              <option value="2017">2017</option>
-              <option value="2018">2018</option>
-              <option value="2019">2019</option>
-              <option value="2020">2020</option>
-              <option value="2021">2021</option>
-              <option value="2022">2022</option>
-              <option value="2023">2023</option>
-              <option value="2024">2024</option>
-              <option value="2025">2025</option>
-              <option value="2026">2026</option>
-              <option value="2027">2027</option>
             </select>
           </td>
         </tr>
@@ -36,15 +24,12 @@
           <td>客户名称</td>
           <td>订单总金额(元)</td>
         </tr>
-
         <tr :key="item.clientId" v-for="(item, index) in pageResult.result">
           <td>{{ index + 1 }}</td>
           <td>{{ item.clientName }}</td>
           <td>{{ item.amount }}</td>
         </tr>
       </table>
-
-    <statistic-chart :data-d="chartData"/>
     <template #footer>
       <table>
         <tr>
@@ -74,11 +59,10 @@
 <script>
 import httpRequest from '@/request';
 import TableStyle from "@/components/slot/tableStyle";
-import StatisticChart from "@/components/echartCom/statisticChart.vue";
 
 export default {
   name: 'ClientmanagesystemPageStatisticalAnalysis',
-  components: {StatisticChart, TableStyle},
+  components: {TableStyle},
   data() {
     return {
       pageResult: {
@@ -97,11 +81,7 @@ export default {
   mounted() {
     this.query();
   },
-computed:{
-  chartData(){
-    return this.pageResult.result.map(it=>({name:it.clientName,value:it.amount}))
-  }
-},
+
   methods: {
     query() {
       httpRequest.get('/clientservice/clientOrder/yearStatisticalAnalysis', {
@@ -158,4 +138,7 @@ computed:{
 };
 </script>
 
-<style lang="scss" scoped></style>
+
+<style lang="less" scoped>
+
+</style>
