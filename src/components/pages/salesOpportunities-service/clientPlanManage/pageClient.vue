@@ -1,18 +1,38 @@
 <template>
-  <div>
+  <table-style>
+    <template #header>
+      <table>
+        <tr>
+          <td>编号:</td>
+          <td><input type="number" v-model="client.clientId"/></td>
+          &nbsp;
+          <td>客户名称:</td>
+          <td><input type="text" v-model="client.clientName"/></td>
+          &nbsp;
+          <td>地区:</td>
+          <td><input type="text" v-model="client.clientDistrict"/></td>
+          &nbsp;
+          <td>客户等级:</td>
+          <td><input type="number" v-model="client.clientDegree"/></td>
+          &nbsp;
+          <td>
+            <el-button @click="query()">查询</el-button>
+          </td>
+        </tr>
+      </table>
+    </template>
+
     <table>
       <tr>
-        <td>序号</td>
-        <td>客户编号</td>
-        <td>名称</td>
+        <td>编号</td>
+        <td>客户名称</td>
         <td>地区</td>
         <td>客户经理</td>
         <td>客户等级</td>
         <td>操作</td>
       </tr>
 
-      <tr v-for="(item,index) in pageResult.result" :key="item.id">
-        <td>{{ index + 1 }}</td>
+      <tr v-for="item in pageResult.result" :key="item.id">
         <td>{{ item.clientId }}</td>
         <td>{{ item.clientName }}</td>
         <td>{{ item.clientDistrict }}</td>
@@ -24,38 +44,47 @@
       </tr>
     </table>
 
-    <table>
-      <tr>
-        <td>共有{{ pageResult.total }}条记录</td>
-        <td>第{{ pageResult.pageNum }}/共{{ Math.ceil(pageResult.total / pageResult.pageSize) }}页</td>
-        <td>
-          <el-button @click="firstPage()" id="firstPage">第一页</el-button>
-        </td>
-        <td>
-          <el-button @click="lastPage()" id="lastPage">上一页</el-button>
-        </td>
-        <td>
-          <el-button @click="nextPage()" id="nextPage">下一页</el-button>
-        </td>
-        <td>
-          <el-button @click="endPage()" id="endPage">最后一页</el-button>
-        </td>
-        <td>转到<input type="text" v-model="pageResult.forward">页
-          <el-button @click="forward()">Go</el-button>
-        </td>
-      </tr>
-    </table>
-  </div>
+    <template #footer>
+      <table>
+        <tr>
+          <td>共有{{ pageResult.total }}条记录</td>
+          <td>第{{ pageResult.pageNum }}/共{{ Math.ceil(pageResult.total / pageResult.pageSize) }}页</td>
+          <td>
+            <el-button @click="firstPage()" id="firstPage">第一页</el-button>
+          </td>
+          <td>
+            <el-button @click="lastPage()" id="lastPage">上一页</el-button>
+          </td>
+          <td>
+            <el-button @click="nextPage()" id="nextPage">下一页</el-button>
+          </td>
+          <td>
+            <el-button @click="endPage()" id="endPage">最后一页</el-button>
+          </td>
+          <td>转到<input type="text" v-model="pageResult.forward">页
+            <el-button @click="forward()">Go</el-button>
+          </td>
+        </tr>
+      </table>
+    </template>
+  </table-style>
 </template>
 
 <script>
 import httpRequest from '@/request';
+import TableStyle from "@/components/slot/tableStyle";
 
 export default {
   name: 'ClientmanagesystemPageClient',
-
+  components: {TableStyle},
   data() {
     return {
+      client: {
+        clientId: null,
+        clientName: null,
+        clientDistrict: null,
+        clientDegree: null,
+      },
       pageResult: {
         total: 0,
         pageNum: 1,
@@ -67,7 +96,7 @@ export default {
   },
 
   mounted() {
-    this.pageClient();
+    this.query();
 
   },
 
@@ -79,12 +108,15 @@ export default {
       })
     },
 
-    pageClient() {
-      httpRequest.get("/clientservice/client/pageClient", {
+    query() {
+      httpRequest.get("/clientservice/client/queryClientByPage", {
         params: {
           pageNum: this.pageResult.pageNum,
-          pageSize: this.pageResult.pageSize
-
+          pageSize: this.pageResult.pageSize,
+          clientId:this.client.clientId,
+          clientName:this.client.clientName,
+          clientDegree:this.client.clientDegree,
+          clientDistrict:this.client.clientDistrict
         }
       }).then(response => {
         if (response.data.resCode === "000000") {

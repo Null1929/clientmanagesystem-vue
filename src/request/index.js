@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Loading } from 'element-ui';
+import {Loading} from 'element-ui';
 import router from '@/router';
 
 var host = "/api";
@@ -17,14 +17,15 @@ httpRequest.interceptors.request.use(config => {
     //用于进行访问拦截
     /**
      * 只有当用户登录之后才可以进行其他的数据访问，否则将会跳转到登录页面
-    */
+     */
     if (config.url.match('user') == null) {
         if (sessionStorage.length == 0) {
             controller.abort()
             router.push('/log')
         }
     }
-    config.headers["token"] = sessionStorage.getItem('token')
+    //全局设置请求头
+    config.headers.set("token", sessionStorage.getItem('token'));
 
     //开启加载loading
     loading = Loading.service({

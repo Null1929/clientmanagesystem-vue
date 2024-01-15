@@ -4,16 +4,25 @@
       <el-header>
         <font size="50px"><b>客户关系管理系统</b></font>
         <p align="right" v-if="!logStatus">
+
           <router-link to="/user/log">
             <el-button>登录</el-button>
           </router-link>
         </p>
         <p align="right" v-if="logStatus">
-          当前用户： {{ user.name }} 《 {{ user.identity }} 》
-          &nbsp;&nbsp;
-          <el-button @click="exit()">
-            退出系统
-          </el-button>
+        <table>
+          <tr>
+            <td>
+              <el-avatar :size="50" :src="circleUrl"/>
+            </td>
+            <td> 当前用户： {{ user.name }} 《 {{ user.identity }} 》</td>
+            <td>
+              <el-button @click="exit()">
+                退出系统
+              </el-button>
+            </td>
+          </tr>
+        </table>
         </p>
         <hr>
       </el-header>
@@ -132,7 +141,9 @@
           </el-submenu>
         </el-menu>
       </el-col>
-      <el-col :span="20"><router-view></router-view></el-col>
+      <el-col :span="20">
+        <router-view></router-view>
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -143,6 +154,8 @@ export default {
     return {
       logStatus: false,
 
+      circleUrl: "",
+
       user: {
         name: null,
         identity: null,
@@ -151,22 +164,10 @@ export default {
   },
 
   mounted() {
-    if (sessionStorage.getItem('token') != null) {
-      this.logStatus = true;
-      this.user.name = sessionStorage.getItem('username');
-      this.user.identity = sessionStorage.getItem('identity');
-    } else {
-      this.logStatus = false;
-    }
+    this.index();
   },
   beforeUpdate() {
-    if (sessionStorage.getItem('token') != null) {
-      this.logStatus = true;
-      this.user.name = sessionStorage.getItem('username');
-      this.user.identity = sessionStorage.getItem('identity');
-    } else {
-      this.logStatus = false;
-    }
+    this.index();
   },
 
   methods: {
@@ -180,6 +181,20 @@ export default {
       this.user = null;
       sessionStorage.clear();
       window.location.reload();
+    },
+
+    index() {
+      if (sessionStorage.getItem('token') != null) {
+        this.logStatus = true;
+        this.user.name = sessionStorage.getItem('username');
+        this.user.identity = sessionStorage.getItem('identity');
+      } else {
+        this.logStatus = false;
+      }
+
+      if (sessionStorage.getItem('img') != null) {
+        this.circleUrl = sessionStorage.getItem('img');
+      }
     }
   },
 };

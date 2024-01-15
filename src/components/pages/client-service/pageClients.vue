@@ -1,12 +1,34 @@
 <template>
   <table-style>
     <template #header>
-      <el-button @click="add()">新建客户</el-button>
-      <el-button @click="warn()">流失预警</el-button>
+      <table>
+        <tr>
+          <td colspan="9" align="left">
+            <el-button @click="add()">新建客户</el-button>
+            <el-button @click="warn()">流失预警</el-button>
+          </td>
+        </tr>
+        <tr>
+          <td>编号:</td>
+          <td><input type="number" v-model="client.clientId"/></td>
+          &nbsp;
+          <td>客户名称:</td>
+          <td><input type="text" v-model="client.clientName"/></td>
+          &nbsp;
+          <td>地区:</td>
+          <td><input type="text" v-model="client.clientDistrict"/></td>
+          &nbsp;
+          <td>客户等级:</td>
+          <td><input type="number" v-model="client.clientDegree"/></td>
+          &nbsp;
+          <td>
+            <el-button @click="query()">查询</el-button>
+          </td>
+        </tr>
+      </table>
     </template>
     <table>
       <tr>
-        <td>序号</td>
         <td>客户编号</td>
         <td>名称</td>
         <td>地区</td>
@@ -15,8 +37,7 @@
         <td>操作</td>
       </tr>
 
-      <tr v-for="(item, index) in pageResult.result" :key="item.clientId">
-        <td>{{ index + 1 }}</td>
+      <tr v-for="item in pageResult.result" :key="item.clientId">
         <td>{{ item.clientId }}</td>
         <td>{{ item.clientName }}</td>
         <td>{{ item.clientDistrict }}</td>
@@ -67,10 +88,17 @@ export default {
   components: {TableStyle},
   data() {
     return {
+      client: {
+        clientId: null,
+        clientName: null,
+        clientDistrict: null,
+        clientDegree: null,
+      },
+
       pageResult: {
         total: 0,
         pageNum: 1,
-        pageSize: 100,
+        pageSize: 20,
         forward: 1,
         result: []
       },
@@ -78,25 +106,27 @@ export default {
   },
 
   mounted() {
-    this.pageClient();
+    this.query();
   },
 
   methods: {
-    pageClient() {
-      httpRequest.get("/clientservice/client/pageClient", {
+    query() {
+      httpRequest.get("/clientservice/client/queryClientByPage", {
         params: {
           pageNum: this.pageResult.pageNum,
-          pageSize: this.pageResult.pageSize
-
+          pageSize: this.pageResult.pageSize,
+          clientId: this.client.clientId,
+          clientName: this.client.clientName,
+          clientDegree: this.client.clientDegree,
+          clientDistrict: this.client.clientDistrict
         }
       }).then(response => {
         if (response.data.resCode === "000000") {
           this.pageResult = response.data.data
         }
       })
-    }
+    },
 
-    ,
     add() {
       this.$router.push('/client/createClient')
     },
@@ -132,16 +162,16 @@ export default {
       this.$router.push({path: '/client/detailClient', query: item})
     },
     record(item) {
-        this.$router.push({
-          path:'/client/ContactRecord/pageContactRecord',
-          query:item
-        })
+      this.$router.push({
+        path: '/client/ContactRecord/pageContactRecord',
+        query: item
+      })
     },
     order(item) {
-        this.$router.push({
-          path:'/client/HistoricalOrder/pageHistoricalOrder',
-          query:item
-        })
+      this.$router.push({
+        path: '/client/HistoricalOrder/pageHistoricalOrder',
+        query: item
+      })
     },
     warn() {
       httpRequest.get('/clientservice/client/warn', {}).then(response => {
