@@ -89,7 +89,7 @@ export default {
     },
 
     log() {
-      if (this.user.phone != '' && this.user.password != '') {
+      if (this.user.phone !== '' && this.user.password !== '' && this.user.kaptcha !== '') {
         httpRequest.post('/userservice/doLogin', {
           username: this.user.username,
           password: this.user.password,
@@ -110,11 +110,13 @@ export default {
                 sessionStorage.setItem("accountLevel", response.data.data.accountLevel);
                 this.$router.push('/')
               } else {
+                //刷新验证码，因为后端会自动删除验证码
+                this.getCode();
                 alert(response.data.resDesc);
               }
             });
       } else {
-        alert("手机号或密码不能为空！")
+        alert("手机号、密码、验证码不能为空！")
       }
     }
     ,
