@@ -19,9 +19,11 @@ httpRequest.interceptors.request.use(config => {
      * 只有当用户登录之后才可以进行其他的数据访问，否则将会跳转到登录页面
      */
     if (config.url.match('user') == null) {
-        if (sessionStorage.length == 0) {
-            controller.abort()
-            router.push('/log')
+        if(config.url.match("vc.png")==null) {
+            if (sessionStorage.length == 0) {
+                controller.abort()
+                router.push('/user/log')
+            }
         }
     }
     //全局设置请求头

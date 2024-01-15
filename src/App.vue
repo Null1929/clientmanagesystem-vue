@@ -2,44 +2,46 @@
   <div id="app" width="100%" height="100%">
     <div id="header">
       <el-header>
-        <font size="50px"><b>客户关系管理系统</b></font>
+        <font size="50px" color="#1e90ff"><b>客户关系管理系统</b></font>
         <p align="right" v-if="!logStatus">
 
           <router-link to="/user/log">
-            <el-button>登录</el-button>
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 22 22">
+              <path fill="currentColor"
+                    d="M9 3h4v1h1v1h1v4h-1v1h-1v1H9v-1H8V9H7V5h1V4h1zm1 5v1h2V8h1V6h-1V5h-2v1H9v2zm-3 4h8v1h2v1h1v1h1v4H3v-4h1v-1h1v-1h2zm-1 4H5v1h12v-1h-1v-1h-2v-1H8v1H6z"/>
+            </svg>
           </router-link>
         </p>
         <p align="right" v-if="logStatus">
         <table>
           <tr>
             <td>
-              <el-avatar :size="50" :src="circleUrl"/>
+              <el-avatar :size="50" :src="profileImg"/>
             </td>
-            <td> 当前用户： {{ user.name }} 《 {{ user.identity }} 》</td>
+            <td> <font style="color: yellow">当前用户： {{ user.name }} 《 {{ user.identity }} 》</font></td>
             <td>
-              <el-button @click="exit()">
+              <el-button type="info" round @click="exit()">
                 退出系统
               </el-button>
             </td>
           </tr>
         </table>
         </p>
-        <hr>
       </el-header>
     </div>
 
-    <div id="aside">
-
-    </div>
-
-    <div id="main">
-
-    </div>
-
     <el-row>
-      <el-col :span="4" width="1px" style="height:53vh">
-        <h3>客户关系管理系统</h3>
-        <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
+      <el-col :span="4" width="1px" style="height:100%;background-color:#545c64 ">
+        <h3 style="background-color:#545c64 ">
+        <font color="#7fffd4">  客户关系管理系统 </font>
+        </h3>
+        <el-menu default-active="2"
+                 class="el-menu-vertical-demo"
+                 @open="handleOpen"
+                 @close="handleClose"
+                 background-color="#545c64"
+                 text-color="#fff"
+                 active-text-color="#ffd04b">
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-location"></i>
@@ -141,7 +143,7 @@
           </el-submenu>
         </el-menu>
       </el-col>
-      <el-col :span="20">
+      <el-col :span="20" style="background-color: #ece9c6">
         <router-view></router-view>
       </el-col>
     </el-row>
@@ -154,7 +156,7 @@ export default {
     return {
       logStatus: false,
 
-      circleUrl: "",
+      profileImg: sessionStorage.getItem("profileImg"),
 
       user: {
         name: null,
@@ -202,27 +204,13 @@ export default {
 
 <style>
 #header {
+  background-color: #404545;
   margin-left: 0%;
   margin-top: 0%;
   width: 100%;
   height: 150px;
 }
 
-#aside {
-  background-color: red;
-  margin-left: 0;
-  margin-top: auto;
-  width: 100%;
-  height: 100%;
-}
-
-#main {
-  padding-top: 1rem;
-  margin-left: 30px;
-  margin-top: auto;
-  width: auto;
-  height: 100%;
-}
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -231,8 +219,8 @@ export default {
   text-align: center;
   color: #2c3e50;
 
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: 100%;
 }
 
 nav {
@@ -250,6 +238,36 @@ nav a.router-link-exact-active {
 
 a {
   text-decoration: none;
-  color: dodgerblue;
 }
+
+/*未访问时的状态*/
+a:link {
+  color: #ffffff
+}
+
+/*已访问的链接*/
+a:visited {
+  color: #ffffff
+}
+
+/*鼠标悬停在a链接*/
+a:hover {
+  color: #0ceac9
+}
+
+/*鼠标按住a标签时*/
+a:active {
+  color: #ffffff
+}
+
+.div1, .div2 {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  border: 1px solid black;
+}
+
+
+
+
 </style>

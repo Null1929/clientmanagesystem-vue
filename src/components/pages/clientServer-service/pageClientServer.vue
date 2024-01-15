@@ -127,7 +127,7 @@ export default {
   mounted() {
     this.queryClientServer();
 
-    httpRequest.get('/clientservice/clientServer/getUsers', {
+    httpRequest.get('/userservice/user/getUsers', {
       params: {}
     }).then(response => {
       this.userList = response.data.data

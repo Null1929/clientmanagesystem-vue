@@ -6,8 +6,8 @@
         <table>
           <tr>
             <td>
-              <label for="">手机号:</label>
-              <el-input class="input" v-model="user.phone" placeholder="请输入手机号"></el-input>
+              <label for="">账号:</label>
+              <el-input class="input" v-model="user.username" placeholder="请输入账号"></el-input>
             </td>
           </tr>
           <br>
@@ -18,6 +18,14 @@
             </td>
           </tr>
           <br>
+          <tr>
+            <td>
+              <label for="">手机号:</label>
+              <el-input class="input" v-model="user.phone" placeholder="请输入手机号"></el-input>
+            </td>
+          </tr>
+          <br>
+
           <tr>
             <td>
               <label for="">姓名:</label>

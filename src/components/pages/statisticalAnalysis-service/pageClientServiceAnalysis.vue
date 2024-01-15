@@ -65,20 +65,12 @@ export default {
     }
   },
   mounted() {
-    httpRequest.get('/statisticalanalysisservice/statisticalAnalysis/queryClientService', {
-      params: {
-        year: null,
-      }
-    }).then((response) => {
-      this.serviceTypeList = response.data.data;
-    }).catch((err) => {
-
-    });
+   this.query();
   },
 
   methods: {
     query() {
-      httpRequest.get('/statisticalanalysisservice/statisticalAnalysis/queryClientService', {
+      httpRequest.get('/clientservice/clientServer/queryClientService', {
         params: {
           year: this.year,
         }

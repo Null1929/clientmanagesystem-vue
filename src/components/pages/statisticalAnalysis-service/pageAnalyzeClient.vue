@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     query() {
-      httpRequest.get('/statisticalanalysisservice/statisticalAnalysis/queryAnalyzeClient', {
+      httpRequest.get('/clientservice/client/queryAnalyzeClient', {
         params: {
           reportMode: this.reportMode
         }
