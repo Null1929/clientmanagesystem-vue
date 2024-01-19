@@ -27,7 +27,7 @@ httpRequest.interceptors.request.use(config => {
         }
     }
     //全局设置请求头
-    config.headers.set("token", sessionStorage.getItem('token'));
+    config.headers.set("Token", sessionStorage.getItem('token'));
 
     //开启加载loading
     loading = Loading.service({

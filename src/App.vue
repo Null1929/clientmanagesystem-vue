@@ -139,6 +139,9 @@
               <el-menu-item index="6-1">
                 <router-link to="/userAdmin/userInfo/pageUserInfo">用户信息管理</router-link>
               </el-menu-item>
+              <el-menu-item index="6-2">
+                <router-link to="/userAdmin/userRole/pageUserRole">用户权限管理</router-link>
+              </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
         </el-menu>
@@ -156,7 +159,8 @@ export default {
     return {
       logStatus: false,
 
-      profileImg: sessionStorage.getItem("profileImg"),
+      // profileImg: sessionStorage.getItem("profileImg"),
+      profileImg: "https://i0.hdslb.com/bfs/archive/83c9b596dfff119726b734191bf151cb042e996e.jpg",
 
       user: {
         name: null,

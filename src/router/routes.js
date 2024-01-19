@@ -24,6 +24,25 @@ const routes = [
         component: () => import("../components/pages/user-service/UserInfoManage/createUserInfo")
     },
 
+    /**
+     * userRole
+     */
+    {
+        path: "/userAdmin/userRole/pageUserRole",
+        name: "pageUserRole",
+        component:()=>import("../components/pages/user-service/UserRoleManage/pageUserRole")
+    },
+    {
+        path: "/userAdmin/userRole/createUserRole",
+        name: "createUserRole",
+        component:()=>import("../components/pages/user-service/UserRoleManage/createUserRole")
+    },
+    {
+        path: "/userAdmin/userRole/updateUserRole",
+        name: "updateUserRole",
+        component:()=>import("../components/pages/user-service/UserRoleManage/updateUserRole")
+    },
+
     /** user*/
     //log
     {
