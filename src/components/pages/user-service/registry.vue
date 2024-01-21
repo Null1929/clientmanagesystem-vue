@@ -1,56 +1,36 @@
 <template>
   <div>
     <div id="main">
-      <h1>用户注册</h1>
+      <h1 style="color: aliceblue">用户注册</h1>
       <el-form>
         <table>
           <tr>
             <td>
-              <label>账号:</label>
-              <el-input class="input" v-model="user.username" placeholder="请输入账号"></el-input>
-            </td>
-          </tr>
-          <br>
-          <tr>
-            <td>
-              <label>密码:</label>
-              <el-input class="input" v-model="user.password" placeholder="请输入密码"></el-input>
-            </td>
-          </tr>
-          <br>
-          <tr>
-            <td>
-              <label>手机号:</label>
+              <label style="color: aliceblue">手机号:</label>
               <el-input class="input" v-model="user.phone" placeholder="请输入手机号"></el-input>
+            </td>
+          </tr>
+          <br>
+          <tr>
+            <td>
+              <label style="color: aliceblue">密码:</label>
+              <el-input class="input" v-model="user.password" placeholder="请输入密码"></el-input>
             </td>
           </tr>
           <br>
 
           <tr>
             <td>
-              <label>姓名:</label>
+              <label style="color: aliceblue">确认密码:</label>
+              <el-input class="input" v-model="password" placeholder="请输入密码"></el-input>
+            </td>
+          </tr>
+          <br>
+
+          <tr>
+            <td>
+              <label style="color: aliceblue">姓名:</label>
               <el-input class="input" v-model="user.name" placeholder="请输入姓名"></el-input>
-            </td>
-          </tr>
-          <br>
-          <tr>
-            <td>
-              <label>工号:</label>
-              <el-input class="input" v-model="user.workId" placeholder="请输入工号"></el-input>
-            </td>
-          </tr>
-          <br>
-          <tr>
-            <td>
-              <label>身份:</label>
-              <el-input class="input" v-model="user.identity" placeholder="请输入身份"></el-input>
-            </td>
-          </tr>
-          <br>
-          <tr>
-            <td>
-              <label>等级:</label>
-              <el-input class="input" v-model="user.accountLevel" placeholder="请输入等级"></el-input>
             </td>
           </tr>
           <br>
@@ -75,13 +55,14 @@ export default {
 
   data() {
     return {
+      password: null,
       user: {
-        phone: '',
-        password: '',
-        name: '',
-        workId: null,
-        identity: null,
-        accountLevel: null
+        username: null,
+        phone: null,
+        password: null,
+        name: null,
+        identity: "普通用户",
+        accountLevel: 1
       }
     };
   },
@@ -89,32 +70,35 @@ export default {
   mounted() {
 
   },
-
   methods: {
     registry() {
       if (this.user.phone !== '' && this.user.password !== '') {
-        httpRequest.post('/userservice/user/registry', {
-          ...this.user,
-          workId: Number(this.user.workId),
-          accountLevel: Number(this.user.accountLevel)
-        })
-            .then((response) => {
-              if (response.data.resCode === "000000") {
-                alert(response.data.data);
-                this.$router.push('/user/log')
-              } else {
-                alert(response.data.resDesc);
-              }
-            });
+        if (this.user.password === this.password) {
+          this.user.username = this.user.phone;
+
+          httpRequest.post('/userservice/user/registry', this.user)
+              .then((response) => {
+                if (response.data.resCode === "000000") {
+                  alert(response.data.data);
+                  this.$router.push('/user/log')
+                } else {
+                  alert(response.data.resDesc);
+                }
+              });
+        } else {
+          alert("密码不一致！");
+        }
       } else {
-        alert("手机号或密码不能为空！")
+        alert("手机号或密码不能为空！"
+        )
       }
     },
     forwLog() {
       this.$router.push('/log')
     }
   },
-};
+}
+;
 </script>
 
 <style lang="scss" scoped></style>
