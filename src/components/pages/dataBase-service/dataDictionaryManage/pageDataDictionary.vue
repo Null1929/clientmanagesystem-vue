@@ -47,8 +47,8 @@
         <td>{{ item.item }}</td>
         <td>{{ item.itemValue }}</td>
         <td>
-          <label v-if="item.edite == true">是</label>
-          <label v-else-if="item.edite == false">否</label>
+          <label v-if="item.edite === true">是</label>
+          <label v-else-if="item.edite === false">否</label>
         </td>
         <td>
           <el-button @click="deleted(item.id)">删除</el-button>
@@ -128,7 +128,7 @@ export default {
           alert(response.data.data);
           this.query();
         }else {
-          alert(alert(response.data.resDesc));
+          alert(response.data.resDesc);
           this.query();
         }
       });
@@ -151,7 +151,43 @@ export default {
           this.pageResult = response.data.data
         }
       });
-    }
+    },
+
+    /*******************************************/
+    /**
+     * 分页方法
+     */
+    firstPage() {
+      this.pageResult.pageNum = 1;
+      this.query();
+
+    },
+    lastPage() {
+      if (this.pageResult.pageNum !== 1) {
+        --this.pageResult.pageNum
+        this.query();
+      }
+    },
+    nextPage() {
+      if (this.pageResult.pageNum !== Math.ceil(this.pageResult.total / this.pageResult.pageSize)) {
+        ++this.pageResult.pageNum
+        this.query();
+      }
+    },
+    endPage() {
+      this.pageResult.pageNum = Math.ceil(this.pageResult.total / this.pageResult.pageSize);
+      this.query();
+    },
+    forward() {
+      if (this.pageResult.forward >= 1 && this.pageResult.forward <= Math.ceil(this.pageResult.total / this.pageResult.pageSize)) {
+        this.pageResult.pageNum = this.pageResult.forward;
+        this.query();
+      } else {
+        alert("页数不正确！")
+        this.pageResult.forward = null;
+      }
+    },
+    /*******************************************/
   },
 };
 </script>

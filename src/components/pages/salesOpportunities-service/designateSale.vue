@@ -139,7 +139,7 @@ export default {
             httpRequest.post('/saleservice/sale/updateOne', this.salesOpportunitie)
                 .then((response) => {
 
-                    if (response.data.code == 1) {
+                    if (response.data.code === 1) {
                         alert(response.data.msg);
                         this.$router.push('/salesOpportunities/pageSales')
                     } else {

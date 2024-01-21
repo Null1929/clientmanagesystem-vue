@@ -13,27 +13,28 @@
           </router-link>
         </p>
         <p align="right" v-if="logStatus">
-        <table>
-          <tr>
-            <td>
-              <el-avatar :size="50" :src="profileImg"/>
-            </td>
-            <td> <font style="color: yellow">当前用户： {{ user.name }} 《 {{ user.identity }} 》</font></td>
-            <td>
-              <el-button type="info" round @click="exit()">
-                退出系统
-              </el-button>
-            </td>
-          </tr>
-        </table>
+          <table>
+            <tr>
+             <td>
+                <el-avatar :size="50" :src="profileImg"/>
+             </td>
+              <td><font style="color: yellow">{{ user.name }} 《 {{ user.identity }} 》</font></td>
+              <td>
+                <el-button type="info" icon="el-icon-switch-button" circle @click="exit()">
+
+               </el-button>
+              </td>
+            </tr>
+          </table>
         </p>
       </el-header>
     </div>
 
+
     <el-row>
       <el-col :span="4" width="1px" style="height:100%;background-color:#545c64 ">
         <h3 style="background-color:#545c64 ">
-        <font color="#7fffd4">  客户关系管理系统 </font>
+          <font color="#7fffd4"> 客户关系管理系统 </font>
         </h3>
         <el-menu default-active="2"
                  class="el-menu-vertical-demo"
@@ -160,7 +161,7 @@ export default {
       logStatus: false,
 
       // profileImg: sessionStorage.getItem("profileImg"),
-      profileImg: "https://i0.hdslb.com/bfs/archive/83c9b596dfff119726b734191bf151cb042e996e.jpg",
+      profileImg: "https://k.sinaimg.cn/n/sinakd20221113s/798/w710h888/20221113/957f-c285d7f8aef59c539bed33d8ab771812.jpg/w700d1q75cms.jpg?by=cms_fixed_width",
 
       user: {
         name: null,
@@ -270,8 +271,6 @@ a:active {
   height: 100px;
   border: 1px solid black;
 }
-
-
 
 
 </style>

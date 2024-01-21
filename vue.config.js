@@ -6,6 +6,7 @@ module.exports = defineConfig({
     client:{
       overlay:false
     },
+    allowedHosts:"all",
     port: 8080,
     proxy:{
       '/api':{

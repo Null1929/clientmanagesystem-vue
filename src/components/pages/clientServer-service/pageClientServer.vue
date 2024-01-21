@@ -32,7 +32,7 @@
         </td>
       </tr>
     </table>
-    <table>
+    <table style="width: auto;border-spacing: 50px 0">
       <tr>
         <td>编号</td>
         <td>客户</td>
@@ -51,13 +51,14 @@
         <td>{{ item.serviceType }}</td>
         <td>{{ item.creator }}</td>
         <td>{{ item.createTime }}</td>
-        <td><select name="" id="" v-model="item.assignee">
-          <option v-for="user in userList " :key="user.id">{{ user.name }}</option>
-        </select>
-          <el-button @click="distribution(item)">分配</el-button>
+        <td>
+          <el-select name="" id="" v-model="item.assignee" placeholder="请选择">
+          <el-option v-for="user in userList " :key="user.id" :value="user.name">{{ user.name }}</el-option>
+        </el-select>
         </td>
         <td>
-          <el-button @click="del(item.serverId)">删除</el-button>
+          <el-button @click="distribution(item)" round>分配</el-button>
+          <el-button @click="del(item.serverId)" round>删除</el-button>
         </td>
       </tr>
     </table>
@@ -127,7 +128,7 @@ export default {
   mounted() {
     this.queryClientServer();
 
-    httpRequest.get('/userservice/user/getUsers', {
+    httpRequest.get('/userservice/user/queryAll', {
       params: {}
     }).then(response => {
       this.userList = response.data.data
@@ -189,13 +190,13 @@ export default {
 
     },
     lastPage() {
-      if (this.pageResult.pageNum != 1) {
+      if (this.pageResult.pageNum !== 1) {
         --this.pageResult.pageNum
         this.queryClientServer();
       }
     },
     nextPage() {
-      if (this.pageResult.pageNum != Math.ceil(this.pageResult.total / this.pageResult.pageSize)) {
+      if (this.pageResult.pageNum !== Math.ceil(this.pageResult.total / this.pageResult.pageSize)) {
         ++this.pageResult.pageNum
         this.queryClientServer();
       }

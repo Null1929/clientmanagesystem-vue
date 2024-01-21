@@ -43,8 +43,8 @@
         <td>{{ item.lostTime }}</td>
         <td>{{ item.status }}</td>
         <td>
-          <el-button v-if="item.status == '未处理'" @click="reprieve(item, index)">暂缓流失</el-button>
-          <el-button v-if="item.status == '暂缓流失'" @click="confirmedLoss(item, index)">确认流失</el-button>
+          <el-button v-if="item.status === '未处理'" @click="reprieve(item, index)">暂缓流失</el-button>
+          <el-button v-if="item.status === '暂缓流失'" @click="confirmedLoss(item, index)">确认流失</el-button>
         </td>
       </tr>
     </table>
@@ -159,13 +159,13 @@ export default {
       this.query();
     },
     lastPage() {
-      if (this.pageResult.pageNum != 1) {
+      if (this.pageResult.pageNum !== 1) {
         --this.pageResult.pageNum
         this.query();
       }
     },
     nextPage() {
-      if (this.pageResult.pageNum != Math.ceil(this.pageResult.total / this.pageResult.pageSize)) {
+      if (this.pageResult.pageNum !== Math.ceil(this.pageResult.total / this.pageResult.pageSize)) {
         ++this.pageResult.pageNum
         this.query();
       }

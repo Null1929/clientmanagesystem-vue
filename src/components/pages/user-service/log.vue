@@ -8,10 +8,10 @@
         </th>
         <tr>
           <td>
-            <label>手机号:</label>
+            <label>账号:</label>
           </td>
           <td id="inputBox">
-            <el-input class="input" v-model="user.username" placeholder="请输入手机号"></el-input>
+            <el-input class="input" v-model="user.username" placeholder="请输入账号"></el-input>
           </td>
         </tr>
         <tr>
@@ -90,12 +90,12 @@ export default {
     },
     //生成随机验证码标识
     generateRandomString(length) {
-      var result = '';
-      var characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-      var charactersLength = characters.length;
+      let result = '';
+      const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      const charactersLength = characters.length;
 
-      for (var i = 0; i < length; i++) {
-        var randomIndex = Math.floor(Math.random() * charactersLength);
+      for (let i = 0; i < length; i++) {
+        let randomIndex = Math.floor(Math.random() * charactersLength);
         result += String.fromCharCode(characters.charCodeAt(randomIndex));
       }
 

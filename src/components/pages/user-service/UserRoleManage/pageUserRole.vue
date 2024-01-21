@@ -1,29 +1,42 @@
 <template>
   <table-style>
-    <template #header>
-      <el-button @click="create()">新增</el-button>
-    </template>
-    <table>
+    <table style="border-spacing: 50px 0">
       <tr>
-        <td>编号</td>
-        <td>名称</td>
-        <td>手机号</td>
-        <td>工号</td>
-        <td>身份</td>
+        <td>ID</td>
+        <td>姓名</td>
+        <td>账号</td>
+        <td>状态</td>
+        <td>账户是否过期</td>
+        <td>账户是否锁定</td>
+        <td>凭证是否过期</td>
         <td>账户等级</td>
         <td>操作</td>
       </tr>
-
+      <br/>
       <tr v-for="item in pageResult.result" :key="item.id">
-        <td>{{ item.id }}</td>
-        <td>{{ item.name }}</td>
-        <td>{{ item.phone }}</td>
-        <td>{{ item.workId }}</td>
-        <td>{{ item.identity }}</td>
+        <td style='font-family:  "微软雅黑",system-ui'>{{ item.id }}</td>
+        <td style='font-family:  "微软雅黑",system-ui'>{{ item.name }}</td>
+        <td style='font-family:  "微软雅黑",system-ui'>{{ item.username }}</td>
+        <td>
+          <el-button v-if="item.enabled" type="success" icon="el-icon-check" circle disabled></el-button>
+          <el-button v-if="!item.enabled" type="danger" icon="el-icon-close" circle disabled></el-button>
+        </td>
+        <td>
+          <el-button v-if="item.accountNonExpired" type="success" icon="el-icon-check" circle disabled></el-button>
+          <el-button v-if="!item.accountNonExpired" type="danger" icon="el-icon-close" circle disabled></el-button>
+        </td>
+        <td>
+          <el-button v-if="item.accountNonLocked" type="success" icon="el-icon-check" circle disabled></el-button>
+          <el-button v-if="!item.accountNonLocked" type="danger" icon="el-icon-close" circle disabled></el-button>
+        </td>
+        <td>
+          <el-button v-if="item.credentialsNonExpired" type="success" icon="el-icon-check" circle disabled></el-button>
+          <el-button v-if="!item.credentialsNonExpired" type="danger" icon="el-icon-close" circle disabled></el-button>
+        </td>
         <td>{{ item.accountLevel }}</td>
         <td>
-          <el-button @click="deleteById(item.id)">删除</el-button>
-          <el-button @click="update(item)">编辑</el-button>
+          <el-button icon="el-icon-delete" @click="deleteById(item.id)" round>删除</el-button>
+          <el-button icon="el-icon-edit" @click="update(item)" round>编辑</el-button>
         </td>
       </tr>
     </table>
@@ -33,19 +46,19 @@
           <td>共有{{ pageResult.total }}条记录</td>
           <td>第{{ pageResult.pageNum }}/共{{ Math.ceil(pageResult.total / pageResult.pageSize) }}页</td>
           <td>
-            <el-button @click="firstPage()" id="firstPage">第一页</el-button>
+            <el-button @click="firstPage()" id="firstPage" round>第一页</el-button>
           </td>
           <td>
-            <el-button @click="lastPage()" id="lastPage">上一页</el-button>
+            <el-button @click="lastPage()" id="lastPage" round>上一页</el-button>
           </td>
           <td>
-            <el-button @click="nextPage()" id="nextPage">下一页</el-button>
+            <el-button @click="nextPage()" id="nextPage" round>下一页</el-button>
           </td>
           <td>
-            <el-button @click="endPage()" id="endPage">最后一页</el-button>
+            <el-button @click="endPage()" id="endPage" round>最后一页</el-button>
           </td>
-          <td>转到<input type="text" v-model="pageResult.forward">页
-            <el-button @click="forward()">Go</el-button>
+          <td>转到<input type="text" style="width: 50px" v-model="pageResult.forward">页
+            <el-button @click="forward()" round>Go</el-button>
           </td>
         </tr>
       </table>
@@ -63,12 +76,13 @@ export default {
   data() {
     return {
       user: {
-        id:null,
-        phone: '',
-        password: '',
+        id: null,
         name: '',
-        workId: null,
-        identity: null,
+        username: '',
+        enabled: null,
+        accountNonExpired: null,
+        accountNonLocked: null,
+        credentialsNonExpired: null,
         accountLevel: null
       },
 
@@ -89,7 +103,7 @@ export default {
 
   methods: {
     query() {
-      httpRequest.get('/userservice/userInfo/queryUserInfo', {
+      httpRequest.get('/userservice/userRole/queryUserRole', {
         params: {
           pageNum: this.pageResult.pageNum,
           pageSize: this.pageResult.pageSize,
@@ -100,28 +114,33 @@ export default {
         }
       });
     },
-    create() {
-      this.$router.push("/userAdmin/userInfo/createUserInfo")
-    },
     deleteById(id) {
-      httpRequest.get('/userservice/userInfo/delUserInfo', {
+      httpRequest.get('/userservice/userRole/delUserRole', {
         params: {
           id
         }
       }).then((reponse) => {
         if (reponse.data.resCode === "000000") {
           alert(reponse.data.data);
-          this.query();
         } else {
           alert(reponse.data.resDesc);
-          this.query();
         }
+        this.query();
       });
     },
     update(item) {
       this.$router.push({
-        path: "/userAdmin/userInfo/updateUserInfo",
-        query: item
+        path: "/userAdmin/userRole/updateUserRole",
+        query: {
+          id: item.id,
+          name: item.name,
+          username: item.username,
+          enabled: item.enabled,
+          accountNonExpired: item.accountNonExpired,
+          accountNonLocked: item.accountNonLocked,
+          credentialsNonExpired: item.credentialsNonExpired,
+          accountLevel: item.accountLevel
+        }
       })
     },
     /*******************************************/
@@ -134,13 +153,13 @@ export default {
 
     },
     lastPage() {
-      if (this.pageResult.pageNum != 1) {
+      if (this.pageResult.pageNum !== 1) {
         --this.pageResult.pageNum
         this.query();
       }
     },
     nextPage() {
-      if (this.pageResult.pageNum != Math.ceil(this.pageResult.total / this.pageResult.pageSize)) {
+      if (this.pageResult.pageNum !== Math.ceil(this.pageResult.total / this.pageResult.pageSize)) {
         ++this.pageResult.pageNum
         this.query();
       }

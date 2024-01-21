@@ -145,7 +145,7 @@ export default {
           .then((response) => {
             if (response.data.resCode === "000000") {
               alert(response.data.data);
-              this.pageClient();
+              this.query();
             } else {
               alert(response.data.resDesc);
             }
@@ -186,29 +186,29 @@ export default {
      */
     firstPage() {
       this.pageResult.pageNum = 1;
-      this.pageClient();
+      this.query();
 
     },
     lastPage() {
-      if (this.pageResult.pageNum != 1) {
+      if (this.pageResult.pageNum !== 1) {
         --this.pageResult.pageNum
-        this.pageClient();
+        this.query();
       }
     },
     nextPage() {
-      if (this.pageResult.pageNum != Math.ceil(this.pageResult.total / this.pageResult.pageSize)) {
+      if (this.pageResult.pageNum !== Math.ceil(this.pageResult.total / this.pageResult.pageSize)) {
         ++this.pageResult.pageNum
-        this.pageClient();
+        this.query();
       }
     },
     endPage() {
       this.pageResult.pageNum = Math.ceil(this.pageResult.total / this.pageResult.pageSize);
-      this.pageClient();
+      this.query();
     },
     forward() {
       if (this.pageResult.forward >= 1 && this.pageResult.forward <= Math.ceil(this.pageResult.total / this.pageResult.pageSize)) {
         this.pageResult.pageNum = this.pageResult.forward;
-        this.pageClient();
+        this.query();
       } else {
         alert("页数不正确！")
         this.pageResult.forward = null;

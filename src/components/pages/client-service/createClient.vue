@@ -33,14 +33,14 @@
       <tr>
         <td>
           <label>客户等级</label>
-          <select name="" id="" v-model="client.clientDegree">
+          <select v-model="client.clientDegree">
             <option disabled value="">请选择</option>
             <option :value="item" v-for="item in serviceTypeList" :key="item">{{ item }}</option>
           </select>
         </td>
         <td>
           <label>客户满意度</label>
-          <select name="" id="" v-model="client.clientSatisfaction">
+          <select v-model="client.clientSatisfaction">
             <option disabled value="">请选择</option>
             <option value="1">☆</option>
             <option value="2">☆☆</option>

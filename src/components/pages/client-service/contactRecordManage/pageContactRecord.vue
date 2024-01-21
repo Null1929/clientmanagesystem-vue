@@ -103,8 +103,8 @@ export default {
   },
 
   mounted() {
-    this.client = this.$route.query,
-        this.pageContactRecord()
+    this.client = this.$route.query;
+    this.pageContactRecord();
   },
 
   methods: {
@@ -178,13 +178,13 @@ export default {
 
     },
     lastPage() {
-      if (this.pageResult.pageNum != 1) {
+      if (this.pageResult.pageNum !== 1) {
         --this.pageResult.pageNum
         this.pageContactRecord();
       }
     },
     nextPage() {
-      if (this.pageResult.pageNum != Math.ceil(this.pageResult.total / this.pageResult.pageSize)) {
+      if (this.pageResult.pageNum !== Math.ceil(this.pageResult.total / this.pageResult.pageSize)) {
         ++this.pageResult.pageNum
         this.pageContactRecord();
       }

@@ -6,21 +6,21 @@
         <table>
           <tr>
             <td>
-              <label for="">账号:</label>
+              <label>账号:</label>
               <el-input class="input" v-model="user.username" placeholder="请输入账号"></el-input>
             </td>
           </tr>
           <br>
           <tr>
             <td>
-              <label for="">密码:</label>
+              <label>密码:</label>
               <el-input class="input" v-model="user.password" placeholder="请输入密码"></el-input>
             </td>
           </tr>
           <br>
           <tr>
             <td>
-              <label for="">手机号:</label>
+              <label>手机号:</label>
               <el-input class="input" v-model="user.phone" placeholder="请输入手机号"></el-input>
             </td>
           </tr>
@@ -28,28 +28,28 @@
 
           <tr>
             <td>
-              <label for="">姓名:</label>
+              <label>姓名:</label>
               <el-input class="input" v-model="user.name" placeholder="请输入姓名"></el-input>
             </td>
           </tr>
           <br>
           <tr>
             <td>
-              <label for="">工号:</label>
+              <label>工号:</label>
               <el-input class="input" v-model="user.workId" placeholder="请输入工号"></el-input>
             </td>
           </tr>
           <br>
           <tr>
             <td>
-              <label for="">身份:</label>
+              <label>身份:</label>
               <el-input class="input" v-model="user.identity" placeholder="请输入身份"></el-input>
             </td>
           </tr>
           <br>
           <tr>
             <td>
-              <label for="">等级:</label>
+              <label>等级:</label>
               <el-input class="input" v-model="user.accountLevel" placeholder="请输入等级"></el-input>
             </td>
           </tr>
@@ -69,7 +69,6 @@
 
 <script>
 import httpRequest from '@/request';
-import qs from 'qs'
 
 export default {
   name: 'ClientmanagesystemRegistry',
@@ -93,7 +92,7 @@ export default {
 
   methods: {
     registry() {
-      if (this.user.phone != '' && this.user.password != '') {
+      if (this.user.phone !== '' && this.user.password !== '') {
         httpRequest.post('/userservice/user/registry', {
           ...this.user,
           workId: Number(this.user.workId),

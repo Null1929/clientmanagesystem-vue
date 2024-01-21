@@ -62,11 +62,11 @@
       <tr>
         <td>客户满意度</td>
         <td>
-          <label v-if="clientServer.customerSatisfaction == 1">☆</label>
-          <label v-if="clientServer.customerSatisfaction == 2">☆☆</label>
-          <label v-if="clientServer.customerSatisfaction == 3">☆☆☆</label>
-          <label v-if="clientServer.customerSatisfaction == 4">☆☆☆☆</label>
-          <label v-if="clientServer.customerSatisfaction == 5">☆☆☆☆☆</label>
+          <label v-if="clientServer.customerSatisfaction === 1">☆</label>
+          <label v-if="clientServer.customerSatisfaction === 2">☆☆</label>
+          <label v-if="clientServer.customerSatisfaction === 3">☆☆☆</label>
+          <label v-if="clientServer.customerSatisfaction === 4">☆☆☆☆</label>
+          <label v-if="clientServer.customerSatisfaction === 5">☆☆☆☆☆</label>
         </td>
       </tr>
     </table>

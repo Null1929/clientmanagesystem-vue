@@ -59,8 +59,8 @@ export default {
   },
 
   mounted() {
-    this.client = JSON.parse(this.$route.query.client),
-        this.contactRecord = JSON.parse(this.$route.query.item)
+    this.client = JSON.parse(this.$route.query.client);
+        this.contactRecord = JSON.parse(this.$route.query.item);
   },
 
   methods: {

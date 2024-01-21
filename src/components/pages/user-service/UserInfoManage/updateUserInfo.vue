@@ -3,58 +3,58 @@
     <table>
       <tr>
         <td>
-          <label htmlFor="">id:</label>
+          <label>id:</label>
         </td>
         <td>
-          <input className="input" v-model="user.id"  disabled></input>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label htmlFor="">手机号:</label>
-        </td>
-        <td>
-          <input className="input" v-model="user.phone" placeholder="请输入手机号"></input>
+          <input v-model="user.id" disabled/>
         </td>
       </tr>
       <tr>
         <td>
-          <label htmlFor="">密码:</label>
+          <label>手机号:</label>
         </td>
         <td>
-          <input className="input" type="password" v-model="user.password" placeholder="请输入密码"></input>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label htmlFor="">姓名:</label>
-        </td>
-        <td>
-          <input className="input" v-model="user.name" placeholder="请输入姓名"></input>
+          <input v-model="user.phone" placeholder="请输入手机号"/>
         </td>
       </tr>
       <tr>
         <td>
-          <label htmlFor="">工号:</label>
+          <label>密码:</label>
         </td>
         <td>
-          <input className="input" type="number" v-model="user.workId" placeholder="请输入工号"></input>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label htmlFor="">身份:</label>
-        </td>
-        <td>
-          <input className="input" v-model="user.identity" placeholder="请输入身份"></input>
+          <input type="password" v-model="user.password" placeholder="请输入密码"/>
         </td>
       </tr>
       <tr>
         <td>
-          <label htmlFor="">等级:</label>
+          <label>姓名:</label>
         </td>
         <td>
-          <input className="input" type="number" v-model="user.accountLevel" placeholder="请输入等级"></input>
+          <input v-model="user.name" placeholder="请输入姓名"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label>工号:</label>
+        </td>
+        <td>
+          <input type="number" v-model="user.workId" placeholder="请输入工号"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label>身份:</label>
+        </td>
+        <td>
+          <input v-model="user.identity" placeholder="请输入身份"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label>等级:</label>
+        </td>
+        <td>
+          <input type="number" v-model="user.accountLevel" placeholder="请输入等级"/>
         </td>
       </tr>
       <tr>
@@ -91,7 +91,7 @@ export default {
 
   methods: {
     save() {
-      if (this.user.phone != '' && this.user.password != '') {
+      if (this.user.phone !== '' && this.user.password !== '') {
         httpRequest.post('/userservice/userInfo/updateUserInfo', {
           ...this.user,
           workId: Number(this.user.workId),

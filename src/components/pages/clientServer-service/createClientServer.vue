@@ -3,7 +3,7 @@
     <table>
       <tr>
         <td>
-          <el-label>编号</el-label>
+          <label>编号</label>
         </td>
         <td>
           <el-input type="text" disabled/>
@@ -11,7 +11,7 @@
       </tr>
       <tr>
         <td>
-          <el-label>服务类型</el-label>
+          <label>服务类型</label>
         </td>
         <td>
           <el-select name="" id="" v-model="clientServer.serviceType">
@@ -22,7 +22,7 @@
       </tr>
       <tr>
         <td>
-          <el-label>概要</el-label>
+          <label>概要</label>
         </td>
         <td>
           <el-input type="text" v-model="clientServer.outline"/>
@@ -30,7 +30,7 @@
       </tr>
       <tr>
         <td>
-          <el-label>客户</el-label>
+          <label>客户</label>
         </td>
         <td>
           <el-input type="text" v-model="clientServer.clientName"/>
@@ -38,7 +38,7 @@
       </tr>
       <tr>
         <td>
-          <el-label>状态</el-label>
+          <label>状态</label>
         </td>
         <td>
           <el-input type="text" v-model="clientServer.status" disabled/>
@@ -46,7 +46,7 @@
       </tr>
       <tr>
         <td>
-          <el-label>服务请求</el-label>
+          <label>服务请求</label>
         </td>
         <td>
           <el-input type="text" v-model="clientServer.serviceRequest"/>
@@ -54,7 +54,7 @@
       </tr>
       <tr>
         <td>
-          <el-label>创建人</el-label>
+          <label>创建人</label>
         </td>
         <td>
           <el-input disabled type="text" v-model="clientServer.creator"/>
@@ -62,7 +62,7 @@
       </tr>
       <tr>
         <td>
-          <el-label>创建时间</el-label>
+          <label>创建时间</label>
         </td>
         <td>
           <el-input type="text" v-model="clientServer.createTime" disabled/>

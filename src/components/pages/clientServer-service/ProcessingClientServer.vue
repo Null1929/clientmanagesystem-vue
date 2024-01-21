@@ -85,7 +85,6 @@ export default {
         serviceProcessing: null,
         handler: null,
         processingTime: null,
-
         createTimeBegan: null,
         createTimeEnd: null,
       },

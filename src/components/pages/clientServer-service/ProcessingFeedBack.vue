@@ -62,14 +62,10 @@
       <tr>
         <td>客户满意度</td>
         <td>
-          <select name="" id="" v-model="clientServer.customerSatisfaction">
-            <option value="null" disabled>请选择</option>
-            <option value="1">☆</option>
-            <option value="2">☆☆</option>
-            <option value="3">☆☆☆</option>
-            <option value="4">☆☆☆☆</option>
-            <option value="5">☆☆☆☆☆</option>
-          </select>
+          <el-rate
+              :texts="texts"
+              v-model="clientServer.customerSatisfaction">
+          </el-rate>
         </td>
       </tr>
 
@@ -90,6 +86,7 @@ export default {
 
   data() {
     return {
+      texts:["很差","差","一般","好","很好"],
       clientServer: {
         serverId: null,
         serviceType: null,
@@ -106,7 +103,6 @@ export default {
         processingTime: null,
         processingResult: null,
         customerSatisfaction: null,
-
         createTimeBegan: null,
         createTimeEnd: null,
       },
