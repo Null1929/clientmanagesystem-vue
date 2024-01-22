@@ -93,7 +93,7 @@
         <td><input type="text" v-model="customerPlan.planItem"></td>
         <td><input type="text" v-model="customerPlan.planDetail"></td>
         <td>
-          <el-button @click="createCustomerPlan()">保存</el-button>
+          <el-button @click="createCustomerPlan()" round>保存</el-button>
         </td>
       </tr>
       <tr v-for="item in customerPlanList" :key="item.planDetail">
@@ -101,10 +101,8 @@
         <td>{{ item.planItem }}</td>
         <td>{{ item.planDetail }}</td>
         <td>
-          <el-button @click="updateCatche(item)">修改</el-button>
-          &nbsp;
-          &nbsp;
-          <el-button @click="delCustomerPlan(item.id)">删除</el-button>
+          <el-button @click="updateCatche(item)" round>修改</el-button>
+          <el-button @click="delCustomerPlan(item.id)" round>删除</el-button>
         </td>
       </tr>
     </table>

@@ -28,7 +28,7 @@
       </tr>
       <tr>
         <td colspan="2">
-          <el-button @click="queryClientServer()">查询</el-button>
+          <el-button @click="queryClientServer()" round>查询</el-button>
         </td>
       </tr>
     </table>
@@ -44,7 +44,7 @@
         <td>操作</td>
       </tr>
 
-      <tr v-for="item in pageResult.result" :key="item">
+      <tr v-for="item in pageResult.result" :key="item.serverId">
         <td>{{ item.serverId }}</td>
         <td>{{ item.clientName }}</td>
         <td>{{ item.outline }}</td>
@@ -53,8 +53,8 @@
         <td>{{ item.createTime }}</td>
         <td>{{ item.status }}</td>
         <td>
-          <el-button @click="detail(item)">详情</el-button>
-          <el-button @click="del(item.serverId)">删除</el-button>
+          <el-button @click="detail(item)" round>详情</el-button>
+          <el-button @click="del(item.serverId)" round>删除</el-button>
         </td>
       </tr>
     </table>
@@ -64,19 +64,19 @@
           <td>共有{{ pageResult.total }}条记录</td>
           <td>第{{ pageResult.pageNum }}/共{{ Math.ceil(pageResult.total / pageResult.pageSize) }}页</td>
           <td>
-            <el-button @click="firstPage()" id="firstPage">第一页</el-button>
+            <el-button @click="firstPage()" id="firstPage" round>第一页</el-button>
           </td>
           <td>
-            <el-button @click="lastPage()" id="lastPage">上一页</el-button>
+            <el-button @click="lastPage()" id="lastPage" round>上一页</el-button>
           </td>
           <td>
-            <el-button @click="nextPage()" id="nextPage">下一页</el-button>
+            <el-button @click="nextPage()" id="nextPage" round>下一页</el-button>
           </td>
           <td>
-            <el-button @click="endPage()" id="endPage">最后一页</el-button>
+            <el-button @click="endPage()" id="endPage" round>最后一页</el-button>
           </td>
-          <td>转到<input type="text" v-model="pageResult.forward">页
-            <el-button @click="forward()">Go</el-button>
+          <td>转到<input type="text" style="width: 50px" v-model="pageResult.forward">页
+            <el-button @click="forward()" round>Go</el-button>
           </td>
         </tr>
       </table>

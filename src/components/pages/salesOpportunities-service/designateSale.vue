@@ -80,7 +80,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <el-button @click="update()">保存</el-button>
+                    <el-button @click="update()" round>保存</el-button>
                 </td>
             </tr>
 

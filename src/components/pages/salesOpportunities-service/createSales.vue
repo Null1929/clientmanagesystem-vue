@@ -77,7 +77,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <button @click="create()">新建</button>
+                    <button @click="create()" >新建</button>
                 </td>
             </tr>
 

@@ -9,7 +9,7 @@
             <option value="2022">2022</option>
             <option value="2023">2023</option>
           </select>&nbsp;&nbsp;
-          <el-button @click="query()" size="mini">查询</el-button>
+          <el-button @click="query()" size="mini"  icon="el-icon-search" round>查询</el-button>
         </td>
       </tr>
 

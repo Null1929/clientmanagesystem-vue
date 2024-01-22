@@ -14,7 +14,7 @@
 
       <tr>
         <td>
-          <el-button @click="query()">查询</el-button>
+          <el-button @click="query()"  icon="el-icon-search" round>查询</el-button>
         </td>
       </tr>
 

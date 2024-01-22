@@ -6,7 +6,7 @@
           <label>id:</label>
         </td>
         <td>
-          <input v-model="user.id" disabled/>
+          <el-input v-model="user.id" disabled/>
         </td>
       </tr>
       <tr>
@@ -14,7 +14,7 @@
           <label>手机号:</label>
         </td>
         <td>
-          <input v-model="user.phone" placeholder="请输入手机号"/>
+          <el-input v-model="user.phone" placeholder="请输入手机号"/>
         </td>
       </tr>
       <tr>
@@ -22,7 +22,7 @@
           <label>密码:</label>
         </td>
         <td>
-          <input type="password" v-model="user.password" placeholder="请输入密码"/>
+          <el-input type="password" v-model="user.password" placeholder="请输入密码"/>
         </td>
       </tr>
       <tr>
@@ -30,7 +30,7 @@
           <label>姓名:</label>
         </td>
         <td>
-          <input v-model="user.name" placeholder="请输入姓名"/>
+          <el-input v-model="user.name" placeholder="请输入姓名"/>
         </td>
       </tr>
       <tr>
@@ -38,7 +38,7 @@
           <label>工号:</label>
         </td>
         <td>
-          <input type="number" v-model="user.workId" placeholder="请输入工号"/>
+          <el-input type="number" v-model="user.workId" placeholder="请输入工号"/>
         </td>
       </tr>
       <tr>
@@ -46,7 +46,7 @@
           <label>身份:</label>
         </td>
         <td>
-          <input v-model="user.identity" placeholder="请输入身份"/>
+          <el-input v-model="user.identity" placeholder="请输入身份"/>
         </td>
       </tr>
       <tr>
@@ -54,11 +54,11 @@
           <label>等级:</label>
         </td>
         <td>
-          <input type="number" v-model="user.accountLevel" placeholder="请输入等级"/>
+          <el-input type="number" v-model="user.accountLevel" placeholder="请输入等级"/>
         </td>
       </tr>
       <tr>
-        <td><el-button @click="save()">保存</el-button></td>
+        <td><el-button @click="save()" round>保存</el-button></td>
       </tr>
     </table>
   </table-style>

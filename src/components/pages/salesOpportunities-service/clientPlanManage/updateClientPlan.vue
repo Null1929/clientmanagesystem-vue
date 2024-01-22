@@ -93,7 +93,7 @@
         <td><input type="text" v-model="customerPlan.planItem"></td>
         <td><input type="text" v-model="customerPlan.planDetail"></td>
         <td>
-          <el-button @click="updateCustomerPlan()">修改</el-button>
+          <el-button @click="updateCustomerPlan()" round>修改</el-button>
         </td>
       </tr>
     </table>

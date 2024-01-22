@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <table-style>
     <table>
       <tr>
         <td>编号</td>
@@ -62,21 +62,24 @@
       <tr>
         <td>客户满意度</td>
         <td>
-          <label v-if="clientServer.customerSatisfaction === 1">☆</label>
-          <label v-if="clientServer.customerSatisfaction === 2">☆☆</label>
-          <label v-if="clientServer.customerSatisfaction === 3">☆☆☆</label>
-          <label v-if="clientServer.customerSatisfaction === 4">☆☆☆☆</label>
-          <label v-if="clientServer.customerSatisfaction === 5">☆☆☆☆☆</label>
+          <el-rate
+              v-model="clientServer.customerSatisfaction"
+              disabled
+              show-score
+              text-color="#ff9900"
+              score-template="{value}">
+          </el-rate>
         </td>
       </tr>
     </table>
-  </div>
+  </table-style>
 </template>
 
 <script>
+import TableStyle from "@/components/slot/tableStyle";
 export default {
   name: 'ClientmanagesystemProcessingServiceArchive',
-
+  components: {TableStyle},
   data() {
     return {
       clientServer: {
@@ -103,7 +106,8 @@ export default {
   },
 
   mounted() {
-    this.clientServer = this.$route.query
+    this.clientServer = this.$route.query;
+    this.clientServer.customerSatisfaction = Number(this.$route.query.customerSatisfaction)
   },
 
   methods: {

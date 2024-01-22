@@ -249,7 +249,7 @@ const routes = [
     {
         path: '/clientServer/ProcessingServiceArchive',
         name: 'ProcessingServiceArchive',
-        component: () => import('../components/pages/clientServer-service/ProcessingServiceArchive.vue')
+        component: () => import('../components/pages/clientServer-service/ProcessingServiceArchive')
     },
 
     /**client */

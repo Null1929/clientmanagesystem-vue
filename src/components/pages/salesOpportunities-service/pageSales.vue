@@ -5,7 +5,7 @@
         <tr>
           <td>
             <router-link to="/salesOpportunities/createSales">
-              <el-button>新建</el-button>
+              <el-button icon="el-icon-folder-add" round>新建</el-button>
             </router-link>
           </td>
         </tr>
@@ -17,8 +17,8 @@
         <td>概要: <input type="text" v-model="salesOpportunitie.summary" @keyup.enter="query()"></td>
         <td>联系人: <input type="text" v-model="salesOpportunitie.liaison" @keyup.enter="query()"></td>
         <td>
-          <el-button @click="query()">查询</el-button>
-          <el-button @click="exportExcel()">汇出报表</el-button>
+          <el-button @click="query()" icon="el-icon-search" round>查询</el-button>
+          <el-button @click="exportExcel()" icon="el-icon-download" round>汇出报表</el-button>
         </td>
       </tr>
     </table>
@@ -40,9 +40,9 @@
         <td>{{ item.liaisonPhone }}</td>
         <td>{{ item.creationTime }}</td>
         <td>
-          <el-button v-if="item.principal == null" @click="designateSale(item)">指派</el-button>
-          <el-button @click="delOne(item.clientId)">删除</el-button>
-          <el-button @click="update(item)">修改</el-button>
+          <el-button v-if="item.principal == null" @click="designateSale(item)" round>指派</el-button>
+          <el-button @click="delOne(item.clientId)" type="danger" icon="el-icon-delete" round>删除</el-button>
+          <el-button @click="update(item)" type="primary" icon="el-icon-edit" round>修改</el-button>
         </td>
       </tr>
     </table>
@@ -52,19 +52,19 @@
           <td>共有{{ pageResult.total }}条记录</td>
           <td>第{{ pageResult.pageNum }}/共{{ Math.ceil(pageResult.total / pageResult.pageSize) }}页</td>
           <td>
-            <el-button @click="firstPage()" id="firstPage">第一页</el-button>
+            <el-button @click="firstPage()" id="firstPage" round>第一页</el-button>
           </td>
           <td>
-            <el-button @click="lastPage()" id="lastPage">上一页</el-button>
+            <el-button @click="lastPage()" id="lastPage" round>上一页</el-button>
           </td>
           <td>
-            <el-button @click="nextPage()" id="nextPage">下一页</el-button>
+            <el-button @click="nextPage()" id="nextPage" round>下一页</el-button>
           </td>
           <td>
-            <el-button @click="endPage()" id="endPage">最后一页</el-button>
+            <el-button @click="endPage()" id="endPage" round>最后一页</el-button>
           </td>
-          <td>转到<input type="text" v-model="pageResult.forward">页
-            <el-button @click="forward()">Go</el-button>
+          <td>转到<input type="text" style="width: 50px" v-model="pageResult.forward">页
+            <el-button @click="forward()" round>Go</el-button>
           </td>
         </tr>
       </table>

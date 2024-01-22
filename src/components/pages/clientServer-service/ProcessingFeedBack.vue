@@ -56,7 +56,9 @@
 
       <tr>
         <td>处理结果</td>
-        <td><input type="text" v-model="clientServer.processingResult"></td>
+        <td>
+          <el-input type="text" v-model="clientServer.processingResult" />
+        </td>
       </tr>
 
       <tr>
@@ -68,10 +70,9 @@
           </el-rate>
         </td>
       </tr>
-
       <tr>
         <td>
-          <el-button @click="saveClientServer()">保存</el-button>
+          <el-button @click="saveClientServer()" round>保存</el-button>
         </td>
       </tr>
     </table>

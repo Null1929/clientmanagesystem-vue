@@ -43,19 +43,25 @@
       </tr>
       <tr>
         <td>服务处理</td>
-        <td><input type="text" v-model="clientServer.serviceProcessing"></td>
+        <td>
+          <el-input type="text" v-model="clientServer.serviceProcessing" />
+        </td>
       </tr>
       <tr>
         <td>处理人</td>
-        <td><input type="text" disabled v-model="clientServer.handler"></td>
+        <td>
+          <el-input type="text" disabled v-model="clientServer.handler"/>
+        </td>
       </tr>
       <tr>
         <td>处理时间</td>
-        <td><input type="text" v-model="clientServer.processingTime" disabled></td>
+        <td>
+          <el-input type="text" v-model="clientServer.processingTime" disabled />
+        </td>
       </tr>
       <tr>
         <td>
-          <el-button @click="saveClientServer()">保存</el-button>
+          <el-button @click="saveClientServer()" round>保存</el-button>
         </td>
       </tr>
     </table>
