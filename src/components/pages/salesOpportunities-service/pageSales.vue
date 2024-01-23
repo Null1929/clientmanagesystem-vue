@@ -146,14 +146,13 @@ export default {
     },
 
     designateSale(item) {
-      httpRequest.post('/saleservice/sale/update', item)
-          .then((response) => {
-            //还需要设置路由传参代替后台缓存
-            this.$router.push('/salesOpportunities/designateSale')
-          });
+      this.$router.push({
+        path:'/salesOpportunities/designateSale',
+        query:item
+      })
     },
 
-    exportExcel(){
+    exportExcel() {
 
     },
     /*******************************************/

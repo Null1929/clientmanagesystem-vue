@@ -89,9 +89,15 @@
         <td>操作</td>
       </tr>
       <tr>
-        <td><input type="date" v-model="customerPlan.planTime"></td>
-        <td><input type="text" v-model="customerPlan.planItem"></td>
-        <td><input type="text" v-model="customerPlan.planDetail"></td>
+        <td>
+          <el-input type="date" v-model="customerPlan.planTime"/>
+        </td>
+        <td>
+          <el-input type="text" v-model="customerPlan.planItem"/>
+        </td>
+        <td>
+          <el-input type="text" v-model="customerPlan.planDetail"/>
+        </td>
         <td>
           <el-button @click="createCustomerPlan()" round>保存</el-button>
         </td>

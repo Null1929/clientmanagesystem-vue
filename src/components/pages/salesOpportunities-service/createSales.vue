@@ -77,7 +77,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <button @click="create()" >新建</button>
+                    <el-button @click="create()" round>新建</el-button>
                 </td>
             </tr>
 

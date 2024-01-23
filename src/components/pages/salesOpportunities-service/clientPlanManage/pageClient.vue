@@ -4,16 +4,16 @@
       <table>
         <tr>
           <td>编号:</td>
-          <td><input type="number" v-model="client.clientId"/></td>
+          <td><el-input type="number" v-model="client.clientId"/></td>
           &nbsp;
           <td>客户名称:</td>
-          <td><input type="text" v-model="client.clientName"/></td>
+          <td><el-input type="text" v-model="client.clientName"/></td>
           &nbsp;
           <td>地区:</td>
-          <td><input type="text" v-model="client.clientDistrict"/></td>
+          <td><el-input type="text" v-model="client.clientDistrict"/></td>
           &nbsp;
           <td>客户等级:</td>
-          <td><input type="number" v-model="client.clientDegree"/></td>
+          <td><el-input type="number" v-model="client.clientDegree"/></td>
           &nbsp;
           <td>
             <el-button @click="query()" icon="el-icon-search" round>查询</el-button>

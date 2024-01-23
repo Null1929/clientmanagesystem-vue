@@ -3,7 +3,7 @@
     <table>
       <tr>
         <td>客户名称</td>
-        <td><input type="text" v-model="clientName"></td>
+        <td><el-input type="text" v-model="clientName"/></td>
       </tr>
       <tr>
         <td>年份</td>

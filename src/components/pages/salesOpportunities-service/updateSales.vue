@@ -131,7 +131,6 @@ export default {
               alert(response.data.resDesc);
               window.location.reload();
             }
-
           });
     }
   },

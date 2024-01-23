@@ -4,25 +4,33 @@
       <table>
         <tr>
           <td colspan="9" align="left">
-            <el-button @click="add()">新建客户</el-button>
-            <el-button @click="warn()">流失预警</el-button>
+            <el-button @click="add()" round>新建客户</el-button>
+            <el-button @click="warn()" round>流失预警</el-button>
           </td>
         </tr>
         <tr>
           <td>编号:</td>
-          <td><input type="number" v-model="client.clientId"/></td>
+          <td>
+            <el-input type="number" v-model="client.clientId"/>
+          </td>
           &nbsp;
           <td>客户名称:</td>
-          <td><input type="text" v-model="client.clientName"/></td>
+          <td>
+            <el-input type="text" v-model="client.clientName"/>
+          </td>
           &nbsp;
           <td>地区:</td>
-          <td><input type="text" v-model="client.clientDistrict"/></td>
+          <td>
+            <el-input type="text" v-model="client.clientDistrict"/>
+          </td>
           &nbsp;
           <td>客户等级:</td>
-          <td><input type="number" v-model="client.clientDegree"/></td>
+          <td>
+            <el-input type="number" v-model="client.clientDegree"/>
+          </td>
           &nbsp;
           <td>
-            <el-button @click="query()">查询</el-button>
+            <el-button @click="query()" round>查询</el-button>
           </td>
         </tr>
       </table>
@@ -44,12 +52,12 @@
         <td>{{ item.clientManager }}</td>
         <td>{{ item.clientDegree }}</td>
         <td>
-          <el-button @click="update(item)">修改</el-button>
-          <el-button @click="delClient(item.clientId)">删除</el-button>
-          <el-button @click="liaison(item)">联系人</el-button>
-          <el-button @click="details(item)">详情</el-button>
-          <el-button @click="record(item)">交往记录</el-button>
-          <el-button @click="order(item)">历史订单</el-button>
+          <el-button @click="update(item)" round>修改</el-button>
+          <el-button @click="delClient(item.clientId)" round>删除</el-button>
+          <el-button @click="liaison(item)" round>联系人</el-button>
+          <el-button @click="details(item)" round>详情</el-button>
+          <el-button @click="record(item)" round>交往记录</el-button>
+          <el-button @click="order(item)" round>历史订单</el-button>
         </td>
       </tr>
     </table>
@@ -59,19 +67,19 @@
           <td>共有{{ pageResult.total }}条记录</td>
           <td>第{{ pageResult.pageNum }}/共{{ Math.ceil(pageResult.total / pageResult.pageSize) }}页</td>
           <td>
-            <el-button @click="firstPage()" id="firstPage">第一页</el-button>
+            <el-button @click="firstPage()" id="firstPage" round>第一页</el-button>
           </td>
           <td>
-            <el-button @click="lastPage()" id="lastPage">上一页</el-button>
+            <el-button @click="lastPage()" id="lastPage" round>上一页</el-button>
           </td>
           <td>
-            <el-button @click="nextPage()" id="nextPage">下一页</el-button>
+            <el-button @click="nextPage()" id="nextPage" round>下一页</el-button>
           </td>
           <td>
-            <el-button @click="endPage()" id="endPage">最后一页</el-button>
+            <el-button @click="endPage()" id="endPage" round>最后一页</el-button>
           </td>
-          <td>转到<input type="text" v-model="pageResult.forward">页
-            <el-button @click="forward()">Go</el-button>
+          <td>转到<input type="text" style="width: 50px" v-model="pageResult.forward">页
+            <el-button @click="forward()" round>Go</el-button>
           </td>
         </tr>
       </table>
@@ -175,7 +183,9 @@ export default {
     },
     warn() {
       httpRequest.get('/clientservice/client/warn', {}).then(response => {
-        alert(response.data.msg);
+        if (response.data.resCode === "000000") {
+          alert(response.data.data);
+        }
       });
     },
 
