@@ -6,14 +6,15 @@
         <td>姓名</td>
         <td>账号</td>
         <td>状态</td>
-        <td>账户是否过期</td>
-        <td>账户是否锁定</td>
+        <td>是否过期</td>
+        <td>是否锁定</td>
         <td>凭证是否过期</td>
         <td>账户等级</td>
+        <td>账户身份</td>
         <td>操作</td>
       </tr>
       <br/>
-      <tr v-for="item in pageResult.result" :key="item.id">
+      <tr v-for="item in pageResult.result" :key="item.id" style="line-height: 50px">
         <td style='font-family:  "微软雅黑",system-ui'>{{ item.id }}</td>
         <td style='font-family:  "微软雅黑",system-ui'>{{ item.name }}</td>
         <td style='font-family:  "微软雅黑",system-ui'>{{ item.username }}</td>
@@ -34,6 +35,7 @@
           <el-button v-if="!item.credentialsNonExpired" type="danger" icon="el-icon-close" circle disabled></el-button>
         </td>
         <td>{{ item.accountLevel }}</td>
+        <td>{{ item.userRole }}</td>
         <td>
           <el-button icon="el-icon-delete" @click="deleteById(item.id)" round>删除</el-button>
           <el-button icon="el-icon-edit" @click="update(item)" round>编辑</el-button>
@@ -77,13 +79,14 @@ export default {
     return {
       user: {
         id: null,
-        name: '',
-        username: '',
+        name: null,
+        username: null,
         enabled: null,
         accountNonExpired: null,
         accountNonLocked: null,
         credentialsNonExpired: null,
-        accountLevel: null
+        accountLevel: null,
+        userRole: null
       },
 
       pageResult: {
@@ -107,6 +110,15 @@ export default {
         params: {
           pageNum: this.pageResult.pageNum,
           pageSize: this.pageResult.pageSize,
+          id: this.user.id,
+          name: this.user.name,
+          username: this.user.username,
+          enabled: this.user.enabled,
+          accountNonExpired: this.user.accountNonExpired,
+          accountNonLocked: this.user.accountNonLocked,
+          credentialsNonExpired: this.user.credentialsNonExpired,
+          accountLevel: this.user.accountLevel
+
         }
       }).then((reponse) => {
         if (reponse.data.resCode === '000000') {
@@ -139,7 +151,7 @@ export default {
           accountNonExpired: item.accountNonExpired,
           accountNonLocked: item.accountNonLocked,
           credentialsNonExpired: item.credentialsNonExpired,
-          accountLevel: item.accountLevel
+          accountLevel: item.accountLevel,
         }
       })
     },

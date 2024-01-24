@@ -123,7 +123,7 @@ export default {
         accountNonExpired: null,
         accountNonLocked: null,
         credentialsNonExpired:null,
-        accountLevel: null
+        accountLevel: null,
       },
     };
   },
@@ -146,7 +146,6 @@ export default {
     },
 
     save() {
-
         httpRequest.post('/userservice/userRole/updateUserRole', this.user)
             .then((response) => {
               if (response.data.resCode === "000000") {

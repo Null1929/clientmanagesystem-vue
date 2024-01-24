@@ -18,13 +18,13 @@
         <td>操作</td>
       </tr>
       <tr>
-        <td><input type="date" v-model="contactRecord.contactDate"></td>
-        <td><input type="text" v-model="contactRecord.address"></td>
-        <td><input type="text" v-model="contactRecord.summary"></td>
-        <td><input type="text" v-model="contactRecord.detail"></td>
-        <td><input type="text" v-model="contactRecord.note"></td>
+        <td><el-input type="date" v-model="contactRecord.contactDate"/></td>
+        <td><el-input type="text" v-model="contactRecord.address"/></td>
+        <td><el-input type="text" v-model="contactRecord.summary"/></td>
+        <td><el-input type="text" v-model="contactRecord.detail"/></td>
+        <td><el-input type="text" v-model="contactRecord.note"/></td>
         <td>
-          <button @click="createContactRecord()">保存</button>
+          <el-button @click="createContactRecord()" round>保存</el-button>
         </td>
       </tr>
       <tr v-for="item in pageResult.result" :key="item.id">
@@ -34,10 +34,8 @@
         <td>{{ item.detail }}</td>
         <td>{{ item.note }}</td>
         <td>
-          <button @click="updateCatche(item)">修改</button>
-          &nbsp;
-          &nbsp;
-          <button @click="delContactRecord(item.id)">删除</button>
+          <el-button @click="updateCatche(item)" round>修改</el-button>
+          <el-button @click="delContactRecord(item.id)" round>删除</el-button>
         </td>
       </tr>
     </table>
@@ -47,19 +45,19 @@
           <td>共有{{ pageResult.total }}条记录</td>
           <td>第{{ pageResult.pageNum }}/共{{ Math.ceil(pageResult.total / pageResult.pageSize) }}页</td>
           <td>
-            <el-button @click="firstPage()" id="firstPage">第一页</el-button>
+            <el-button @click="firstPage()" id="firstPage" round>第一页</el-button>
           </td>
           <td>
-            <el-button @click="lastPage()" id="lastPage">上一页</el-button>
+            <el-button @click="lastPage()" id="lastPage" round>上一页</el-button>
           </td>
           <td>
-            <el-button @click="nextPage()" id="nextPage">下一页</el-button>
+            <el-button @click="nextPage()" id="nextPage" round>下一页</el-button>
           </td>
           <td>
-            <el-button @click="endPage()" id="endPage">最后一页</el-button>
+            <el-button @click="endPage()" id="endPage" round>最后一页</el-button>
           </td>
-          <td>转到<input type="text" v-model="pageResult.forward">页
-            <el-button @click="forward()">Go</el-button>
+          <td>转到<input type="text" style="width: 50px" v-model="pageResult.forward">页
+            <el-button @click="forward()" round>Go</el-button>
           </td>
         </tr>
       </table>
@@ -123,8 +121,8 @@ export default {
     ,
     createContactRecord() {
       httpRequest.post('/clientservice/contactRecord/createContactRecord', {
-        clientId: Number(this.client.clientId),
         id: null,
+        clientId: this.client.clientId,
         contactDate: this.contactRecord.contactDate,
         address: this.contactRecord.address,
         summary: this.contactRecord.summary,
