@@ -3,27 +3,35 @@
     <table>
       <tr>
         <td>客户</td>
-        <td><input type="text" v-model="clientServer.clientName"></td>
+        <td><input type="text" v-model="clientServer.clientName"/></td>
       </tr>
       <tr>
         <td>概要</td>
-        <td><input type="text" v-model="clientServer.outline"></td>
+        <td><input type="text" v-model="clientServer.outline"/></td>
       </tr>
       <tr>
         <td>服务类型</td>
-        <td><input type="text" v-model="clientServer.serviceType"></td>
+        <td><input type="text" v-model="clientServer.serviceType"/></td>
       </tr>
       <tr>
         <td>创建日期</td>
-        <td><input type="date" v-model="clientServer.createTimeBegan">
-          -
-          <input type="date" v-model="clientServer.createTimeEnd">
+        <td>
+          <el-date-picker
+              v-model="dateCollection"
+              type="daterange"
+              range-separator="至"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+              value-format="yyyy-MM-dd"
+              unlink-panels
+          >
+          </el-date-picker>
         </td>
       </tr>
       <tr>
         <td>状态</td>
         <td>
-          <input type="text" disabled v-model="clientServer.status" placeholder="已归档">
+          <input type="text" disabled v-model="clientServer.status" placeholder="已归档"/>
         </td>
       </tr>
       <tr>
@@ -53,8 +61,8 @@
         <td>{{ item.createTime }}</td>
         <td>
           <el-select name="" id="" v-model="item.assignee" placeholder="请选择">
-          <el-option v-for="user in userList " :key="user.id" :value="user.name">{{ user.name }}</el-option>
-        </el-select>
+            <el-option v-for="user in userList " :key="user.id" :value="user.name">{{ user.name }}</el-option>
+          </el-select>
         </td>
         <td>
           <el-button @click="distribution(item)" round>分配</el-button>
@@ -121,7 +129,9 @@ export default {
 
       clientServerList: [],
 
-      userList: []
+      userList: [],
+
+      dateCollection: ''
     };
   },
 
@@ -138,6 +148,10 @@ export default {
 
   methods: {
     queryClientServer() {
+      if (this.dateCollection !== '' && this.dateCollection.length === 2) {
+        this.clientServer.createTimeBegan = this.dateCollection[0];
+        this.clientServer.createTimeEnd = this.dateCollection[1];
+      }
       httpRequest.post('/clientservice/clientServer/queryClientServer', {
         serviceType: this.clientServer.serviceType,
         outline: this.clientServer.outline,
@@ -153,70 +167,71 @@ export default {
           this.pageResult = response.data.data;
         }
       });
-    },
-    distribution(item) {
-      httpRequest.post('/clientservice/clientServer/distribution', item)
-          .then(response => {
-            if (response.data.resCode === "000000") {
-              alert(response.data.data);
-              this.queryClientServer();
-            }
+    }
+  },
+  distribution(item) {
+    httpRequest.post('/clientservice/clientServer/distribution', item)
+        .then(response => {
+          if (response.data.resCode === "000000") {
+            alert(response.data.data);
+            this.queryClientServer();
+          }
 
-          });
-    },
-    del(serverId) {
-      httpRequest.get('/clientservice/clientServer/delClientServer', {
-        params: {
-          serverId: serverId,
-        }
-      }).then(response => {
-        if (response.data.resCode === "000000") {
-          alert(response.data.data);
-          this.queryClientServer();
-        } else {
-          alert(response.data.resDesc);
-          this.queryClientServer();
-        }
-      });
-    },
-
-    /*******************************************/
-    /**
-     * 分页方法
-     */
-    firstPage() {
-      this.pageResult.pageNum = 1;
-      this.queryClientServer();
-
-    },
-    lastPage() {
-      if (this.pageResult.pageNum !== 1) {
-        --this.pageResult.pageNum
-        this.queryClientServer();
+        });
+  },
+  del(serverId) {
+    httpRequest.get('/clientservice/clientServer/delClientServer', {
+      params: {
+        serverId: serverId,
       }
-    },
-    nextPage() {
-      if (this.pageResult.pageNum !== Math.ceil(this.pageResult.total / this.pageResult.pageSize)) {
-        ++this.pageResult.pageNum
-        this.queryClientServer();
-      }
-    },
-    endPage() {
-      this.pageResult.pageNum = Math.ceil(this.pageResult.total / this.pageResult.pageSize);
-      this.queryClientServer();
-    },
-    forward() {
-      if (this.pageResult.forward >= 1 && this.pageResult.forward <= Math.ceil(this.pageResult.total / this.pageResult.pageSize)) {
-        this.pageResult.pageNum = this.pageResult.forward;
+    }).then(response => {
+      if (response.data.resCode === "000000") {
+        alert(response.data.data);
         this.queryClientServer();
       } else {
-        alert("页数不正确！")
-        this.pageResult.forward = null;
+        alert(response.data.resDesc);
+        this.queryClientServer();
       }
-    },
-    /*******************************************/
+    });
   },
-};
+
+  /*******************************************/
+  /**
+   * 分页方法
+   */
+  firstPage() {
+    this.pageResult.pageNum = 1;
+    this.queryClientServer();
+
+  },
+  lastPage() {
+    if (this.pageResult.pageNum !== 1) {
+      --this.pageResult.pageNum
+      this.queryClientServer();
+    }
+  },
+  nextPage() {
+    if (this.pageResult.pageNum !== Math.ceil(this.pageResult.total / this.pageResult.pageSize)) {
+      ++this.pageResult.pageNum
+      this.queryClientServer();
+    }
+  },
+  endPage() {
+    this.pageResult.pageNum = Math.ceil(this.pageResult.total / this.pageResult.pageSize);
+    this.queryClientServer();
+  },
+  forward() {
+    if (this.pageResult.forward >= 1 && this.pageResult.forward <= Math.ceil(this.pageResult.total / this.pageResult.pageSize)) {
+      this.pageResult.pageNum = this.pageResult.forward;
+      this.queryClientServer();
+    } else {
+      alert("页数不正确！")
+      this.pageResult.forward = null;
+    }
+  },
+  /*******************************************/
+}
+;
 </script>
 
 <style lang="scss" scoped></style>

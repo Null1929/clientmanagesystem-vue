@@ -3,10 +3,10 @@
     <table>
       <tr>
         <td>
-          <el-button @click="back()">返回</el-button>
+          <el-button @click="back()" round>返回</el-button>
         </td>
         <td>
-          <el-button @click="saveDataDictionary()">保存</el-button>
+          <el-button @click="saveDataDictionary()" round>保存</el-button>
         </td>
       </tr>
     </table>
@@ -15,35 +15,42 @@
       <tr>
         <td>编号</td>
         <td>
-          <input type="text" disabled v-model="dataDictionary.id">
+          <el-input type="text" disabled v-model="dataDictionary.id"/>
         </td>
       </tr>
       <tr>
         <td>类别</td>
         <td>
-          <select name="" id="" v-model="dataDictionary.category">
-            <option disabled value="">请选择</option>
-            <option value="企业客户等级">企业客户等级</option>
-            <option value="服务类型">服务类型</option>
-          </select>
+          <el-select v-model="dataDictionary.category" placeholder="请选择">
+            <el-option
+                v-for="item in options"
+                :key="item"
+                :label="item"
+                :value="item">
+            </el-option>
+          </el-select>
         </td>
       </tr>
       <tr>
         <td>条目</td>
         <td>
-          <input type="text" v-model="dataDictionary.item">
+          <el-input type="number" v-model="dataDictionary.item"/>
         </td>
       </tr>
       <tr>
         <td>值</td>
         <td>
-          <input type="text" v-model="dataDictionary.itemValue">
+          <el-input type="text" v-model="dataDictionary.itemValue"/>
         </td>
       </tr>
       <tr>
         <td>是否可编辑</td>
         <td>
-          <input type="checkbox" v-model="dataDictionary.edite">
+          <el-switch
+              v-model="dataDictionary.edite"
+              active-color="#13ce66"
+              inactive-color="#ff4949">
+          </el-switch>
         </td>
       </tr>
     </table>
@@ -63,8 +70,10 @@ export default {
         category: '',
         item: null,
         itemValue: null,
-        edite: null,
+        edite: false,
       },
+
+      options:["服务类型","客户等级"],
     };
   },
 
@@ -77,7 +86,7 @@ export default {
       this.$router.push('/dataBase/DataDictionary/pageDataDictionary')
     },
     saveDataDictionary() {
-      httpRequest.post('/databaseservice/dataBase/createDataDictionary', this.dataDictionary).then((response) => {
+      httpRequest.post('/databaseservice/dataDictionary/createDataDictionary', this.dataDictionary).then((response) => {
 
         if (response.data.resCode === "000000") {
           alert(response.data.data);

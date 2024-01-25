@@ -6,35 +6,49 @@
     <table>
       <tr>
         <td>编号</td>
-        <td><input disabled type="text" v-model="productInfo.id"></td>
+        <td>
+          <el-input disabled type="text" v-model="productInfo.id"/>
+        </td>
       </tr>
       <tr>
         <td>名称</td>
-        <td><input type="text" v-model="productInfo.productName"></td>
+        <td>
+          <el-input type="text" v-model="productInfo.productName"/>
+          </td>
       </tr>
       <tr>
         <td>类型</td>
-        <td><input type="text" v-model="productInfo.productType"></td>
+        <td>
+          <el-input type="text" v-model="productInfo.productType"/>
+        </td>
       </tr>
       <tr>
         <td>批次/等级</td>
-        <td><input type="text" v-model="productInfo.productDegree"></td>
+        <td>
+          <el-input type="text" v-model="productInfo.productDegree"/>
+        </td>
       </tr>
       <tr>
         <td>单位</td>
-        <td><input type="text" v-model="productInfo.unit"></td>
+        <td>
+          <el-input type="text" v-model="productInfo.unit"/>
+        </td>
       </tr>
       <tr>
         <td>单价(元)</td>
-        <td><input type="number" v-model="productInfo.productPrice"></td>
+        <td>
+          <el-input type="number" v-model="productInfo.productPrice"/>
+        </td>
       </tr>
       <tr>
         <td>备注</td>
-        <td><input type="text" v-model="productInfo.notes"></td>
+        <td>
+          <el-input type="text" v-model="productInfo.notes"/>
+        </td>
       </tr>
       <tr>
         <td>
-          <el-button @click="save()">保存</el-button>
+          <el-button @click="save()" round>保存</el-button>
         </td>
       </tr>
     </table>

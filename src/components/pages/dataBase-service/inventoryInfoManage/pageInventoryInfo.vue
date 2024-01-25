@@ -7,11 +7,13 @@
       <tr>
         <td>产品</td>
         <td>
-          <input type="text" v-model="inventoryInfo.productName">
+          <el-input type="text" v-model="inventoryInfo.productName"/>
         </td>
         &nbsp;
         <td>仓库</td>
-        <td><input type="text" v-model="inventoryInfo.stash"></td>
+        <td>
+          <el-input type="text" v-model="inventoryInfo.stash"/>
+        </td>
         &nbsp;&nbsp;&nbsp;
         <td>
           <el-button @click="query()" round>查询</el-button>

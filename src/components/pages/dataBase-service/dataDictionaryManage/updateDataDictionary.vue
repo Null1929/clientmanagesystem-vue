@@ -3,10 +3,10 @@
     <table>
       <tr>
         <td>
-          <el-button @click="back()">返回</el-button>
+          <el-button @click="back()" round>返回</el-button>
         </td>
         <td>
-          <el-button @click="updateDataDictionary()">保存</el-button>
+          <el-button @click="updateDataDictionary()" round>保存</el-button>
         </td>
       </tr>
     </table>
@@ -15,31 +15,35 @@
       <tr>
         <td>编号</td>
         <td>
-          <input type="text" disabled v-model="dataDictionary.id">
+          <el-input type="text" disabled v-model="dataDictionary.id"/>
         </td>
       </tr>
       <tr>
         <td>类别</td>
         <td>
-          <input type="text" disabled v-model="dataDictionary.category">
+          <el-input type="text" disabled v-model="dataDictionary.category"/>
         </td>
       </tr>
       <tr>
         <td>条目</td>
         <td>
-          <input type="number" v-model="dataDictionary.item">
+          <el-input type="number" v-model="dataDictionary.item"/>
         </td>
       </tr>
       <tr>
         <td>值</td>
         <td>
-          <input type="text" v-model="dataDictionary.itemValue">
+          <el-input type="text" v-model="dataDictionary.itemValue"/>
         </td>
       </tr>
       <tr>
         <td>是否可编辑</td>
         <td>
-          <input type="checkbox" v-model="dataDictionary.edite">
+          <el-switch
+              v-model="dataDictionary.edite"
+              active-color="#13ce66"
+              inactive-color="#ff4949">
+          </el-switch>
         </td>
       </tr>
     </table>
@@ -65,7 +69,8 @@ export default {
   },
 
   mounted() {
-    this.dataDictionary = this.$route.query
+    this.dataDictionary = this.$route.query;
+    this.dataDictionary.edite = eval(this.$route.query.edite)
   },
 
   methods: {
@@ -73,7 +78,7 @@ export default {
       this.$router.push('/dataBase/DataDictionary/pageDataDictionary')
     },
     updateDataDictionary() {
-      httpRequest.post('/databaseservice/dataBase/updateDataDictionary', {
+      httpRequest.post('/databaseservice/dataDictionary/updateDataDictionary', {
         id: this.dataDictionary.id,
         category: this.dataDictionary.category,
         item: this.dataDictionary.item,

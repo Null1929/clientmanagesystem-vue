@@ -1,7 +1,7 @@
 <template>
   <table-style>
     <template #header>
-      <el-button @click="create()">新增</el-button>
+      <el-button @click="create()" round>新增</el-button>
     </template>
     <table>
       <tr>
@@ -14,7 +14,7 @@
         <td>操作</td>
       </tr>
 
-      <tr v-for="item in pageResult.result" :key="item.id">
+      <tr v-for="item in pageResult.result" :key="item.id" style="line-height: 50px;">
         <td>{{ item.id }}</td>
         <td>{{ item.name }}</td>
         <td>{{ item.phone }}</td>
@@ -22,8 +22,8 @@
         <td>{{ item.identity }}</td>
         <td>{{ item.accountLevel }}</td>
         <td>
-          <el-button @click="deleteById(item.id)">删除</el-button>
-          <el-button @click="update(item)">编辑</el-button>
+          <el-button @click="deleteById(item.id)" round>删除</el-button>
+          <el-button @click="update(item)" round>编辑</el-button>
         </td>
       </tr>
     </table>

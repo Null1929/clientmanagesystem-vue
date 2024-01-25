@@ -6,13 +6,19 @@
     <table>
       <tr>
         <td>名称</td>
-        <td><input type="text" v-model="productInfo.productName"></td>
+        <td>
+          <el-input type="text" v-model="productInfo.productName"/>
+        </td>
         &nbsp;&nbsp;
         <td>类型</td>
-        <td><input type="text" v-model="productInfo.productType"></td>
+        <td>
+          <el-input type="text" v-model="productInfo.productType"/>
+        </td>
         &nbsp;
         <td>批次</td>
-        <td><input type="text" v-model="productInfo.productDegree"></td>
+        <td>
+          <el-input type="text" v-model="productInfo.productDegree"/>
+        </td>
         &nbsp;&nbsp;
         <td>
           <el-button @click="query()" round>查询</el-button>

@@ -3,7 +3,7 @@
     <table>
       <tr>
         <td>
-          <el-button @click="addLiaison()">新建联系人</el-button>
+          <el-button @click="addLiaison()" round>新建</el-button>
         </td>
       </tr>
       <tr>
@@ -32,8 +32,8 @@
         <td>{{ item.phone }}</td>
         <td>{{ item.notes }}</td>
         <td>
-          <el-button @click="updateLiaison(item)">修改</el-button>
-          <el-button @click="delLiaison(item.id)">删除</el-button>
+          <el-button @click="updateLiaison(item)" round>修改</el-button>
+          <el-button @click="delLiaison(item.id)" round>删除</el-button>
         </td>
       </tr>
     </table>

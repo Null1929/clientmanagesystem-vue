@@ -3,15 +3,21 @@
     <table>
       <tr>
         <td>客户名称</td>
-        <td><el-input type="text" v-model="clientName"/></td>
+        <td>
+          <el-input type="text" v-model="clientName"/>
+        </td>
       </tr>
       <tr>
         <td>年份</td>
         <td>
-          <select name="" id="" v-model="year">
-            <option disabled value="">请选择</option>
-            <option value="2015">2015</option>
-          </select>
+          <el-select v-model="year" placeholder="请选择">
+            <el-option
+                v-for="item in yearList"
+                :key="item"
+                :label="item"
+                :value="item">
+            </el-option>
+          </el-select>
         </td>
       </tr>
       <tr>
@@ -24,10 +30,15 @@
         <td>客户名称</td>
         <td>订单总金额(元)</td>
       </tr>
-      <tr :key="item.clientId" v-for="(item, index) in pageResult.result">
-        <td>{{ index + 1 }}</td>
+      <tr v-if="pageResult.total!==0" :key="item.clientId" v-for="(item, index) in pageResult.result">
+        <td>{{ item.clientId }}</td>
         <td>{{ item.clientName }}</td>
-        <td>{{ item.amount }}</td>
+        <td v-if="item.amount===null">
+          0
+        </td>
+        <td>
+          {{ item.amount }}
+        </td>
       </tr>
     </table>
     <template #footer>
@@ -75,14 +86,24 @@ export default {
 
       clientName: null,
       year: null,
+      yearList: null,
     };
   },
 
   mounted() {
     this.query();
+    this.getOrderDate();
   },
 
   methods: {
+    getOrderDate() {
+      httpRequest.get('/clientservice/clientOrder/getOrderDate', {}).then((response) => {
+        if (response.data.resCode === "000000") {
+          this.yearList = response.data.data;
+        }
+      });
+    }
+    ,
     query() {
       httpRequest.get('/clientservice/clientOrder/yearStatisticalAnalysis', {
         params: {
@@ -93,7 +114,9 @@ export default {
         }
       }).then((response) => {
         if (response.data.resCode === "000000") {
-          this.pageResult = response.data.data;
+          if (response.data.data.result !== null) {
+            this.pageResult = response.data.data;
+          }
         }
       });
     },

@@ -3,31 +3,43 @@
     <table>
       <tr>
         <td>编号</td>
-        <td><input type="text" disabled v-model="inventoryInfo.id"/></td>
+        <td>
+          <el-input type="text" disabled v-model="inventoryInfo.id"/>
+        </td>
       </tr>
       <tr>
         <td>产品</td>
-        <td><input type="text" v-model="inventoryInfo.productName"/></td>
+        <td>
+          <el-input type="text" v-model="inventoryInfo.productName"/>
+        </td>
       </tr>
       <tr>
         <td>仓库</td>
-        <td><input type="text" v-model="inventoryInfo.stash"/></td>
+        <td>
+          <el-input type="text" v-model="inventoryInfo.stash"/>
+        </td>
       </tr>
       <tr>
         <td>货位</td>
-        <td><input type="text" v-model="inventoryInfo.freightSpace"/></td>
+        <td>
+          <el-input type="text" v-model="inventoryInfo.freightSpace"/>
+        </td>
       </tr>
       <tr>
         <td>数量</td>
-        <td><input type="number" v-model="inventoryInfo.productNum"/></td>
+        <td>
+          <el-input type="number" v-model="inventoryInfo.productNum"/>
+        </td>
       </tr>
       <tr>
         <td>备注</td>
-        <td><input type="text" v-model="inventoryInfo.notes"/></td>
+        <td>
+          <el-input type="text" v-model="inventoryInfo.notes"/>
+        </td>
       </tr>
       <tr>
         <td>
-          <el-button @click="save()">保存</el-button>
+          <el-button @click="save()" round>保存</el-button>
         </td>
       </tr>
     </table>

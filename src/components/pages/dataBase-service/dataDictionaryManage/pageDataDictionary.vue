@@ -13,18 +13,21 @@
       <tr>
         <td>类别</td>
         <td>
-          <select name="" id="" v-model="dataDictionary.category">
-            <option  value="">请选择</option>
-            <option value="企业客户等级">企业客户等级</option>
-            <option value="服务类型">服务类型</option>
-          </select>
+          <el-select v-model="dataDictionary.category" placeholder="请选择">
+            <el-option
+                v-for="item in options"
+                :key="item"
+                :label="item"
+                :value="item">
+            </el-option>
+          </el-select>
         </td>
           &nbsp;
         <td>条目</td>
-        <td><input type="number" v-model="dataDictionary.item"></td>
+        <td><el-input type="number" v-model="dataDictionary.item"/></td>
         &nbsp;
         <td>值</td>
-        <td><input type="text" v-model="dataDictionary.itemValue"></td>
+        <td><el-input type="text" v-model="dataDictionary.itemValue"/></td>
         &nbsp;&nbsp;
         <td>
           <el-button @click="query()" round>查询</el-button>
@@ -41,14 +44,14 @@
         <td>操作</td>
       </tr>
 
-      <tr v-for="(item, index) in pageResult.result" :key="index">
+      <tr v-for="(item, index) in pageResult.result" :key="index" style="line-height: 50px">
         <td>{{ index + 1 }}</td>
         <td>{{ item.category }}</td>
         <td>{{ item.item }}</td>
         <td>{{ item.itemValue }}</td>
         <td>
-          <label v-if="item.edite === true">是</label>
-          <label v-else-if="item.edite === false">否</label>
+          <el-button v-if="item.edite" type="success" icon="el-icon-check" circle disabled></el-button>
+          <el-button v-if="!item.edite" type="danger" icon="el-icon-close" circle disabled></el-button>
         </td>
         <td>
           <el-button @click="deleted(item.id)" round>删除</el-button>
@@ -102,10 +105,12 @@ export default {
       pageResult: {
         total: 0,
         pageNum: 1,
-        pageSize: 100,
+        pageSize: 10,
         forward: 1,
         result: []
       },
+
+      options:["服务类型","客户等级"]
     };
   },
 
@@ -118,7 +123,7 @@ export default {
       this.$router.push('/dataBase/DataDictionary/createDataDictionary')
     },
     deleted(id) {
-      httpRequest.get('/databaseservice/dataBase/deleteDataDictionary', {
+      httpRequest.get('/databaseservice/dataDictionary/deleteDataDictionary', {
         params: {
           id: id
         }
@@ -136,7 +141,7 @@ export default {
       this.$router.push({path: '/dataBase/DataDictionary/updateDataDictionary', query: item})
     },
     query() {
-      httpRequest.get('/databaseservice/dataBase/queryDataByCondition', {
+      httpRequest.get('/databaseservice/dataDictionary/queryDataByCondition', {
         params: {
           category: this.dataDictionary.category,
           item: this.dataDictionary.item,
