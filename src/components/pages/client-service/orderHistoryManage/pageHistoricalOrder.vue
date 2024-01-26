@@ -1,7 +1,7 @@
 <template>
   <table-style>
     <template #header>
-      <el-button>新增订单</el-button>
+      <el-button @click="createPage()" round>新增订单</el-button>
     </template>
     <table>
       <tr>
@@ -12,7 +12,8 @@
         <td>客户名称</td>
         <td>{{ client.clientName }}</td>
       </tr>
-
+    </table>
+    <table style="border-spacing: 50px 0">
       <tr>
         <td>订单编号</td>
         <td>日期</td>
@@ -21,15 +22,15 @@
         <td>操作</td>
       </tr>
 
-      <tr v-for="item in pageResult.result" :key="item.orderId">
+      <tr v-for="item in pageResult.result" :key="item.orderId" style="line-height: 50px">
         <td>{{ item.orderId }}</td>
         <td>{{ item.orderDate.replace(/-/, '年').replace(/-/, '月').concat("日") }}</td>
         <td>{{ item.address }}</td>
         <td>{{ item.status }}</td>
         <td>
-          <el-button @click="detail(item)">详情</el-button>
-          <el-button >修改</el-button>
-          <el-button >删除</el-button>
+          <el-button @click="detail(item)" round>详情</el-button>
+          <el-button @click="updatePage(item)" round>修改</el-button>
+          <el-button @click="delOne(item.orderId)" round>删除</el-button>
         </td>
       </tr>
     </table>
@@ -39,19 +40,19 @@
           <td>共有{{ pageResult.total }}条记录</td>
           <td>第{{ pageResult.pageNum }}/共{{ Math.ceil(pageResult.total / pageResult.pageSize) }}页</td>
           <td>
-            <el-button @click="firstPage()" id="firstPage">第一页</el-button>
+            <el-button @click="firstPage()" id="firstPage" round>第一页</el-button>
           </td>
           <td>
-            <el-button @click="lastPage()" id="lastPage">上一页</el-button>
+            <el-button @click="lastPage()" id="lastPage" round>上一页</el-button>
           </td>
           <td>
-            <el-button @click="nextPage()" id="nextPage">下一页</el-button>
+            <el-button @click="nextPage()" id="nextPage" round>下一页</el-button>
           </td>
           <td>
-            <el-button @click="endPage()" id="endPage">最后一页</el-button>
+            <el-button @click="endPage()" id="endPage" round>最后一页</el-button>
           </td>
-          <td>转到<input type="text" v-model="pageResult.forward">页
-            <el-button @click="forward()">Go</el-button>
+          <td>转到<input type="text" style="width: 50px" v-model="pageResult.forward">页
+            <el-button @click="forward()" round>Go</el-button>
           </td>
         </tr>
       </table>
@@ -93,7 +94,7 @@ export default {
 
   mounted() {
     this.client = this.$route.query;
-        this.pageOrderHistory()
+    this.pageOrderHistory()
   },
 
   methods: {
@@ -119,6 +120,42 @@ export default {
 
     },
 
+    createPage() {
+      this.$router.push({
+        path: "/client/HistoricalOrder/createOrder",
+        query: this.client
+      })
+    },
+    updatePage(item) {
+      this.$router.push({
+        path: "/client/HistoricalOrder/updateOrder",
+        query: {
+          clientId: item.clientId,
+          clientName: this.client.clientName,
+          orderId: item.orderId,
+          orderDate: item.orderDate,
+          address: item.address,
+          status: item.status
+        }
+      })
+    },
+    delOne(id) {
+      httpRequest.get('/clientservice/clientOrder/deleteOrder', {
+        params: {
+          id
+        }
+      }).then(response => {
+        if (response.data.resCode === "000000") {
+          alert(response.data.data);
+          this.client = this.$route.query;
+          this.pageOrderHistory()
+        } else {
+          alert(response.data.resDesc);
+          this.client = this.$route.query;
+          this.pageOrderHistory()
+        }
+      })
+    },
     /*******************************************/
     /**
      * 分页方法

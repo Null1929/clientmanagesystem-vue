@@ -338,6 +338,16 @@ const routes = [
         name: 'pageHistoricalOrder',
         component: () => import('../components/pages/client-service/orderHistoryManage/pageHistoricalOrder.vue')
     },
+    {
+        path: '/client/HistoricalOrder/createOrder',
+        name: 'createOrder',
+        component: () => import('../components/pages/client-service/orderHistoryManage/createOrder.vue')
+    },
+    {
+        path: '/client/HistoricalOrder/updateOrder',
+        name: 'updateOrder',
+        component: () => import('../components/pages/client-service/orderHistoryManage/updateOrder.vue')
+    },
 
     //detailHistoricalOrder
     {
