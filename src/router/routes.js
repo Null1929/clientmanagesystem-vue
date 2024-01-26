@@ -331,6 +331,7 @@ const routes = [
         name: 'updateContactRecord',
         component: () => import('../components/pages/client-service/contactRecordManage/updateContactRecord.vue')
     },
+
     //pageHistoricalOrder
     {
         path: '/client/HistoricalOrder/pageHistoricalOrder',
@@ -344,13 +345,16 @@ const routes = [
         name: 'detailHistoricalOrder',
         component: () => import('../components/pages/client-service/orderHistoryManage/detailHistoricalOrder.vue')
     },
-    //detailHistoricalOrder
-    // {
-    //     path:'/client/HistoricalOrder/pageHistoricalOrder',
-    //     name:'pageHistoricalOrder',
-    //     component:()=>import('../components/pages/client-service/orderHistoryManage/pageHistoricalOrder.vue')
-    // }
-
+    {
+        path: '/client/HistoricalOrder/createHistoricalOrder',
+        name: 'createHistoricalOrder',
+        component: () => import('../components/pages/client-service/orderHistoryManage/createHistoricalOrder')
+    },
+    {
+        path: '/client/HistoricalOrder/updateHistoricalOrder',
+        name: 'updateHistoricalOrder',
+        component: () => import('../components/pages/client-service/orderHistoryManage/updateHistoricalOrder.vue')
+    },
 ]
 
 export default routes;

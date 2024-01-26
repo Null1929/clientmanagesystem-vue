@@ -1,7 +1,7 @@
 <template>
   <table-style>
     <template #header>
-    <el-button>新增订单明细</el-button>
+      <el-button round @click="createPage()">新增订单项</el-button>
     </template>
     <table>
       <tr>
@@ -24,24 +24,28 @@
         <td>总金额（元）</td>
         <td>{{ totalAmount }}</td>
       </tr>
-
+    </table>
+    <table style="line-height: 20px;padding-left: 10px;border-spacing: 50px 0">
       <tr>
+        <td>编号</td>
         <td>商品</td>
         <td>数量</td>
         <td>单位</td>
         <td>单价（元）</td>
         <td>金额（元）</td>
+        <td>操作</td>
       </tr>
 
       <tr v-for="item in pageResult.result" :key="item.id">
+        <td>{{ item.id }}</td>
         <td>{{ item.productName }}</td>
         <td>{{ item.productNumber }}</td>
         <td>{{ item.unit }}</td>
         <td>{{ item.price }}</td>
         <td>{{ item.productNumber * item.price }}</td>
         <td>
-          <el-button>修改</el-button>
-          <el-button>删除</el-button>
+          <el-button @click="updatePage(item)" round>修改</el-button>
+          <el-button @click="delOne(item.id)" round>删除</el-button>
         </td>
       </tr>
     </table>
@@ -49,21 +53,21 @@
       <table>
         <tr>
           <td>共有{{ pageResult.total }}条记录</td>
-          <td>第{{pageResult.pageNum}}/共{{ Math.ceil(pageResult.total / pageResult.pageSize) }}页</td>
+          <td>第{{ pageResult.pageNum }}/共{{ Math.ceil(pageResult.total / pageResult.pageSize) }}页</td>
           <td>
-            <el-button @click="firstPage()" id="firstPage">第一页</el-button>
+            <el-button @click="firstPage()" id="firstPage" round>第一页</el-button>
           </td>
           <td>
-            <el-button @click="lastPage()" id="lastPage">上一页</el-button>
+            <el-button @click="lastPage()" id="lastPage" round>上一页</el-button>
           </td>
           <td>
-            <el-button @click="nextPage()" id="nextPage">下一页</el-button>
+            <el-button @click="nextPage()" id="nextPage" round>下一页</el-button>
           </td>
           <td>
-            <el-button @click="endPage()" id="endPage">最后一页</el-button>
+            <el-button @click="endPage()" id="endPage" round>最后一页</el-button>
           </td>
-          <td>转到<input type="text" v-model="pageResult.forward">页
-            <el-button @click="forward()">Go</el-button>
+          <td>转到<input type="text" style="width: 50px" v-model="pageResult.forward">页
+            <el-button @click="forward()" round>Go</el-button>
           </td>
         </tr>
       </table>
@@ -81,9 +85,7 @@ export default {
   data() {
     return {
       order: {
-        id: null,
         orderId: null,
-        clientId: null,
         orderDate: null,
         address: null,
         status: null,
@@ -100,12 +102,10 @@ export default {
   },
 
   mounted() {
-    this.pageResult.pageNum=1
+    this.pageResult.pageNum = 1
     this.order = this.$route.query
     this.pageOrderHistoryDetail()
-
     this.getTotalAmount()
-    console.log(this.pageResult)
   },
   methods: {
     pageOrderHistoryDetail() {
@@ -133,6 +133,46 @@ export default {
       })
     },
 
+    createPage() {
+      this.$router.push({
+        path: "/client/HistoricalOrder/createHistoricalOrder",
+        query: this.order
+      })
+    },
+
+    updatePage(item) {
+      this.$router.push({
+        path: "/client/HistoricalOrder/updateHistoricalOrder",
+        query: {
+          id: item.id,
+          orderId: item.orderId,
+          orderDate: this.order.orderDate,
+          address: this.order.address,
+          status: this.order.status,
+          productName: item.productName,
+          productNumber: item.productNumber,
+          unit: item.unit,
+          price: item.price
+        }
+      })
+    },
+    delOne(id) {
+      httpRequest.get("/clientservice/clientOrder/delOrderDetail", {
+        params: {
+          id
+        }
+      }).then(response => {
+        if (response.data.resCode === '000000') {
+          alert(response.data.data);
+          this.pageOrderHistoryDetail();
+          this.getTotalAmount();
+        } else {
+          alert(response.data.resDesc);
+          this.pageOrderHistoryDetail();
+          this.getTotalAmount();
+        }
+      })
+    },
     /*******************************************/
     /**
      * 分页方法
