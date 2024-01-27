@@ -14,9 +14,13 @@
           <label>服务类型</label>
         </td>
         <td>
-          <el-select name="" id="" v-model="clientServer.serviceType">
-            <el-option disabled value="">请选择</el-option>
-            <el-option :value="item" v-for="item in serviceTypeList" :key="item">{{ item }}</el-option>
+          <el-select v-model="clientServer.serviceType" placeholder="请选择">
+            <el-option
+                v-for="target in serviceTypeList"
+                :key="target.item"
+                :label="target.itemValue"
+                :value="target.itemValue">
+            </el-option>
           </el-select>
         </td>
       </tr>
@@ -101,7 +105,7 @@ export default {
   },
 
   mounted() {
-    httpRequest.get('/databaseservice/dataBase/getServiceTypeByService').then(response => {
+    httpRequest.get('/databaseservice/dataDictionary/getServiceTypeByService').then(response => {
       this.serviceTypeList = response.data.data
     })
   },

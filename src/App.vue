@@ -3,30 +3,30 @@
     <div id="header">
       <el-header>
         <font size="50px" color="#1e90ff"><b>客户关系管理系统</b></font>
-        <p align="right" v-if="!logStatus">
-
+        <div align="right" v-if="!logStatus">
           <router-link to="/user/log">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 22 22">
               <path fill="currentColor"
                     d="M9 3h4v1h1v1h1v4h-1v1h-1v1H9v-1H8V9H7V5h1V4h1zm1 5v1h2V8h1V6h-1V5h-2v1H9v2zm-3 4h8v1h2v1h1v1h1v4H3v-4h1v-1h1v-1h2zm-1 4H5v1h12v-1h-1v-1h-2v-1H8v1H6z"/>
             </svg>
           </router-link>
-        </p>
-        <p align="right" v-if="logStatus">
-          <table>
+        </div>
+
+        <div align="right" v-if="logStatus">
+          <table style="height: 50px">
             <tr>
-             <td>
-                <el-avatar :size="50" :src="profileImg"/>
-             </td>
+              <td>
+                <el-avatar style="height: 80px;width: 80px" :size="50" :src="profileImg"/>
+              </td>
               <td><font style="color: yellow">{{ user.name }} 《 {{ user.identity }} 》</font></td>
               <td>
                 <el-button type="info" icon="el-icon-switch-button" circle @click="exit()">
 
-               </el-button>
+                </el-button>
               </td>
             </tr>
           </table>
-        </p>
+        </div>
       </el-header>
     </div>
 
@@ -187,7 +187,7 @@ export default {
     exit() {
       this.user = null;
       sessionStorage.clear();
-      window.location.reload();
+      this.$router.push("/")
     },
 
     index() {
