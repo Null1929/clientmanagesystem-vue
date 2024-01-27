@@ -14,7 +14,8 @@
         <td>客户名称</td>
         <td>{{ client.clientName }}</td>
       </tr>
-
+    </table>
+    <table style="width: auto;border-spacing: 50px 0">
       <tr>
         <td>姓名</td>
         <td>性别</td>
@@ -24,7 +25,7 @@
         <td>备注</td>
         <td>操作</td>
       </tr>
-      <tr v-for="item in liaisonList" :key="item.name">
+      <tr v-for="item in liaisonList" :key="item.name" style="line-height: 50px">
         <td>{{ item.name }}</td>
         <td>{{ item.sex }}</td>
         <td>{{ item.position }}</td>

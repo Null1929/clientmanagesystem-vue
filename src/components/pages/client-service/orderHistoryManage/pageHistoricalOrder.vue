@@ -13,7 +13,8 @@
         <td>{{ client.clientName }}</td>
       </tr>
     </table>
-    <table style="border-spacing: 50px 0">
+    <br>
+    <table style="width: auto;border-spacing: 50px 0">
       <tr>
         <td>订单编号</td>
         <td>日期</td>

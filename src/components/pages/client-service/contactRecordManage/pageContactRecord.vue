@@ -9,6 +9,8 @@
         <td>名称</td>
         <td>{{ client.clientName }}</td>
       </tr>
+    </table>
+    <table style="width: auto;border-spacing: 10px 0">
       <tr>
         <td>时间</td>
         <td>地点</td>
@@ -27,7 +29,8 @@
           <el-button @click="createContactRecord()" round>保存</el-button>
         </td>
       </tr>
-      <tr v-for="item in pageResult.result" :key="item.id">
+
+      <tr v-for="item in pageResult.result" :key="item.id" style="line-height: 50px">
         <td>{{ item.contactDate.replace(/-/, '年').replace(/-/, '月').concat("日") }}</td>
         <td>{{ item.address }}</td>
         <td>{{ item.summary }}</td>

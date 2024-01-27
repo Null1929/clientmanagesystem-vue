@@ -42,7 +42,7 @@
         <td>{{ clientServer.assignTime }}</td>
       </tr>
       <tr>
-        <td>服务处理</td>
+        <td>处理结果</td>
         <td>
           <el-input type="text" v-model="clientServer.serviceProcessing" />
         </td>
@@ -104,7 +104,7 @@ export default {
 
   methods: {
     saveClientServer() {
-      httpRequest.post('/clientservice/clientServer/saveClientServer', this.clientServer)
+      httpRequest.post('/clientservice/clientServer/serverProcessing', this.clientServer)
           .then(response => {
             if (response.data.resCode === "000000") {
               alert(response.data.data);

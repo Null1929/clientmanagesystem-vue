@@ -3,7 +3,7 @@
     <table>
       <tr>
         <td>
-          <label>编号</label>
+          <label>编号:</label>
         </td>
         <td>
           <el-input type="text" disabled/>
@@ -11,7 +11,15 @@
       </tr>
       <tr>
         <td>
-          <label>服务类型</label>
+          <label>客户名称:</label>
+        </td>
+        <td>
+          <el-input type="text" v-model="clientServer.clientName"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label>服务类型:</label>
         </td>
         <td>
           <el-select v-model="clientServer.serviceType" placeholder="请选择">
@@ -26,7 +34,7 @@
       </tr>
       <tr>
         <td>
-          <label>概要</label>
+          <label>概要:</label>
         </td>
         <td>
           <el-input type="text" v-model="clientServer.outline"/>
@@ -34,23 +42,7 @@
       </tr>
       <tr>
         <td>
-          <label>客户</label>
-        </td>
-        <td>
-          <el-input type="text" v-model="clientServer.clientName"/>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label>状态</label>
-        </td>
-        <td>
-          <el-input type="text" v-model="clientServer.status" disabled/>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label>服务请求</label>
+          <label>服务请求:</label>
         </td>
         <td>
           <el-input type="text" v-model="clientServer.serviceRequest"/>
@@ -58,7 +50,15 @@
       </tr>
       <tr>
         <td>
-          <label>创建人</label>
+          <label>状态:</label>
+        </td>
+        <td>
+          <el-input type="text" v-model="clientServer.status" disabled/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label>创建人:</label>
         </td>
         <td>
           <el-input disabled type="text" v-model="clientServer.creator"/>
@@ -66,7 +66,7 @@
       </tr>
       <tr>
         <td>
-          <label>创建时间</label>
+          <label>创建时间:</label>
         </td>
         <td>
           <el-input type="text" v-model="clientServer.createTime" disabled/>
@@ -117,7 +117,7 @@ export default {
           alert(response.data.data);
           this.$router.push('/clientServer/pageClientServer')
         } else {
-          window.location.reload();
+          alert(response.data.resDesc);
         }
       });
     }

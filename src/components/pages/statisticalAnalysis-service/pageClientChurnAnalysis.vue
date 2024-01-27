@@ -2,11 +2,21 @@
   <table-style>
 
     <template #header>
-      <label>客户名称:</label> <input type="text" v-model="client.clientName"/>
-      &nbsp;&nbsp;&nbsp;&nbsp;
-      <label>客户经理:</label> <input type="text" v-model="client.clientManager"/>
-      &nbsp;&nbsp;
-      <el-button @click="query()"  icon="el-icon-search" round>查询</el-button>
+      <table>
+        <tr>
+          <td>客户名称:</td>
+          <td>
+            <el-input type="text" v-model="client.clientName"/>
+          </td>
+          <td>客户经理:</td>
+          <td>
+            <el-input type="text" v-model="client.clientManager"/>
+          </td>
+          <td style="padding-left: 10px">
+            <el-button @click="query()"  icon="el-icon-search" round>查询</el-button>
+          </td>
+        </tr>
+      </table>
     </template>
 
 

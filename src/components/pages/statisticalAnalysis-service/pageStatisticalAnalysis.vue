@@ -1,16 +1,14 @@
 <template>
   <table-style>
-    <table>
+    <table style="border-spacing: 10px 0">
       <tr>
-        <td>客户名称</td>
+        <td>客户名称:</td>
         <td>
           <el-input type="text" v-model="clientName"/>
         </td>
-      </tr>
-      <tr>
-        <td>年份</td>
+        <td>年份:</td>
         <td>
-          <el-select v-model="year" placeholder="请选择">
+          <el-select style="width: 150px" v-model="year" placeholder="请选择">
             <el-option
                 v-for="item in yearList"
                 :key="item"
@@ -19,18 +17,20 @@
             </el-option>
           </el-select>
         </td>
-      </tr>
-      <tr>
-        <td colspan="2">
+        <td style="padding-left: 20px">
           <el-button @click="query()" icon="el-icon-search" round>查询</el-button>
         </td>
       </tr>
+    </table>
+    <br>
+    <table style="border-spacing: 50px 0">
       <tr>
         <td>编号</td>
         <td>客户名称</td>
         <td>订单总金额(元)</td>
       </tr>
-      <tr v-if="pageResult.total!==0" :key="item.clientId" v-for="(item, index) in pageResult.result">
+      <tr style="line-height: 50px" v-if="pageResult.total!==0" :key="item.clientId"
+          v-for="(item, index) in pageResult.result">
         <td>{{ item.clientId }}</td>
         <td>{{ item.clientName }}</td>
         <td v-if="item.amount===null">

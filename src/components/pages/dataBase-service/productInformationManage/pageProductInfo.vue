@@ -25,7 +25,7 @@
         </td>
       </tr>
     </table>
-    <table>
+    <table style="width: auto;border-spacing: 50px 0">
       <tr>
         <td>编号</td>
         <td>名称</td>
@@ -37,7 +37,7 @@
         <td>操作</td>
       </tr>
 
-      <tr v-for="(item, index) in pageResult.result" :key="item.productName">
+      <tr v-for="(item, index) in pageResult.result" :key="item.productName" style="line-height: 50px">
         <td>{{ item.id }}</td>
         <td>{{ item.productName }}</td>
         <td>{{ item.productType }}</td>

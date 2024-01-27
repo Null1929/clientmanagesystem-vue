@@ -35,7 +35,7 @@
         </tr>
       </table>
     </template>
-    <table>
+    <table style="width: auto;border-spacing: 50px 0">
       <tr>
         <td>客户编号</td>
         <td>名称</td>
@@ -45,7 +45,7 @@
         <td>操作</td>
       </tr>
 
-      <tr v-for="item in pageResult.result" :key="item.clientId">
+      <tr v-for="item in pageResult.result" :key="item.clientId" style="line-height: 50px">
         <td>{{ item.clientId }}</td>
         <td>{{ item.clientName }}</td>
         <td>{{ item.clientDistrict }}</td>

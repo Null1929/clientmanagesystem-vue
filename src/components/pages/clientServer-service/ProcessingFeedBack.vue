@@ -42,7 +42,7 @@
         <td>{{ clientServer.assignTime }}</td>
       </tr>
       <tr>
-        <td>服务处理</td>
+        <td>处理结果</td>
         <td>{{ clientServer.serviceProcessing }}</td>
       </tr>
       <tr>
@@ -55,9 +55,9 @@
       </tr>
 
       <tr>
-        <td>处理结果</td>
+        <td>反馈结果</td>
         <td>
-          <el-input type="text" v-model="clientServer.processingResult" />
+          <el-input type="text" v-model="clientServer.processingResult"/>
         </td>
       </tr>
 
@@ -87,7 +87,7 @@ export default {
 
   data() {
     return {
-      texts:["很差","差","一般","好","很好"],
+      texts: ["很差", "差", "一般", "好", "很好"],
       clientServer: {
         serverId: null,
         serviceType: null,
@@ -119,16 +119,14 @@ export default {
       if (this.clientServer.customerSatisfaction == null) {
         this.clientServer.customerSatisfaction = 0
       }
-      httpRequest.post('/clientservice/clientServer/saveFeedBack', this.clientServer)
-          .then(response => {
-            if (response.data.resCode === "000000") {
-              alert(response.data.data);
-              this.$router.push('/clientServer/PageFeedBack')
-            } else {
-              alert(response.data.resDesc);
-              window.location.reload();
-            }
-          });
+      httpRequest.post('/clientservice/clientServer/saveFeedBack', this.clientServer).then(response => {
+        if (response.data.resCode === "000000") {
+          alert(response.data.data);
+          this.$router.push('/clientServer/PageFeedBack')
+        } else {
+          alert(response.data.resDesc);
+        }
+      });
     }
   },
 };

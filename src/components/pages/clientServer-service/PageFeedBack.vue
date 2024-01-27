@@ -1,62 +1,74 @@
 <template>
   <table-style>
-      <table>
-        <tr>
-          <td>客户</td>
-          <td><input type="text" v-model="clientServer.clientName"></td>
-        </tr>
-        <tr>
-          <td>概要</td>
-          <td><input type="text" v-model="clientServer.outline"></td>
-        </tr>
-        <tr>
-          <td>服务类型</td>
-          <td><input type="text" v-model="clientServer.serviceType"></td>
-        </tr>
-        <tr>
-          <td>创建日期</td>
-          <td><input type="date" v-model="time.startTime">
-            -
-            <input type="date" v-model="time.endTime">
-          </td>
-        </tr>
-        <tr>
-          <td>状态</td>
-          <td>
-            <input type="text" disabled v-model="clientServer.status" placeholder="已处理">
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2">
-            <el-button @click="queryClientServer()" round>查询</el-button>
-          </td>
-        </tr>
-      </table>
-      <table>
-        <tr>
-          <td>编号</td>
-          <td>客户</td>
-          <td>概要</td>
-          <td>服务类型</td>
-          <td>创建人</td>
-          <td>创建日期</td>
-          <td>操作</td>
-        </tr>
+    <table>
+      <tr>
+        <td>客户</td>
+        <td>
+          <el-input type="text" v-model="clientServer.clientName"/>
+        </td>
+        <td>概要</td>
+        <td>
+          <el-input type="text" v-model="clientServer.outline"/>
+        </td>
+        <td>服务类型</td>
+        <td>
+          <el-select style="width: 100px" v-model="clientServer.serviceType" placeholder="请选择">
+            <el-option
+                v-for="target in serviceTypeList"
+                :key="target.item"
+                :label="target.itemValue"
+                :value="target.itemValue">
+            </el-option>
+          </el-select>
+        </td>
+        <td>创建日期</td>
+        <td>
+          <el-date-picker
+              style="width: 250px"
+              v-model="dateCollection"
+              type="daterange"
+              range-separator="-"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+              value-format="yyyy-MM-dd"
+              unlink-panels
+          >
+          </el-date-picker>
+        </td>
+        <td>状态</td>
+        <td>
+          <el-input style="width: 80px;"  type="text" v-model="clientServer.status" placeholder="已处理" disabled/>
+        </td>
+        <td colspan="2">
+          <el-button style="padding-left: 20px"  @click="queryClientServer()" round>查询</el-button>
+        </td>
+      </tr>
+    </table>
+    <table  style="width: auto;border-spacing: 50px 0">
+      <tr>
+        <td>编号</td>
+        <td>客户</td>
+        <td>概要</td>
+        <td>服务类型</td>
+        <td>创建人</td>
+        <td>创建日期</td>
+        <td>操作</td>
+      </tr>
 
-        <tr v-for="item in pageResult.result" :key="item.serverId">
-          <td>{{ item.serverId }}</td>
-          <td>{{ item.clientName }}</td>
-          <td>{{ item.outline }}</td>
-          <td>{{ item.serviceType }}</td>
-          <td>{{ item.creator }}</td>
-          <td>{{ item.createTime }}</td>
-          <td></td>
-          <td>
-            <el-button @click="feedBack(item)" round>反馈</el-button>
-            <el-button @click="del(item.serverId)" round>删除</el-button>
-          </td>
-        </tr>
-      </table>
+      <tr v-for="item in pageResult.result" :key="item.serverId" style="line-height: 50px">
+        <td>{{ item.serverId }}</td>
+        <td>{{ item.clientName }}</td>
+        <td>{{ item.outline }}</td>
+        <td>{{ item.serviceType }}</td>
+        <td>{{ item.creator }}</td>
+        <td>{{ item.createTime }}</td>
+        <td></td>
+        <td>
+          <el-button @click="feedBack(item)" round>反馈</el-button>
+          <el-button @click="del(item.serverId)" round>删除</el-button>
+        </td>
+      </tr>
+    </table>
     <template #footer>
       <table>
         <tr>
@@ -116,6 +128,9 @@ export default {
         result: []
       },
 
+      dateCollection: '',
+
+      serviceTypeList: [],
 
       userList: []
     };
@@ -123,20 +138,33 @@ export default {
 
   mounted() {
     this.queryClientServer();
+    this.getServiceType();
   },
 
   methods: {
+    getServiceType(){
+      httpRequest.get('/databaseservice/dataDictionary/getServiceTypeByService').then(response => {
+        this.serviceTypeList = response.data.data
+      })
+    },
     queryClientServer() {
-      httpRequest.post('/clientservice/clientServer/queryClientServer', {
-        clientName: this.clientServer.clientName,
-        outline: this.clientServer.outline,
-        serviceType: this.clientServer.serviceType,
-        status: this.clientServer.status,
-        startTime: this.time.startTime,
-        endTime: this.time.endTime,
-        pageNum: this.pageResult.pageNum,
-        pageSize: this.pageResult.pageSize
-
+      if(this.dateCollection!==null) {
+        if (this.dateCollection !== '' && this.dateCollection.length === 2) {
+          this.time.startTime = this.dateCollection[0];
+          this.time.endTime = this.dateCollection[1];
+        }
+      }
+      httpRequest.get('/clientservice/clientServer/queryClientServer', {
+        params: {
+          clientName: this.clientServer.clientName,
+          outline: this.clientServer.outline,
+          serviceType: this.clientServer.serviceType,
+          status: this.clientServer.status,
+          startTime: this.time.startTime,
+          endTime: this.time.endTime,
+          pageNum: this.pageResult.pageNum,
+          pageSize: this.pageResult.pageSize
+        }
       }).then(response => {
         if (response.data.resCode === "000000") {
           this.pageResult = response.data.data;

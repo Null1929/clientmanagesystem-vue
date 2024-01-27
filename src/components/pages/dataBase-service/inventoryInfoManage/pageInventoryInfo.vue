@@ -20,7 +20,7 @@
         </td>
       </tr>
     </table>
-    <table>
+    <table style="width: auto;border-spacing: 50px 0">
       <tr>
         <td>序号</td>
         <td>产品</td>

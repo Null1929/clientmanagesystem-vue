@@ -2,24 +2,32 @@
   <table-style>
     <table>
       <tr>
-        <td>客户</td>
-        <td><input type="text" v-model="clientServer.clientName"/></td>
-      </tr>
-      <tr>
-        <td>概要</td>
-        <td><input type="text" v-model="clientServer.outline"/></td>
-      </tr>
-      <tr>
-        <td>服务类型</td>
-        <td><input type="text" v-model="clientServer.serviceType"/></td>
-      </tr>
-      <tr>
-        <td>创建日期</td>
+        <td>客户:</td>
+        <td>
+          <el-input type="text" v-model="clientServer.clientName"/>
+        </td>
+        <td>概要:</td>
+        <td>
+          <el-input type="text" v-model="clientServer.outline"/>
+        </td>
+        <td>服务类型:</td>
+        <td>
+          <el-select style="width: 100px" v-model="clientServer.serviceType" placeholder="请选择">
+            <el-option
+                v-for="target in serviceTypeList"
+                :key="target.item"
+                :label="target.itemValue"
+                :value="target.itemValue">
+            </el-option>
+          </el-select>
+        </td>
+        <td>创建日期:</td>
         <td>
           <el-date-picker
+              style="width: 250px"
               v-model="dateCollection"
               type="daterange"
-              range-separator="至"
+              range-separator="-"
               start-placeholder="开始日期"
               end-placeholder="结束日期"
               value-format="yyyy-MM-dd"
@@ -27,15 +35,11 @@
           >
           </el-date-picker>
         </td>
-      </tr>
-      <tr>
-        <td>状态</td>
+        <td>状态:</td>
         <td>
-          <input type="text" disabled v-model="clientServer.status" placeholder="已归档"/>
+          <el-input style="width: 80px;" type="text" v-model="clientServer.status" placeholder="已归档" disabled/>
         </td>
-      </tr>
-      <tr>
-        <td colspan="2">
+        <td colspan="2" style="padding-left: 20px">
           <el-button @click="queryClientServer()" round>查询</el-button>
         </td>
       </tr>
@@ -65,7 +69,7 @@
           </el-select>
         </td>
         <td>
-          <el-button @click="distribution(item)" round>分配</el-button>
+          <el-button @click="distributionBtn(item)" round>分配</el-button>
           <el-button @click="del(item.serverId)" round>删除</el-button>
         </td>
       </tr>
@@ -126,112 +130,123 @@ export default {
         result: []
       },
 
-
-      clientServerList: [],
-
       userList: [],
 
-      dateCollection: ''
+      dateCollection: '',
+
+      serviceTypeList: [],
     };
   },
 
   mounted() {
     this.queryClientServer();
-
-    httpRequest.get('/userservice/user/queryAll', {
-      params: {}
-    }).then(response => {
-      this.userList = response.data.data
-    });
-
+    this.getUserNameList();
+    this.getServiceType();
   },
 
   methods: {
+    getUserNameList() {
+      httpRequest.get('/userservice/user/queryAll', {
+        params: {}
+      }).then(response => {
+        this.userList = response.data.data
+      });
+    },
+    getServiceType() {
+      httpRequest.get('/databaseservice/dataDictionary/getServiceTypeByService').then(response => {
+        this.serviceTypeList = response.data.data
+      })
+    },
     queryClientServer() {
-      if (this.dateCollection !== '' && this.dateCollection.length === 2) {
-        this.clientServer.createTimeBegan = this.dateCollection[0];
-        this.clientServer.createTimeEnd = this.dateCollection[1];
+      if(this.dateCollection!==null) {
+        if (this.dateCollection !== '' && this.dateCollection.length === 2) {
+          this.time.startTime = this.dateCollection[0];
+          this.time.endTime = this.dateCollection[1];
+        }
       }
-      httpRequest.post('/clientservice/clientServer/queryClientServer', {
-        serviceType: this.clientServer.serviceType,
-        outline: this.clientServer.outline,
-        clientName: this.clientServer.clientName,
-        status: this.clientServer.status,
-        startTime: this.clientServer.createTimeBegan,
-        endTime: this.clientServer.createTimeEnd,
-        pageNum: this.pageResult.pageNum,
-        pageSize: this.pageResult.pageSize
-
+      httpRequest.get('/clientservice/clientServer/queryClientServer', {
+        params: {
+          serviceType: this.clientServer.serviceType,
+          outline: this.clientServer.outline,
+          clientName: this.clientServer.clientName,
+          status: this.clientServer.status,
+          startTime: this.clientServer.createTimeBegan,
+          endTime: this.clientServer.createTimeEnd,
+          pageNum: this.pageResult.pageNum,
+          pageSize: this.pageResult.pageSize
+        }
       }).then(response => {
         if (response.data.resCode === "000000") {
           this.pageResult = response.data.data;
+        } else {
+          alert(response.data.resDesc);
         }
       });
-    }
-  },
-  distribution(item) {
-    httpRequest.post('/clientservice/clientServer/distribution', item)
-        .then(response => {
-          if (response.data.resCode === "000000") {
-            alert(response.data.data);
-            this.queryClientServer();
-          }
+    },
+    distributionBtn(item) {
+      httpRequest.post('/clientservice/clientServer/distributionBtn', item)
+          .then(response => {
+            if (response.data.resCode === "000000") {
+              alert(response.data.data);
+              this.queryClientServer();
+            }else {
+              alert(response.data.resDesc)
+            }
+          });
+    },
+    del(serverId) {
+      httpRequest.get('/clientservice/clientServer/delClientServer', {
+        params: {
+          serverId: serverId,
+        }
+      }).then(response => {
+        if (response.data.resCode === "000000") {
+          alert(response.data.data);
+          this.queryClientServer();
+        } else {
+          alert(response.data.resDesc);
+          this.queryClientServer();
+        }
+      });
+    },
 
-        });
-  },
-  del(serverId) {
-    httpRequest.get('/clientservice/clientServer/delClientServer', {
-      params: {
-        serverId: serverId,
+    /*******************************************/
+    /**
+     * 分页方法
+     */
+    firstPage() {
+      this.pageResult.pageNum = 1;
+      this.queryClientServer();
+
+    },
+    lastPage() {
+      if (this.pageResult.pageNum !== 1) {
+        --this.pageResult.pageNum
+        this.queryClientServer();
       }
-    }).then(response => {
-      if (response.data.resCode === "000000") {
-        alert(response.data.data);
+    },
+    nextPage() {
+      if (this.pageResult.pageNum !== Math.ceil(this.pageResult.total / this.pageResult.pageSize)) {
+        ++this.pageResult.pageNum
+        this.queryClientServer();
+      }
+    },
+    endPage() {
+      this.pageResult.pageNum = Math.ceil(this.pageResult.total / this.pageResult.pageSize);
+      this.queryClientServer();
+    },
+    forward() {
+      if (this.pageResult.forward >= 1 && this.pageResult.forward <= Math.ceil(this.pageResult.total / this.pageResult.pageSize)) {
+        this.pageResult.pageNum = this.pageResult.forward;
         this.queryClientServer();
       } else {
-        alert(response.data.resDesc);
-        this.queryClientServer();
+        alert("页数不正确！")
+        this.pageResult.forward = null;
       }
-    });
-  },
-
-  /*******************************************/
-  /**
-   * 分页方法
-   */
-  firstPage() {
-    this.pageResult.pageNum = 1;
-    this.queryClientServer();
-
-  },
-  lastPage() {
-    if (this.pageResult.pageNum !== 1) {
-      --this.pageResult.pageNum
-      this.queryClientServer();
-    }
-  },
-  nextPage() {
-    if (this.pageResult.pageNum !== Math.ceil(this.pageResult.total / this.pageResult.pageSize)) {
-      ++this.pageResult.pageNum
-      this.queryClientServer();
-    }
-  },
-  endPage() {
-    this.pageResult.pageNum = Math.ceil(this.pageResult.total / this.pageResult.pageSize);
-    this.queryClientServer();
-  },
-  forward() {
-    if (this.pageResult.forward >= 1 && this.pageResult.forward <= Math.ceil(this.pageResult.total / this.pageResult.pageSize)) {
-      this.pageResult.pageNum = this.pageResult.forward;
-      this.queryClientServer();
-    } else {
-      alert("页数不正确！")
-      this.pageResult.forward = null;
-    }
-  },
-  /*******************************************/
-}
-;
+    },
+    /*******************************************/
+  }
+};
 </script>
 
 <style lang="scss" scoped></style>

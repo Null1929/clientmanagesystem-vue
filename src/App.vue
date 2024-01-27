@@ -37,6 +37,7 @@
           <font color="#7fffd4"> 客户关系管理系统 </font>
         </h3>
         <el-menu default-active="2"
+                 unique-opened
                  class="el-menu-vertical-demo"
                  @open="handleOpen"
                  @close="handleClose"
@@ -147,7 +148,7 @@
           </el-submenu>
         </el-menu>
       </el-col>
-      <el-col :span="20" style="background-color: #ece9c6">
+      <el-col :span="20" style="background-color: #ece9c6;height: 778px">
         <router-view></router-view>
       </el-col>
     </el-row>
