@@ -26,15 +26,17 @@
           &nbsp;
           <td>客户等级:</td>
           <td>
-            <el-input type="number" v-model="client.clientDegree"/>
+            <el-input style="width: 100px" type="number" v-model="client.clientDegree"/>
           </td>
           &nbsp;
           <td>
             <el-button @click="query()" round>查询</el-button>
+            <el-button  round>汇出报表</el-button>
           </td>
         </tr>
       </table>
     </template>
+    <br>
     <table style="width: auto;border-spacing: 50px 0">
       <tr>
         <td>客户编号</td>

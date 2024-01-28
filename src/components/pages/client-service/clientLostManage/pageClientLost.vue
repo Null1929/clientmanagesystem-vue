@@ -20,11 +20,12 @@
           &nbsp;
           <td>
             <el-button @click="query()" round>查询</el-button>
+            <el-button  round>汇出报表</el-button>
           </td>
         </tr>
       </table>
     </template>
-    <table>
+    <table style="width: auto;border-spacing: 50px 0">
       <tr>
         <td>编号</td>
         <td>客户</td>
@@ -34,8 +35,7 @@
         <td>状态</td>
         <td>操作</td>
       </tr>
-
-      <tr v-for="(item, index) in pageResult.result" :key="item.clientName">
+      <tr v-for="(item, index) in pageResult.result" :key="item.clientName" style="line-height: 50px">
         <td>{{ index + 1 }}</td>
         <td>{{ item.clientName }}</td>
         <td>{{ item.clientManager }}</td>

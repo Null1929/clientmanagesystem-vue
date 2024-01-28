@@ -1,12 +1,40 @@
 <template>
   <table-style>
     <template #header>
-      <el-button @click="create()" round>新增</el-button>
+      <table>
+        <tr>
+          <td colspan="2" style="text-align: left">
+            <el-button @click="create()" round>新增</el-button>
+          </td>
+        </tr>
+        <tr>
+          <td>编号:</td>
+          <td>
+            <el-input v-model="user.id"/>
+          </td>
+          <td>手机号:</td>
+          <td>
+            <el-input v-model="user.phone"/>
+          </td>
+          <td>工号:</td>
+          <td>
+            <el-input v-model="user.workId"/>
+          </td>
+          <td>等级:</td>
+          <td>
+            <el-input v-model="user.accountLevel"/>
+          </td>
+          <td>
+            <el-button @click="query" round>查询</el-button>
+            <el-button round>汇出报表</el-button>
+          </td>
+        </tr>
+      </table>
     </template>
-    <table>
+    <table style="border-spacing: 50px 0">
       <tr>
         <td>编号</td>
-        <td>名称</td>
+        <td>姓名</td>
         <td>手机号</td>
         <td>工号</td>
         <td>身份</td>
@@ -63,10 +91,10 @@ export default {
   data() {
     return {
       user: {
-        id:null,
-        phone: '',
-        password: '',
-        name: '',
+        id: null,
+        phone: null,
+        password: null,
+        name: null,
         workId: null,
         identity: null,
         accountLevel: null
@@ -89,10 +117,17 @@ export default {
 
   methods: {
     query() {
+      if (this.user.phone === '') {
+        this.user.phone = null
+      }
       httpRequest.get('/userservice/userInfo/queryUserInfo', {
         params: {
           pageNum: this.pageResult.pageNum,
           pageSize: this.pageResult.pageSize,
+          id: this.user.id,
+          phone: this.user.phone,
+          workId: this.user.workId,
+          accountLevel: this.user.accountLevel
         }
       }).then((reponse) => {
         if (reponse.data.resCode === '000000') {

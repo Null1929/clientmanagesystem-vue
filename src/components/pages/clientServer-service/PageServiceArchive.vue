@@ -41,6 +41,7 @@
         </td>
         <td colspan="2">
           <el-button style="padding-left: 20px" @click="queryClientServer()" round>查询</el-button>
+          <el-button  round>汇出报表</el-button>
         </td>
       </tr>
     </table>

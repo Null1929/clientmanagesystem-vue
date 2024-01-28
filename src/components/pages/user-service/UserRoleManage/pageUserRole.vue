@@ -1,5 +1,21 @@
 <template>
   <table-style>
+    <table>
+      <tr>
+        <td>ID:</td>
+        <td>
+          <el-input v-model="user.id"/>
+        </td>
+        <td style="padding-left: 50px">账号:</td>
+        <td>
+          <el-input v-model="user.username"/>
+        </td>
+        <td style="padding-left: 30px">
+          <el-button @click="query()" round>搜索</el-button>
+        </td>
+      </tr>
+    </table>
+    <br>
     <table style="border-spacing: 50px 0">
       <tr>
         <td>ID</td>
@@ -106,19 +122,15 @@ export default {
 
   methods: {
     query() {
+      if (this.user.username === '') {
+        this.user.username = null;
+      }
       httpRequest.get('/userservice/userRole/queryUserRole', {
         params: {
           pageNum: this.pageResult.pageNum,
           pageSize: this.pageResult.pageSize,
           id: this.user.id,
-          name: this.user.name,
           username: this.user.username,
-          enabled: this.user.enabled,
-          accountNonExpired: this.user.accountNonExpired,
-          accountNonLocked: this.user.accountNonLocked,
-          credentialsNonExpired: this.user.credentialsNonExpired,
-          accountLevel: this.user.accountLevel
-
         }
       }).then((reponse) => {
         if (reponse.data.resCode === '000000') {

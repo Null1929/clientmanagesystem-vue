@@ -1,7 +1,5 @@
 <template>
   <table-style>
-
-    <template #header>
       <table>
         <tr>
           <td>客户名称:</td>
@@ -13,13 +11,11 @@
             <el-input type="text" v-model="client.clientManager"/>
           </td>
           <td style="padding-left: 10px">
-            <el-button @click="query()"  icon="el-icon-search" round>查询</el-button>
+            <el-button @click="query()" icon="el-icon-search" round>查询</el-button>
+            <el-button round>汇出报表</el-button>
           </td>
         </tr>
       </table>
-    </template>
-
-
     <table style="width:50vw">
       <tr>
         <td>编号</td>
@@ -93,15 +89,20 @@ export default {
 
   methods: {
     query() {
-      httpRequest
-          .get("/clientservice/clientLost/queryClientChurn", {
-            params: {
-              clientName: this.client.clientName,
-              clientManager: this.client.clientManager,
-              pageNum: this.pageResult.pageNum,
-              pageSize: this.pageResult.pageSize,
-            },
-          })
+      if (this.client.clientName === '') {
+        this.client.clientName = null;
+      }
+      if (this.client.clientManager === '') {
+        this.client.clientManager = null;
+      }
+      httpRequest.get("/clientservice/clientLost/queryClientChurn", {
+        params: {
+          clientName: this.client.clientName,
+          clientManager: this.client.clientManager,
+          pageNum: this.pageResult.pageNum,
+          pageSize: this.pageResult.pageSize,
+        },
+      })
           .then((response) => {
             if (response.data.resCode === "000000") {
               this.pageResult = response.data.data;
