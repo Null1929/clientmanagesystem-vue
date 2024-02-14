@@ -16,7 +16,7 @@
       </tr>
     </table>
     <br>
-    <table style="border-spacing: 50px 0">
+    <table style="border-spacing: 20px 0">
       <tr>
         <td>ID</td>
         <td>姓名</td>
@@ -30,7 +30,7 @@
         <td>操作</td>
       </tr>
       <br/>
-      <tr v-for="item in pageResult.result" :key="item.id" style="line-height: 50px">
+      <tr v-for="item in pageResult.result" :key="item.id" style="line-height: 40px">
         <td style='font-family:  "微软雅黑",system-ui'>{{ item.id }}</td>
         <td style='font-family:  "微软雅黑",system-ui'>{{ item.name }}</td>
         <td style='font-family:  "微软雅黑",system-ui'>{{ item.username }}</td>

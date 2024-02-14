@@ -16,13 +16,22 @@
           <table style="height: 50px">
             <tr>
               <td>
-                <el-avatar style="height: 80px;width: 80px" :size="50" :src="profileImg"/>
+                <el-avatar :size="70" src="https://empty" @error="errorHandler">
+                  <img :src="profileImg" @click="userProfilePage()"/>
+                </el-avatar>
               </td>
               <td><font style="color: yellow">{{ user.name }} 《 {{ user.identity }} 》</font></td>
               <td>
-                <el-button type="info" icon="el-icon-switch-button" circle @click="exit()">
+                <el-dropdown @command="handleCommand">
+                  <el-button type="primary">
+                    更多菜单<i class="el-icon-arrow-down el-icon--right"></i>
+                  </el-button>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item command="userProfile">个人信息</el-dropdown-item>
+                    <el-dropdown-item command="exit">退出</el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
 
-                </el-button>
               </td>
             </tr>
           </table>
@@ -32,7 +41,7 @@
 
 
     <el-row>
-      <el-col :span="4" width="1px" style="height:100%;background-color:#545c64 ">
+      <el-col :span="4" width="1px" style="height:auto;background-color:#545c64 ">
         <h3 style="background-color:#545c64 ">
           <font color="#7fffd4"> 客户关系管理系统 </font>
         </h3>
@@ -148,7 +157,7 @@
           </el-submenu>
         </el-menu>
       </el-col>
-      <el-col :span="20" style="background-color: #ece9c6;height: 778px">
+      <el-col :span="20" style="background-color: #ece9c6;height: 620px">
         <router-view></router-view>
       </el-col>
     </el-row>
@@ -179,6 +188,9 @@ export default {
   },
 
   methods: {
+    errorHandler() {
+      return true
+    },
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
     },
@@ -202,6 +214,17 @@ export default {
 
       if (sessionStorage.getItem('img') != null) {
         this.circleUrl = sessionStorage.getItem('img');
+      }
+    },
+    userProfilePage() {
+      this.$router.push("/userAdmin/userInfo/userProfile")
+    },
+    handleCommand(command) {
+      if(command==='userProfile'){
+        this.userProfilePage();
+      }
+      if(command==='exit'){
+          this.exit();
       }
     }
   },

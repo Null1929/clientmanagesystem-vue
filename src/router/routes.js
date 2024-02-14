@@ -23,6 +23,11 @@ const routes = [
         name: "createUserInfo",
         component: () => import("../components/pages/user-service/UserInfoManage/createUserInfo")
     },
+    {
+        path: "/userAdmin/userInfo/userProfile",
+        name: "userProfile",
+        component: () => import("../components/pages/user-service/UserInfoManage/userProfile")
+    },
 
     /**
      * userRole

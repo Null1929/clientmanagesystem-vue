@@ -128,12 +128,14 @@ export default {
           });
     },
     query() {
-      httpRequest.post('/saleservice/sale/querySales', {
-        clientName: this.salesOpportunitie.clientName,
-        liaison: this.salesOpportunitie.liaison,
-        summary: this.salesOpportunitie.summary,
-        pageNum: this.pageResult.pageNum,
-        pageSize: this.pageResult.pageSize,
+      httpRequest.get('/saleservice/sale/querySales', {
+        params: {
+          clientName: this.salesOpportunitie.clientName,
+          liaison: this.salesOpportunitie.liaison,
+          summary: this.salesOpportunitie.summary,
+          pageNum: this.pageResult.pageNum,
+          pageSize: this.pageResult.pageSize,
+        }
       })
           .then((response) => {
             if (response.data.resCode === "000000") {
@@ -147,13 +149,33 @@ export default {
 
     designateSale(item) {
       this.$router.push({
-        path:'/salesOpportunities/designateSale',
-        query:item
+        path: '/salesOpportunities/designateSale',
+        query: item
       })
     },
 
     exportExcel() {
+      const a = document.createElement("a");
+      a.href = "http://192.168.31.175:9090/saleservice/sale/exportExcel?"
+      if (this.salesOpportunitie.clientName != null) {
+        +"clientName=" + this.salesOpportunitie.clientName
+      }
+      if (this.salesOpportunitie.liaison != null) {
+        +"&liaison=" + this.salesOpportunitie.liaison
+      }
+      if (this.salesOpportunitie.summary != null) {
+        +"&summary=" + this.salesOpportunitie.summary
+      }
+      if (this.pageResult.pageNum != null) {
+        +"&pageNum=" + this.pageResult.pageNum
+      }
+      if (this.pageResult.pageSize != null) {
+        +"&pageSize=" + this.pageResult.pageSize;
+      }
 
+      a.download = "fileName.xlsx";
+      document.body.append(a);
+      a.click();
     },
     /*******************************************/
     /**
