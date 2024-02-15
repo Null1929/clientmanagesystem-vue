@@ -74,7 +74,7 @@ export default {
     //获取验证码
     getCode() {
       this.generateRandomString(12);
-      httpRequest.get('/userservice/vc.png', {
+      httpRequest.get('/userservice/verifyCode', {
         params: {
           codeName: this.codeName,
         }

@@ -20,7 +20,7 @@
           &nbsp;
           <td>
             <el-button @click="query()" round>查询</el-button>
-            <el-button  round>汇出报表</el-button>
+            <el-button @click="exportExcel()" round>汇出报表</el-button>
           </td>
         </tr>
       </table>
@@ -108,7 +108,7 @@ export default {
 
   methods: {
     query() {
-      httpRequest.post('/clientservice/clientLost/queryClientLost', {
+      httpRequest.get('/clientservice/clientLost/queryClientLost', {
         clientManager: this.clientLost.clientManager,
         clientName: this.clientLost.clientName,
         status: this.clientLost.status,
@@ -148,6 +148,30 @@ export default {
           .then((response) => {
             this.$router.push('/client/ClientLost/confirmedLoss')
           });
+    },
+
+    exportExcel() {
+      const a = document.createElement("a");
+      a.href = "http://192.168.31.175:9090/clientservice/clientLost/exportExcel?"
+      if (this.clientLost.clientManager != null) {
+        +"clientManager=" + this.clientLost.clientManager
+      }
+      if (this.clientLost.clientName != null) {
+        +"&clientName=" + this.clientLost.clientName
+      }
+      if (this.clientLost.status != null) {
+        +"&status=" + this.clientLost.status
+      }
+      if (this.pageResult.pageNum != null) {
+        +"&pageNum=" + this.pageResult.pageNum
+      }
+      if (this.pageResult.pageSize != null) {
+        +"&pageSize=" + this.pageResult.pageSize;
+      }
+
+      a.download = "fileName.xlsx";
+      document.body.append(a);
+      a.click();
     },
 
     /*******************************************/
