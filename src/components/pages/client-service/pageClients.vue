@@ -31,7 +31,7 @@
           &nbsp;
           <td>
             <el-button @click="query()" round>查询</el-button>
-            <el-button  round>汇出报表</el-button>
+            <el-button @click="exportExcel()" round>汇出报表</el-button>
           </td>
         </tr>
       </table>
@@ -191,6 +191,32 @@ export default {
       });
     },
 
+    exportExcel() {
+      const a = document.createElement("a");
+      a.href = "http://192.168.31.175:9090/clientservice/client/exportExcel"
+      if (this.client.clientId != null) {
+        +"?clientId=" + this.client.clientId
+      }
+      if (this.client.clientName != null) {
+        +"&clientName=" + this.client.clientName
+      }
+      if (this.client.clientDegree != null) {
+        +"&clientDegree=" + this.client.clientDegree
+      }
+      if (this.client.clientDistrict != null) {
+        +"&clientDistrict=" + this.client.clientDistrict
+      }
+      if (this.pageResult.pageNum != null) {
+        +"&pageNum=" + this.pageResult.pageNum
+      }
+      if (this.pageResult.pageSize != null) {
+        +"&pageSize=" + this.pageResult.pageSize;
+      }
+
+      a.download = "fileName.xlsx";
+      document.body.append(a);
+      a.click();
+    },
 
     /*******************************************/
     /**
