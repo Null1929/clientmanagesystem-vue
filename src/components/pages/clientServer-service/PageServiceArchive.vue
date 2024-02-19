@@ -41,7 +41,7 @@
         </td>
         <td colspan="2">
           <el-button style="padding-left: 20px" @click="queryClientServer()" round>查询</el-button>
-          <el-button  round>汇出报表</el-button>
+          <el-button @click="exportExcel()" round>汇出报表</el-button>
         </td>
       </tr>
     </table>
@@ -173,9 +173,45 @@ export default {
         }
       });
     },
+
+    exportExcel() {
+      const a = document.createElement("a");
+      a.href = "http://192.168.124.13:9090/clientservice/clientServer/exportExcel"
+
+      if (this.clientServer.clientName != null) {
+        +"?clientName=" + this.clientServer.clientName
+      }
+      if (this.clientServer.outline != null) {
+        +"&outline=" + this.clientServer.outline
+      }
+      if (this.clientServer.serviceType != null) {
+        +"&serviceType=" + this.clientServer.serviceType
+      }
+      if (this.clientServer.status != null) {
+        +"&status=" + this.clientServer.status
+      }
+      if (this.time.startTime != null) {
+        +"&startTime=" + this.time.startTime
+      }
+      if (this.time.endTime != null) {
+        +"&endTime=" + this.time.endTime
+      }
+      if (this.pageResult.pageNum != null) {
+        +"&pageNum=" + this.pageResult.pageNum
+      }
+      if (this.pageResult.pageSize != null) {
+        +"&pageSize=" + this.pageResult.pageSize;
+      }
+
+      a.download = "fileName.xlsx";
+      document.body.append(a);
+      a.click();
+    },
+
     detail(item) {
       this.$router.push({path: '/clientServer/ProcessingServiceArchive', query: item})
     },
+
     del(serverId) {
       httpRequest.get('/clientservice/clientServer/delClientServer', {
         params: {

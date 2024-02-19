@@ -156,7 +156,7 @@ export default {
 
     exportExcel() {
       const a = document.createElement("a");
-      a.href = "http://192.168.31.175:9090/saleservice/sale/exportExcel?"
+      a.href = "http://192.168.124.13:9090/saleservice/sale/exportExcel?"
       if (this.salesOpportunitie.clientName != null) {
         +"clientName=" + this.salesOpportunitie.clientName
       }
