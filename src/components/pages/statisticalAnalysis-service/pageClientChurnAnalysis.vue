@@ -12,7 +12,7 @@
           </td>
           <td style="padding-left: 10px">
             <el-button @click="query()" icon="el-icon-search" round>查询</el-button>
-            <el-button round>汇出报表</el-button>
+            <el-button @click="exportExcel()" round>汇出报表</el-button>
           </td>
         </tr>
       </table>
@@ -108,6 +108,27 @@ export default {
               this.pageResult = response.data.data;
             }
           });
+    },
+
+    exportExcel() {
+      const a = document.createElement("a");
+      a.href = "http://192.168.124.13:9090/clientservice/clientLost/exportExcelForClientChurnAnalysis"
+      if (this.pageResult.pageNum != null) {
+        +"?pageNum=" + this.pageResult.pageNum
+      }
+      if (this.pageResult.pageSize != null) {
+        +"&pageSize=" + this.pageResult.pageSize;
+      }
+      if (this.client.clientName != null) {
+        +"&clientName=" + this.client.clientName
+      }
+      if (this.client.clientName != null) {
+        +"&clientManager=" + this.client.clientManager
+      }
+
+      a.download = "fileName.xlsx";
+      document.body.append(a);
+      a.click();
     },
 
     /*******************************************/
