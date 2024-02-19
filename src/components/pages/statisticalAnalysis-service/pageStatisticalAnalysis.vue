@@ -19,7 +19,7 @@
         </td>
         <td style="padding-left: 20px">
           <el-button @click="query()" icon="el-icon-search" round>查询</el-button>
-          <el-button  round>汇出报表</el-button>
+          <el-button @click="exportExcel()" round>汇出报表</el-button>
         </td>
       </tr>
     </table>
@@ -122,6 +122,26 @@ export default {
       });
     },
 
+    exportExcel() {
+      const a = document.createElement("a");
+      a.href = "http://192.168.124.13:9090/clientservice/clientOrder/exportExcelForStatisticalAnalysis"
+      if (this.pageResult.pageNum != null) {
+        +"?pageNum=" + this.pageResult.pageNum
+      }
+      if (this.pageResult.pageSize != null) {
+        +"&pageSize=" + this.pageResult.pageSize;
+      }
+      if (this.clientName != null) {
+        +"&clientName=" + this.clientName
+      }
+      if (this.year != null) {
+        +"&year=" + this.year
+      }
+
+      a.download = "fileName.xlsx";
+      document.body.append(a);
+      a.click();
+    },
     /*******************************************/
     /**
      * 分页方法
