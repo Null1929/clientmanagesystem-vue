@@ -17,7 +17,7 @@
         &nbsp;&nbsp;&nbsp;
         <td>
           <el-button @click="query()" round>查询</el-button>
-          <el-button  round>汇出报表</el-button>
+          <el-button @click="exportExcel()" round>汇出报表</el-button>
         </td>
       </tr>
     </table>
@@ -131,11 +131,32 @@ export default {
         }
       });
     },
-    update(item){
+    update(item) {
       this.$router.push({
-        path:"/dataBase/inventoryInfo/updateInventoryInfo",
+        path: "/dataBase/inventoryInfo/updateInventoryInfo",
         query: item
       })
+    },
+
+    exportExcel() {
+      const a = document.createElement("a");
+      a.href = "http://192.168.124.13:9090/databaseservice/inventoryInfo/exportExcelForInventoryInfo"
+      if (this.pageResult.pageNum != null) {
+        +"?pageNum=" + this.pageResult.pageNum
+      }
+      if (this.pageResult.pageSize != null) {
+        +"&pageSize=" + this.pageResult.pageSize;
+      }
+      if (this.inventoryInfo.productName != null) {
+        +"&productName=" + this.inventoryInfo.productName
+      }
+      if (this.inventoryInfo.stash != null) {
+        +"&stash=" + this.inventoryInfo.stash
+      }
+
+      a.download = "fileName.xlsx";
+      document.body.append(a);
+      a.click();
     },
     /*******************************************/
     /**
