@@ -22,16 +22,20 @@
             </el-option>
           </el-select>
         </td>
-          &nbsp;
+        &nbsp;
         <td>条目</td>
-        <td><el-input type="number" v-model="dataDictionary.item"/></td>
+        <td>
+          <el-input type="number" v-model="dataDictionary.item"/>
+        </td>
         &nbsp;
         <td>值</td>
-        <td><el-input type="text" v-model="dataDictionary.itemValue"/></td>
+        <td>
+          <el-input type="text" v-model="dataDictionary.itemValue"/>
+        </td>
         &nbsp;&nbsp;
         <td>
           <el-button @click="query()" round>查询</el-button>
-          <el-button  round>汇出报表</el-button>
+          <el-button @click="exportExcel()" round>汇出报表</el-button>
         </td>
       </tr>
     </table>
@@ -111,7 +115,7 @@ export default {
         result: []
       },
 
-      options:["服务类型","客户等级"]
+      options: ["服务类型", "客户等级"]
     };
   },
 
@@ -129,10 +133,10 @@ export default {
           id: id
         }
       }).then((response) => {
-        if(response.data.resCode==="000000"){
+        if (response.data.resCode === "000000") {
           alert(response.data.data);
           this.query();
-        }else {
+        } else {
           alert(response.data.resDesc);
           this.query();
         }
@@ -158,6 +162,30 @@ export default {
       });
     },
 
+    exportExcel() {
+      const a = document.createElement("a");
+      a.href = "http://192.168.124.13:9090/databaseservice/dataDictionary/exportExcelForDataDictionary"
+      if (this.pageResult.pageNum != null) {
+        +"?pageNum=" + this.pageResult.pageNum
+      }
+      if (this.pageResult.pageSize != null) {
+        +"&pageSize=" + this.pageResult.pageSize;
+      }
+      if (this.dataDictionary.category != null) {
+        +"&category=" + this.dataDictionary.category
+      }
+      if (this.dataDictionary.item != null) {
+        +"&item=" + this.dataDictionary.item
+      }
+      if (this.dataDictionary.itemValue != null) {
+        +"&itemValue=" + this.dataDictionary.itemValue
+      }
+
+
+      a.download = "fileName.xlsx";
+      document.body.append(a);
+      a.click();
+    },
     /*******************************************/
     /**
      * 分页方法
