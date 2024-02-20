@@ -38,8 +38,6 @@
         </div>
       </el-header>
     </div>
-
-
     <el-row>
       <el-col :span="4" width="1px" style="height:auto;background-color:#545c64 ">
         <h3 style="background-color:#545c64 ">
@@ -157,7 +155,8 @@
           </el-submenu>
         </el-menu>
       </el-col>
-      <el-col :span="20" style="background-color: #ece9c6;height: 620px">
+
+      <el-col :span="20" style="background-color: #ece9c6;height: 100%">
         <router-view></router-view>
       </el-col>
     </el-row>
@@ -249,9 +248,10 @@ export default {
   color: #2c3e50;
 
   width: 100%;
-  height: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 150px 1fr;
 }
-
 nav {
   padding: 30px;
 }

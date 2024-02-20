@@ -21,7 +21,7 @@ export default {
   justify-content: space-between;
   min-height: 80vh;
   .main{
-    height: 70vh;
+    height: 65vh;
     overflow: auto;
     width: 100%;
   }

@@ -7,7 +7,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 
 Vue.config.productionTip = false
-
+Vue.prototype.$baseurl='http://192.168.124.13:9090'
 
 new Vue({
   router,
