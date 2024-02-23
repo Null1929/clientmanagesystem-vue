@@ -176,30 +176,30 @@ export default {
 
     exportExcel() {
       const a = document.createElement("a");
-      a.href = "http://192.168.124.13:9090/clientservice/clientServer/exportExcel"
+      a.href = `${this.$baseurl}/clientservice/clientServer/exportExcel`
 
-      if (this.clientServer.clientName != null) {
+      if (this.clientServer.clientName !== null) {
         +"?clientName=" + this.clientServer.clientName
       }
-      if (this.clientServer.outline != null) {
+      if (this.clientServer.outline !== null) {
         +"&outline=" + this.clientServer.outline
       }
-      if (this.clientServer.serviceType != null) {
+      if (this.clientServer.serviceType !== null) {
         +"&serviceType=" + this.clientServer.serviceType
       }
-      if (this.clientServer.status != null) {
+      if (this.clientServer.status !== null) {
         +"&status=" + this.clientServer.status
       }
-      if (this.time.startTime != null) {
+      if (this.time.startTime !== null) {
         +"&startTime=" + this.time.startTime
       }
-      if (this.time.endTime != null) {
+      if (this.time.endTime !== null) {
         +"&endTime=" + this.time.endTime
       }
-      if (this.pageResult.pageNum != null) {
+      if (this.pageResult.pageNum !== null) {
         +"&pageNum=" + this.pageResult.pageNum
       }
-      if (this.pageResult.pageSize != null) {
+      if (this.pageResult.pageSize !== null) {
         +"&pageSize=" + this.pageResult.pageSize;
       }
 

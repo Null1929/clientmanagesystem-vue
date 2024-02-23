@@ -1,6 +1,6 @@
 <template>
   <table-style>
-    <table>
+    <table style="border-spacing: 9px 0">
       <tr>
         <td>客户:</td>
         <td>
@@ -44,6 +44,7 @@
         </td>
       </tr>
     </table>
+    <br>
     <table style="width: auto;border-spacing: 50px 0">
       <tr>
         <td>编号</td>

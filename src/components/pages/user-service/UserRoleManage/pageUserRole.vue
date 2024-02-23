@@ -30,7 +30,7 @@
         <td>操作</td>
       </tr>
       <br/>
-      <tr v-for="item in pageResult.result" :key="item.id" style="line-height: 40px">
+      <tr v-for="item in pageResult.result" :key="item.id" style="line-height: 50px">
         <td style='font-family:  "微软雅黑",system-ui'>{{ item.id }}</td>
         <td style='font-family:  "微软雅黑",system-ui'>{{ item.name }}</td>
         <td style='font-family:  "微软雅黑",system-ui'>{{ item.username }}</td>

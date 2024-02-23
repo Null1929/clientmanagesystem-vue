@@ -2,7 +2,7 @@
   <div id="app" width="100%" height="100%">
     <div id="header">
       <el-header>
-        <font size="50px" color="#1e90ff"><b>客户关系管理系统</b></font>
+        <font size="50px" color="#1e90ff"><b>农产品销售管理系统</b></font>
         <div align="right" v-if="!logStatus">
           <router-link to="/user/log">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 22 22">
@@ -16,9 +16,9 @@
           <table style="height: 50px">
             <tr>
               <td>
-                <el-avatar :size="70" src="https://empty" @error="errorHandler">
-                  <img :src="profileImg" @click="userProfilePage()"/>
-                </el-avatar>
+<!--                <el-avatar :size="70" src="https://empty" @error="errorHandler">-->
+<!--                  <img :src="profileImg" @click="userProfilePage()"/>-->
+<!--                </el-avatar>-->
               </td>
               <td><font style="color: yellow">{{ user.name }} 《 {{ user.identity }} 》</font></td>
               <td>
@@ -38,19 +38,21 @@
         </div>
       </el-header>
     </div>
-    <el-row>
+
+
+    <el-row style="background-color: #ece9c6">
       <el-col :span="4" width="1px" style="height:auto;background-color:#545c64 ">
-        <h3 style="background-color:#545c64 ">
-          <font color="#7fffd4"> 客户关系管理系统 </font>
+        <h3 style="background-color:#ece9c6 ">
+          <font color="#1e90ff"> 农产品销售管理系统 </font>
         </h3>
         <el-menu default-active="2"
                  unique-opened
                  class="el-menu-vertical-demo"
                  @open="handleOpen"
                  @close="handleClose"
-                 background-color="#545c64"
-                 text-color="#fff"
-                 active-text-color="#ffd04b">
+                 background-color="#ece9c6"
+                 text-color="black"
+                 active-text-color="#0c53d5">
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-location"></i>
@@ -155,8 +157,7 @@
           </el-submenu>
         </el-menu>
       </el-col>
-
-      <el-col :span="20" style="background-color: #ece9c6;height: 100%">
+      <el-col :span="20" style="background-color: #ece9c6;height: 620px">
         <router-view></router-view>
       </el-col>
     </el-row>
@@ -248,10 +249,9 @@ export default {
   color: #2c3e50;
 
   width: 100%;
-  height: 100vh;
-  display: grid;
-  grid-template-rows: 150px 1fr;
+  height: 100%;
 }
+
 nav {
   padding: 30px;
 }
@@ -262,7 +262,7 @@ nav a {
 }
 
 nav a.router-link-exact-active {
-  color: #42b983;
+  color: #0c53d5;
 }
 
 a {
@@ -271,22 +271,22 @@ a {
 
 /*未访问时的状态*/
 a:link {
-  color: #ffffff
+  color: #05021e
 }
 
 /*已访问的链接*/
 a:visited {
-  color: #ffffff
+  color: #05021e
 }
 
 /*鼠标悬停在a链接*/
 a:hover {
-  color: #0ceac9
+  color: #078def
 }
 
 /*鼠标按住a标签时*/
 a:active {
-  color: #ffffff
+  color: #05021e
 }
 
 .div1, .div2 {

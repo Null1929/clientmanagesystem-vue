@@ -140,17 +140,17 @@ export default {
 
     exportExcel() {
       const a = document.createElement("a");
-      a.href = "http://192.168.124.13:9090/databaseservice/inventoryInfo/exportExcelForInventoryInfo"
-      if (this.pageResult.pageNum != null) {
+      a.href = `${this.$baseurl}/databaseservice/inventoryInfo/exportExcelForInventoryInfo`
+      if (this.pageResult.pageNum !== null) {
         +"?pageNum=" + this.pageResult.pageNum
       }
-      if (this.pageResult.pageSize != null) {
+      if (this.pageResult.pageSize !== null) {
         +"&pageSize=" + this.pageResult.pageSize;
       }
-      if (this.inventoryInfo.productName != null) {
+      if (this.inventoryInfo.productName !== null) {
         +"&productName=" + this.inventoryInfo.productName
       }
-      if (this.inventoryInfo.stash != null) {
+      if (this.inventoryInfo.stash !== null) {
         +"&stash=" + this.inventoryInfo.stash
       }
 

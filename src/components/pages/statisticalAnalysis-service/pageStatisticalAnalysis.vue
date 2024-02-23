@@ -124,7 +124,7 @@ export default {
 
     exportExcel() {
       const a = document.createElement("a");
-      a.href = "http://192.168.124.13:9090/clientservice/clientOrder/exportExcelForStatisticalAnalysis"
+      a.href = `${this.$baseurl}/clientservice/clientOrder/exportExcelForStatisticalAnalysis`
       if (this.pageResult.pageNum != null) {
         +"?pageNum=" + this.pageResult.pageNum
       }

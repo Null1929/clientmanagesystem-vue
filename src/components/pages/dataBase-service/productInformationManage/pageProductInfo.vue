@@ -151,20 +151,20 @@ export default {
 
     exportExcel() {
       const a = document.createElement("a");
-      a.href = "http://192.168.124.13:9090/databaseservice/productInfo/exportExcelForProductInfo"
-      if (this.pageResult.pageNum != null) {
+      a.href = `${this.$baseurl}/databaseservice/productInfo/exportExcelForProductInfo`
+      if (this.pageResult.pageNum !== null) {
         +"?pageNum=" + this.pageResult.pageNum
       }
-      if (this.pageResult.pageSize != null) {
+      if (this.pageResult.pageSize !== null) {
         +"&pageSize=" + this.pageResult.pageSize;
       }
-      if (this.productInfo.productName != null) {
+      if (this.productInfo.productName !== null) {
         +"&productName=" + this.productInfo.productName
       }
-      if (this.productInfo.productType != null) {
+      if (this.productInfo.productType !== null) {
         +"&productType=" + this.productInfo.productType
       }
-      if (this.productInfo.productDegree != null) {
+      if (this.productInfo.productDegree !== null) {
         +"&productDegree=" + this.productInfo.productDegree
       }
 

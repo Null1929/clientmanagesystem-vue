@@ -37,14 +37,14 @@
       </table>
     </template>
     <br>
-    <table style="width: auto;border-spacing: 50px 0">
+    <table style="width: 1400px;">
       <tr>
-        <td>客户编号</td>
-        <td>名称</td>
-        <td>地区</td>
-        <td>客户经理</td>
-        <td>客户等级</td>
-        <td>操作</td>
+        <td style="width: 180px">客户编号</td>
+        <td style="width: 120px">名称</td>
+        <td style="width: 200px">地区</td>
+        <td style="width: 130px">客户经理</td>
+        <td style="width: 120px">客户等级</td>
+        <td style="width: auto">操作</td>
       </tr>
 
       <tr v-for="item in pageResult.result" :key="item.clientId" style="line-height: 50px">
@@ -58,8 +58,8 @@
           <el-button @click="delClient(item.clientId)" round>删除</el-button>
           <el-button @click="liaison(item)" round>联系人</el-button>
           <el-button @click="details(item)" round>详情</el-button>
-          <el-button @click="record(item)" round>交往记录</el-button>
-          <el-button @click="order(item)" round>历史订单</el-button>
+          <el-button @click="record(item)" round>交易记录</el-button>
+          <el-button @click="order(item)" round>订单管理</el-button>
         </td>
       </tr>
     </table>
@@ -193,23 +193,23 @@ export default {
 
     exportExcel() {
       const a = document.createElement("a");
-      a.href = "http://192.168.124.13:9090/clientservice/client/exportExcel"
-      if (this.client.clientId != null) {
+      a.href = `${this.$baseurl}/clientservice/client/exportExcel`
+      if (this.client.clientId !== null) {
         +"?clientId=" + this.client.clientId
       }
-      if (this.client.clientName != null) {
+      if (this.client.clientName !== null) {
         +"&clientName=" + this.client.clientName
       }
-      if (this.client.clientDegree != null) {
+      if (this.client.clientDegree !== null) {
         +"&clientDegree=" + this.client.clientDegree
       }
-      if (this.client.clientDistrict != null) {
+      if (this.client.clientDistrict !== null) {
         +"&clientDistrict=" + this.client.clientDistrict
       }
-      if (this.pageResult.pageNum != null) {
+      if (this.pageResult.pageNum !== null) {
         +"&pageNum=" + this.pageResult.pageNum
       }
-      if (this.pageResult.pageSize != null) {
+      if (this.pageResult.pageSize !== null) {
         +"&pageSize=" + this.pageResult.pageSize;
       }
 

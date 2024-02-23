@@ -164,20 +164,20 @@ export default {
 
     exportExcel() {
       const a = document.createElement("a");
-      a.href = "http://192.168.124.13:9090/databaseservice/dataDictionary/exportExcelForDataDictionary"
-      if (this.pageResult.pageNum != null) {
+      a.href = `${this.$baseurl}/databaseservice/dataDictionary/exportExcelForDataDictionary`
+      if (this.pageResult.pageNum !== null) {
         +"?pageNum=" + this.pageResult.pageNum
       }
-      if (this.pageResult.pageSize != null) {
+      if (this.pageResult.pageSize !== null) {
         +"&pageSize=" + this.pageResult.pageSize;
       }
-      if (this.dataDictionary.category != null) {
+      if (this.dataDictionary.category !== null) {
         +"&category=" + this.dataDictionary.category
       }
-      if (this.dataDictionary.item != null) {
+      if (this.dataDictionary.item !== null) {
         +"&item=" + this.dataDictionary.item
       }
-      if (this.dataDictionary.itemValue != null) {
+      if (this.dataDictionary.itemValue !== null) {
         +"&itemValue=" + this.dataDictionary.itemValue
       }
 

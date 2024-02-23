@@ -157,19 +157,19 @@ export default {
     exportExcel() {
       const a = document.createElement("a");
       a.href = `${this.$baseurl}/saleservice/sale/exportExcel?`
-      if (this.salesOpportunitie.clientName != null) {
+      if (this.salesOpportunitie.clientName !== null) {
         +"clientName=" + this.salesOpportunitie.clientName
       }
-      if (this.salesOpportunitie.liaison != null) {
+      if (this.salesOpportunitie.liaison !== null) {
         +"&liaison=" + this.salesOpportunitie.liaison
       }
-      if (this.salesOpportunitie.summary != null) {
+      if (this.salesOpportunitie.summary !== null) {
         +"&summary=" + this.salesOpportunitie.summary
       }
-      if (this.pageResult.pageNum != null) {
+      if (this.pageResult.pageNum !== null) {
         +"&pageNum=" + this.pageResult.pageNum
       }
-      if (this.pageResult.pageSize != null) {
+      if (this.pageResult.pageSize !== null) {
         +"&pageSize=" + this.pageResult.pageSize;
       }
 

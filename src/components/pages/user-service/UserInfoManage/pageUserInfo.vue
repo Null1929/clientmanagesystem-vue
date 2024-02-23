@@ -26,7 +26,7 @@
           </td>
           <td>
             <el-button @click="query" round>查询</el-button>
-            <el-button round>汇出报表</el-button>
+            <el-button @click="exportExcel()" round>汇出报表</el-button>
           </td>
         </tr>
       </table>
@@ -158,6 +158,33 @@ export default {
         path: "/userAdmin/userInfo/updateUserInfo",
         query: item
       })
+    },
+
+    exportExcel() {
+      const a = document.createElement("a");
+      a.href = `${this.$baseurl}/userservice/userInfo/exportExcel`
+      if (this.pageResult.pageNum !== null) {
+        +"?pageNum=" + this.pageResult.pageNum
+      }
+      if (this.pageResult.pageSize !== null) {
+        +"&pageSize=" + this.pageResult.pageSize;
+      }
+      if (this.user.id !== null) {
+        +"id=" + this.user.id
+      }
+      if (this.user.phone !== null) {
+        +"&phone=" + this.user.phone
+      }
+      if (this.user.workId !== null) {
+        +"&workId=" + this.user.workId
+      }
+      if (this.user.accountLevel !== null) {
+        +"&accountLevel=" + this.user.accountLevel
+      }
+
+      a.download = "fileName.xlsx";
+      document.body.append(a);
+      a.click();
     },
     /*******************************************/
     /**
