@@ -46,8 +46,8 @@
         <td>{{ client.clientFax }}</td>
       </tr>
       <tr>
-        <td>网址</td>
-        <td>{{ client.clientUrl }}</td>
+        <td>邮箱</td>
+        <td>{{ client.clientEmail }}</td>
       </tr>
       <tr>
         <td>营业执照注册号</td>
@@ -135,7 +135,7 @@ export default {
         clientPostcode: null,
         clientNumber: null,
         clientFax: null,
-        clientUrl: null,
+        clientEmail: null,
         clientLicense: null,
         clientCorporation: null,
         clientRegisteredcapital: null,

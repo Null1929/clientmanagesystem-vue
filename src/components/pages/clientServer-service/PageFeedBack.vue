@@ -62,7 +62,6 @@
         <td>{{ item.serviceType }}</td>
         <td>{{ item.creator }}</td>
         <td>{{ item.createTime }}</td>
-        <td></td>
         <td>
           <el-button @click="feedBack(item)" round>反馈</el-button>
           <el-button @click="del(item.serverId)" round>删除</el-button>
