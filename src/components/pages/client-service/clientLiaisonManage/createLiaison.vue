@@ -36,13 +36,7 @@
         </td>
       </tr>
       <tr>
-        <td>办公电话</td>
-        <td>
-          <el-input type="number" v-model="liaison.officePhone"/>
-        </td>
-      </tr>
-      <tr>
-        <td>手机</td>
+        <td>手机号</td>
         <td>
           <el-input type="number" v-model="liaison.phone"/>
         </td>
@@ -81,9 +75,8 @@ export default {
         name: null,
         sex: null,
         position: null,
-        officePhone: null,
         phone: null,
-        notes: '无',
+        notes: null,
       },
       options:['男','女'],
     };

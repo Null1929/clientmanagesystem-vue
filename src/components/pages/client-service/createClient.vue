@@ -9,7 +9,7 @@
           <el-input type="text" v-model="client.clientId" disabled/>
         </td>
         <td>
-          <label>名称</label>
+          <label>客户名称</label>
         </td>
         <td>
           <el-input type="text" v-model="client.clientName"/>
@@ -41,7 +41,7 @@
                 v-for="target in clientDegreeList"
                 :key="target.item"
                 :label="target.itemValue"
-                :value="target.itemValue">
+                :value="target.item">
             </el-option>
           </el-select>
         </td>
@@ -107,10 +107,10 @@
 
       <tr>
         <td>
-          <label>网址</label>
+          <label>邮箱</label>
         </td>
         <td>
-          <el-input type="text" v-model="client.clientUrl"/>
+          <el-input type="text" v-model="client.clientEmail"/>
         </td>
       </tr>
 
@@ -210,7 +210,7 @@ export default {
         clientPostcode: null,
         clientNumber: null,
         clientFax: null,
-        clientUrl: null,
+        clientEmail: null,
         clientLicense: null,
         clientCorporation: null,
         clientRegisteredcapital: null,
@@ -267,7 +267,6 @@ export default {
               this.$router.push('/client/pageClients')
             } else {
               alert(response.data.resDesc);
-              window.location.reload();
             }
           });
     },

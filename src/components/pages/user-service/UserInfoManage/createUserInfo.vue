@@ -11,7 +11,7 @@
       </tr>
       <tr>
         <td>
-          <label>手机号:</label>
+          <label>账号/手机号:</label>
         </td>
         <td>
           <el-input v-model="user.phone" placeholder="请输入手机号"/>
@@ -35,14 +35,6 @@
       </tr>
       <tr>
         <td>
-          <label>工号:</label>
-        </td>
-        <td>
-          <el-input v-model="user.workId" placeholder="请输入工号"/>
-        </td>
-      </tr>
-      <tr>
-        <td>
           <label>身份:</label>
         </td>
         <td>
@@ -54,7 +46,7 @@
           <label>等级:</label>
         </td>
         <td>
-          <el-input v-model="user.accountLevel" placeholder="请输入等级"/>
+          <el-input type="number" v-model="user.accountLevel" placeholder="请输入等级"/>
         </td>
       </tr>
       <tr>
@@ -78,7 +70,6 @@ export default {
         phone: '',
         password: '',
         name: '',
-        workId: null,
         identity: null,
         accountLevel: null
       }
@@ -94,7 +85,6 @@ export default {
       if (this.user.phone !== '' && this.user.password !== '') {
         httpRequest.post('/userservice/userInfo/createUserInfo', {
           ...this.user,
-          workId: Number(this.user.workId),
           accountLevel: Number(this.user.accountLevel)
         })
             .then((response) => {

@@ -82,7 +82,6 @@ export default {
         name: null,
         sex: null,
         position: null,
-        officePhone: null,
         phone: null,
         notes: null,
       },

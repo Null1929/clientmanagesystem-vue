@@ -116,7 +116,6 @@ export default {
           }
         })
             .then((response) => {
-              console.log(response.data)
               if (response.data.resCode === "000000") {
                 sessionStorage.setItem("token", response.data.data.token);
                 sessionStorage.setItem("username", response.data.data.name);
@@ -124,6 +123,7 @@ export default {
                 sessionStorage.setItem("accountLevel", response.data.data.accountLevel);
                 sessionStorage.setItem("profileImg",response.data.data.profileImg);
                 this.$router.push('/')
+                window.location.reload()
               } else {
                 //刷新验证码，因为后端会自动删除验证码
                 this.getCode();

@@ -20,7 +20,6 @@
         <td>姓名</td>
         <td>性别</td>
         <td>职位</td>
-        <td>办公电话</td>
         <td>手机</td>
         <td>备注</td>
         <td>操作</td>
@@ -29,7 +28,6 @@
         <td>{{ item.name }}</td>
         <td>{{ item.sex }}</td>
         <td>{{ item.position }}</td>
-        <td>{{ item.officePhone }}</td>
         <td>{{ item.phone }}</td>
         <td>{{ item.notes }}</td>
         <td>
@@ -63,7 +61,6 @@ export default {
         name: null,
         sex: null,
         position: null,
-        officePhone: null,
         phone: null,
         notes: null,
       }

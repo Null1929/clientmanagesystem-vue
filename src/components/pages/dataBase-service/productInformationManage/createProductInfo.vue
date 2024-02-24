@@ -11,13 +11,13 @@
         </td>
       </tr>
       <tr>
-        <td>名称</td>
+        <td>产品名称</td>
         <td>
           <el-input type="text" v-model="productInfo.productName"/>
           </td>
       </tr>
       <tr>
-        <td>类型</td>
+        <td>产品类型</td>
         <td>
           <el-input type="text" v-model="productInfo.productType"/>
         </td>
