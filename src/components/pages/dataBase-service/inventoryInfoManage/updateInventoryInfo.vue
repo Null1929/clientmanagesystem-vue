@@ -72,7 +72,7 @@ export default {
   },
   methods: {
     save() {
-      httpRequest.post("/databaseservice/inventoryInfo/updateInventoryInfo", this.inventoryInfo).then(response => {
+      httpRequest.put("/databaseservice/inventoryInfo/updateInventoryInfo", this.inventoryInfo).then(response => {
         if (response.data.resCode === "000000") {
           alert(response.data.data)
           this.$router.push("/dataBase/inventoryInfo/pageInventoryInfo");

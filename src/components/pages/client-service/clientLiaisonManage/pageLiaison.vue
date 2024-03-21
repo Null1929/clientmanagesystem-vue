@@ -96,7 +96,7 @@ export default {
       })
     },
     delLiaison(id) {
-      httpRequest.get('/clientservice/clientLiaison/delLiaison', {
+      httpRequest.delete('/clientservice/clientLiaison/delLiaison', {
         params: {
           id: id
         }

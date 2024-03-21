@@ -153,7 +153,7 @@ export default {
       })
     },
     delContactRecord(id) {
-      httpRequest.get('/clientservice/contactRecord/delCustomerPlan', {
+      httpRequest.delete('/clientservice/contactRecord/delCustomerPlan', {
         params: {
           id: id
         }

@@ -153,7 +153,7 @@ export default {
 
   methods: {
     updateCustomerPlan() {
-      httpRequest.post('/saleservice/customerPlan/updateCustomerPlan', this.customerPlan)
+      httpRequest.put('/saleservice/customerPlan/updateCustomerPlan', this.customerPlan)
           .then((response) => {
             if (response.data.resCode === "000000") {
               alert(response.data.data);

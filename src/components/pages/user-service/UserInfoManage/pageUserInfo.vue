@@ -139,7 +139,7 @@ export default {
       this.$router.push("/userAdmin/userInfo/createUserInfo")
     },
     deleteById(id) {
-      httpRequest.get('/userservice/userInfo/delUserInfo', {
+      httpRequest.delete('/userservice/userInfo/delUserInfo', {
         params: {
           id
         }

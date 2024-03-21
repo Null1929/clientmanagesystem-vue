@@ -69,7 +69,7 @@ export default {
             if (this.catcheClientLost.tmpReprieve == null) {
                 this.catcheClientLost.tmpReprieve = ''
             }
-            httpRequest.post('/clientservice/clientLost/confirmedLoss', {
+            httpRequest.put('/clientservice/clientLost/confirmedLoss', {
                 clientId: this.catcheClientLost.clientId,
                 clientName: this.catcheClientLost.clientName,
                 clientManager: this.catcheClientLost.clientManager,

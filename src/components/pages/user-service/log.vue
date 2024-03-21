@@ -30,7 +30,10 @@
             <el-input class="input" placeholder="请输入验证码" v-model="user.kaptcha"></el-input>
           </td>
           <td id="codeBox">
-            <el-image class="input" :src="codeImg" @click="getCode()">看不清，换一张</el-image>
+            <el-image style="width: 120px;" class="input" :src="codeImg" @click="getCode()"></el-image>
+          </td>
+          <td>
+            <label>(有效期:30秒)</label>
           </td>
         </tr>
         <br>
@@ -80,11 +83,10 @@ export default {
         }
       })
           .then((response) => {
-           if(response.data.resCode==="000000") {
-             this.codeImg = 'data:image/png;base64,' + response.data.data;
-           }
-           else {
-             alert("服务器端异常！");
+            if (response.data.resCode === "000000") {
+              this.codeImg = 'data:image/png;base64,' + response.data.data;
+            } else {
+              alert(response.data.resDesc);
             }
           });
     },
@@ -115,19 +117,18 @@ export default {
 
           }
         })
-            .then((response) => {
+            .then(response => {
               if (response.data.resCode === "000000") {
                 sessionStorage.setItem("token", response.data.data.token);
                 sessionStorage.setItem("username", response.data.data.name);
                 sessionStorage.setItem("identity", response.data.data.identity);
                 sessionStorage.setItem("accountLevel", response.data.data.accountLevel);
-                sessionStorage.setItem("profileImg",response.data.data.profileImg);
+                sessionStorage.setItem("profileImg", response.data.data.profileImg);
                 this.$router.push('/')
-                window.location.reload()
               } else {
                 //刷新验证码，因为后端会自动删除验证码
-                this.getCode();
                 alert(response.data.resDesc);
+                this.getCode();
               }
             });
       } else {

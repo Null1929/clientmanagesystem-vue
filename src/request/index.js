@@ -2,7 +2,7 @@ import axios from 'axios';
 import {Loading} from 'element-ui';
 import router from '@/router';
 
-var host = "/api";
+const host = "/api";
 const httpRequest = axios.create({
     baseURL: host,
     timeout: 50 * 1000,
@@ -10,7 +10,7 @@ const httpRequest = axios.create({
 
 const controller = new AbortController();
 
-var loading = null;
+let loading = null;
 //创建请求拦截器
 httpRequest.interceptors.request.use(config => {
 
@@ -18,9 +18,9 @@ httpRequest.interceptors.request.use(config => {
     /**
      * 只有当用户登录之后才可以进行其他的数据访问，否则将会跳转到登录页面
      */
-    if (config.url.match('user') == null) {
-        if(config.url.match("vc.png")==null) {
-            if (sessionStorage.length == 0) {
+    if (config.url.match('user') === null) {
+        if(config.url.match("vc.png")===null) {
+            if (sessionStorage.length === 0) {
                 controller.abort()
                 router.push('/user/log')
             }

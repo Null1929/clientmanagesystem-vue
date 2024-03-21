@@ -135,7 +135,7 @@ export default {
           });
     },
     confirmedLoss(item, index) {
-      httpRequest.post('/clientservice/clientLost/catcheData', {
+      httpRequest.put('/clientservice/clientLost/catcheData', {
         index: index,
         clientId: item.clientId,
         clientName: item.clientName,

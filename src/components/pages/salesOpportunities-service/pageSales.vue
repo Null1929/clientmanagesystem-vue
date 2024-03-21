@@ -112,7 +112,7 @@ export default {
 
   methods: {
     delOne(item) {
-      httpRequest.get('/saleservice/sale/delOne', {
+      httpRequest.delete('/saleservice/sale/delOne', {
         params: {
           clientId: item,
         }

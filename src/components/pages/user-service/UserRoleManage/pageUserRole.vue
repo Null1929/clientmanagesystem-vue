@@ -139,7 +139,7 @@ export default {
       });
     },
     deleteById(id) {
-      httpRequest.get('/userservice/userRole/delUserRole', {
+      httpRequest.delete('/userservice/userRole/delUserRole', {
         params: {
           id
         }

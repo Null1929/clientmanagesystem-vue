@@ -82,7 +82,7 @@ export default {
   },
   methods: {
     update() {
-      httpRequest.post("/databaseservice/productInfo/updateProductInfo", this.productInfo)
+      httpRequest.put("/databaseservice/productInfo/updateProductInfo", this.productInfo)
           .then(response => {
             if (response.data.resCode === "000000") {
               alert(response.data.data);

@@ -92,7 +92,7 @@ export default {
   methods: {
     save() {
       if (this.user.phone !== '' && this.user.password !== '') {
-        httpRequest.post('/userservice/userInfo/updateUserInfo', {
+        httpRequest.put('/userservice/userInfo/updateUserInfo', {
           ...this.user,
           workId: Number(this.user.workId),
           accountLevel: Number(this.user.accountLevel)

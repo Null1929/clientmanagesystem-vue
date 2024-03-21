@@ -130,7 +130,7 @@ export default {
 
   methods: {
     update() {
-      httpRequest.post('/saleservice/sale/updateSales', this.salesOpportunitie)
+      httpRequest.put('/saleservice/sale/updateSales', this.salesOpportunitie)
           .then((response) => {
 
             if (response.data.resCode === "000000") {

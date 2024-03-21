@@ -146,7 +146,7 @@ export default {
     },
 
     save() {
-        httpRequest.post('/userservice/userRole/updateUserRole', this.user)
+        httpRequest.put('/userservice/userRole/updateUserRole', this.user)
             .then((response) => {
               if (response.data.resCode === "000000") {
                 alert(response.data.data);

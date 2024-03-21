@@ -128,7 +128,7 @@ export default {
       this.$router.push('/dataBase/DataDictionary/createDataDictionary')
     },
     deleted(id) {
-      httpRequest.get('/databaseservice/dataDictionary/deleteDataDictionary', {
+      httpRequest.delete('/databaseservice/dataDictionary/deleteDataDictionary', {
         params: {
           id: id
         }
@@ -180,7 +180,6 @@ export default {
       if (this.dataDictionary.itemValue !== null) {
         +"&itemValue=" + this.dataDictionary.itemValue
       }
-
 
       a.download = "fileName.xlsx";
       document.body.append(a);

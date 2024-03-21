@@ -164,6 +164,8 @@
   </div>
 </template>
 <script>
+import httpRequest from "@/request";
+
 export default {
   name: 'ClientmanagesystemIndex',
   data() {
@@ -198,6 +200,13 @@ export default {
       console.log(key, keyPath);
     },
     exit() {
+      httpRequest.get('/userservice/logout', {
+
+      })
+          .then((response) => {
+            console.log(response.data)
+          });
+
       this.user = null;
       sessionStorage.clear();
       this.$router.push("/")
@@ -219,6 +228,7 @@ export default {
     userProfilePage() {
       this.$router.push("/userAdmin/userInfo/userProfile")
     },
+
     handleCommand(command) {
       if(command==='userProfile'){
         this.userProfilePage();

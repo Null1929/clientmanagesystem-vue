@@ -78,7 +78,7 @@ export default {
       this.$router.push('/dataBase/DataDictionary/pageDataDictionary')
     },
     updateDataDictionary() {
-      httpRequest.post('/databaseservice/dataDictionary/updateDataDictionary', {
+      httpRequest.put('/databaseservice/dataDictionary/updateDataDictionary', {
         id: this.dataDictionary.id,
         category: this.dataDictionary.category,
         item: this.dataDictionary.item,

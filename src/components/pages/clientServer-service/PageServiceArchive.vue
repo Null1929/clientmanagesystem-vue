@@ -213,7 +213,7 @@ export default {
     },
 
     del(serverId) {
-      httpRequest.get('/clientservice/clientServer/delClientServer', {
+      httpRequest.delete('/clientservice/clientServer/delClientServer', {
         params: {
           serverId: serverId,
         }

@@ -103,7 +103,7 @@ export default {
   },
   methods: {
     save() {
-      httpRequest.post("/clientservice/clientOrder/updateNeoOrderDetail", this.orderDetail).then(response => {
+      httpRequest.put("/clientservice/clientOrder/updateNeoOrderDetail", this.orderDetail).then(response => {
         if (response.data.resCode === "000000") {
           alert(response.data.data);
           this.$router.push({

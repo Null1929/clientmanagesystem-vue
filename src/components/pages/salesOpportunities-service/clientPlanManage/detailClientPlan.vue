@@ -202,7 +202,7 @@ export default {
       });
     },
     delCustomerPlan(id) {
-      httpRequest.get('/saleservice/customerPlan/delCustomerPlan', {
+      httpRequest.delete('/saleservice/customerPlan/delCustomerPlan', {
         params: {
           id: id
         }

@@ -147,7 +147,7 @@ export default {
       })
     },
     delClient(clientId) {
-      httpRequest.get('/clientservice/client/delClient', {
+      httpRequest.delete('/clientservice/client/delClient', {
         params: {
           clientId: clientId,
         }

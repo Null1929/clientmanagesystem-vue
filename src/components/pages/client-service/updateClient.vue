@@ -169,7 +169,7 @@ export default {
 
   methods: {
     updateClient() {
-      httpRequest.post('/clientservice/client/updateClient', this.client)
+      httpRequest.put('/clientservice/client/updateClient', this.client)
           .then((response) => {
             if (response.data.resCode === "000000") {
               alert(response.data.data);

@@ -97,7 +97,7 @@ export default {
 
   methods: {
     updateLiaison() {
-      httpRequest.post('/clientservice/clientLiaison/updateLiaison', this.liaison)
+      httpRequest.put('/clientservice/clientLiaison/updateLiaison', this.liaison)
           .then((response) => {
             if (response.data.resCode === '000000') {
               alert(response.data.data);

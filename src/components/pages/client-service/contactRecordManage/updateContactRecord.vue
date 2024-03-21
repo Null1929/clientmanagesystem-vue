@@ -65,7 +65,7 @@ export default {
 
   methods: {
     update() {
-      httpRequest.post("/clientservice/contactRecord/updateContactRecord", {
+      httpRequest.put("/clientservice/contactRecord/updateContactRecord", {
         clientId: Number(this.contactRecord.clientId),
         id: Number(this.contactRecord.id),
         contactDate: this.contactRecord.contactDate,

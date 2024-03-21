@@ -185,7 +185,7 @@ export default {
       });
     },
     distributionBtn(item) {
-      httpRequest.post('/clientservice/clientServer/distributionBtn', item)
+      httpRequest.put('/clientservice/clientServer/distributionBtn', item)
           .then(response => {
             if (response.data.resCode === "000000") {
               alert(response.data.data);
@@ -196,7 +196,7 @@ export default {
           });
     },
     del(serverId) {
-      httpRequest.get('/clientservice/clientServer/delClientServer', {
+      httpRequest.delete('/clientservice/clientServer/delClientServer', {
         params: {
           serverId: serverId,
         }

@@ -119,7 +119,7 @@ export default {
       if (this.clientServer.customerSatisfaction == null) {
         this.clientServer.customerSatisfaction = 0
       }
-      httpRequest.post('/clientservice/clientServer/saveFeedBack', this.clientServer).then(response => {
+      httpRequest.put('/clientservice/clientServer/saveFeedBack', this.clientServer).then(response => {
         if (response.data.resCode === "000000") {
           alert(response.data.data);
           this.$router.push('/clientServer/PageFeedBack')

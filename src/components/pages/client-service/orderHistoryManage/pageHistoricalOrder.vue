@@ -141,7 +141,7 @@ export default {
       })
     },
     delOne(id) {
-      httpRequest.get('/clientservice/clientOrder/deleteOrder', {
+      httpRequest.delete('/clientservice/clientOrder/deleteOrder', {
         params: {
           id
         }
