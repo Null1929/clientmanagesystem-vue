@@ -120,10 +120,10 @@ export default {
           .then((response) => {
             if (response.data.resCode === "000000") {
               alert(response.data.data);
-              window.location.reload();
+              this.query();
             } else {
               alert(response.data.data);
-              window.location.reload();
+              this.query();
             }
           });
     },

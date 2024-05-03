@@ -129,7 +129,6 @@ export default {
               this.$router.push('/salesOpportunities/pageSales')
             } else {
               alert(response.data.resDesc);
-              window.location.reload();
             }
           });
     }

@@ -5,11 +5,14 @@
         <tr>
           <td>报表方式</td>
           <td>
-            <select name="" id="" v-model="reportMode">
-              <option value="1">按等级</option>
-              <option value="2">按信用度</option>
-              <option value="3">按满意度</option>
-            </select>
+            <el-select v-model="reportMode" placeholder="请选择">
+              <el-option
+                  v-for="item in reportModeList"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+              </el-option>
+            </el-select>
           </td>
           <td>
             <el-button @click="query()" icon="el-icon-search" round>查询</el-button>
@@ -26,7 +29,7 @@
 
       <tr v-for="(item, index) in clientDataList" :key="item.clientDegree">
         <td>{{ index + 1 }}</td>
-        <td>{{item.clientDegreeName}}</td>
+        <td>{{ item.clientDegreeName }}</td>
         <td>{{ item.number }}</td>
       </tr>
     </table>
@@ -48,6 +51,20 @@ export default {
     return {
       reportMode: 1,
       clientDataList: [],
+      reportModeList: [
+        {
+          label: "按等级",
+          value: 1
+        },
+        {
+          label: "按信用度",
+          value: 2
+        },
+        {
+          label: "按满意度",
+          value: 3
+        },
+      ]
     };
   },
 

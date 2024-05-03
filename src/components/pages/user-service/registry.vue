@@ -6,10 +6,10 @@
       <table>
         <tr>
           <td class="text-modern">
-            <label style="color: #494950">上传头像:</label>
+            <label style="color: #494950">邮箱:</label>
           </td>
           <td>
-
+            <el-input class="input" v-model="user.email" placeholder="邮箱"></el-input>
           </td>
         </tr>
         <br>
@@ -78,7 +78,8 @@ export default {
         password: null,
         name: null,
         identity: "普通用户",
-        accountLevel: 1
+        accountLevel: 1,
+        email: null
       },
 
       imageUrl: ''
