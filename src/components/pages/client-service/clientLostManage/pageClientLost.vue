@@ -109,45 +109,29 @@ export default {
   methods: {
     query() {
       httpRequest.get('/clientservice/clientLost/queryClientLost', {
-        clientManager: this.clientLost.clientManager,
-        clientName: this.clientLost.clientName,
-        status: this.clientLost.status,
-        pageNum: this.pageResult.pageNum,
-        pageSize: this.pageResult.pageSize
+        params:{
+          clientManager: this.clientLost.clientManager,
+          clientName: this.clientLost.clientName,
+          status: this.clientLost.status,
+          pageNum: this.pageResult.pageNum,
+          pageSize: this.pageResult.pageSize
+        }
       })
           .then((response) => {
             this.pageResult = response.data.data
           });
     },
     reprieve(item, index) {
-      httpRequest.post('/clientservice/clientLost/catcheData', {
-        index: index,
-        clientId: item.clientId,
-        clientName: item.clientName,
-        clientManager: item.clientManager,
-        lastOrderDate: item.lastOrderDate,
-        lostTime: item.lostTime,
-        reprieve: item.reprieve,
-        status: item.status,
+      this.$router.push({
+        path: '/client/ClientLost/deferredLoss',
+        query: item
       })
-          .then((response) => {
-            this.$router.push('/client/ClientLost/deferredLoss')
-          });
     },
     confirmedLoss(item, index) {
-      httpRequest.put('/clientservice/clientLost/catcheData', {
-        index: index,
-        clientId: item.clientId,
-        clientName: item.clientName,
-        clientManager: item.clientManager,
-        lastOrderDate: item.lastOrderDate,
-        lostTime: item.lostTime,
-        reprieve: item.reprieve,
-        status: item.status,
+      this.$router.push({
+        path: '/client/ClientLost/confirmedLoss',
+        query: item
       })
-          .then((response) => {
-            this.$router.push('/client/ClientLost/confirmedLoss')
-          });
     },
 
     exportExcel() {

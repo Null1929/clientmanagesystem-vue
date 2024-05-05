@@ -30,13 +30,15 @@ httpRequest.interceptors.request.use(config => {
     config.headers.set("Token", sessionStorage.getItem('token'));
 
     //开启加载loading
-    loading = Loading.service({
-        lock: true,
-        text: '加载中。。。',
-        spinner: 'el-icon-loading',
-        background: 'rgba(0, 0, 0, 0.7)',
-    });
-    return config;
+    if (config.url.match('chat') === null) {
+        loading = Loading.service({
+            lock: true,
+            text: '加载中。。。',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 0.7)',
+        });
+    }
+        return config;
 }, error => {
     return Promise.reject(error);
 });
@@ -45,11 +47,15 @@ httpRequest.interceptors.request.use(config => {
 httpRequest.interceptors.response.use(response => {
 
     //关闭加载loading
-    loading.close();
+   if (loading != null){
+       loading.close();
+   }
 
     return response;
 }, error => {
-    loading.close();
+    if (loading != null){
+        loading.close();
+    }
     return Promise.reject("错误");
 })
 

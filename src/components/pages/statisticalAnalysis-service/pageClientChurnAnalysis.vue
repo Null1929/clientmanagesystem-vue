@@ -19,15 +19,15 @@
     <table style="width:50vw">
       <tr>
         <td>编号</td>
-        <td>年份</td>
+        <td>流失时间</td>
         <td>客户</td>
         <td>客户经理</td>
         <td>流失原因</td>
       </tr>
 
-      <tr v-for="item in pageResult.result" :key="item.clientId">
+      <tr v-for="item in pageResult.result" :key="item.clientId" style="line-height: 50px;">
         <td>{{ item.clientId }}</td>
-        <td>{{ item.lostTime.substring(0, 4) }}</td>
+        <td>{{ item.lostTime }}</td>
         <td>{{ item.clientName }}</td>
         <td>{{ item.clientManager }}</td>
         <td>{{ item.lostReason }}</td>

@@ -75,7 +75,7 @@
           <td>
             <el-button @click="endPage()" id="endPage" round>最后一页</el-button>
           </td>
-          <td>转到<input type="text" style="width: 50px" v-model="pageResult.forward">页
+          <td>转到<el-input type="text" style="width: 50px" v-model="pageResult.forward"/>页
             <el-button @click="forward()" round>Go</el-button>
           </td>
         </tr>

@@ -3,28 +3,28 @@
     <div id="main">
 
       <table>
-        <th colspan="2">
+        <th colspan="2" style="text-align: center">
           <h1>用户登录</h1>
         </th>
         <tr>
-          <td>
-            <label>账号:</label>
+          <td style="width: 70px;text-align: right" >
+            <b>账号:</b>
           </td>
           <td id="inputBox">
             <el-input class="input" v-model="user.username" placeholder="请输入账号"></el-input>
           </td>
         </tr>
         <tr>
-          <td>
-            <label>密码:</label>
+          <td style="width: 70px;text-align: right">
+            <b>密码:</b>
           </td>
           <td>
             <el-input class="input" placeholder="请输入密码" v-model="user.password" show-password></el-input>
           </td>
         </tr>
         <tr>
-          <td>
-            <label>验证码:</label>
+          <td style="width: 70px;text-align: right">
+            <b>验证码:</b>
           </td>
           <td>
             <el-input class="input" placeholder="请输入验证码" v-model="user.kaptcha"></el-input>

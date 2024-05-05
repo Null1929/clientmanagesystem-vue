@@ -13,9 +13,9 @@
     </template>
     <table>
       <tr>
-        <td>客户名称: <input type="text" v-model="salesOpportunitie.clientName" @keyup.enter="query()"></td>
-        <td>概要: <input type="text" v-model="salesOpportunitie.summary" @keyup.enter="query()"></td>
-        <td>联系人: <input type="text" v-model="salesOpportunitie.liaison" @keyup.enter="query()"></td>
+        <td>客户名称:</td> <td> <el-input type="text" v-model="salesOpportunitie.clientName" @keyup.enter="query()"/></td>
+        <td>概要: </td> <td><el-input type="text" v-model="salesOpportunitie.summary" @keyup.enter="query()"/></td>
+        <td>联系人: </td> <td><el-input type="text" v-model="salesOpportunitie.liaison" @keyup.enter="query()"/></td>
         <td>
           <el-button @click="query()" icon="el-icon-search" round>查询</el-button>
           <el-button @click="exportExcel()" icon="el-icon-download" round>汇出报表</el-button>
@@ -40,9 +40,9 @@
         <td>{{ item.liaisonPhone }}</td>
         <td>{{ item.creationTime }}</td>
         <td>
-          <el-button v-if="item.principal == null" @click="designateSale(item)" round>指派</el-button>
+          <el-button v-if="item.principal == null" @click="designateSale(item)" icon="el-icon-edit" type="primary" round>指派</el-button>
           <el-button @click="delOne(item.clientId)" type="danger" icon="el-icon-delete" round>删除</el-button>
-          <el-button @click="update(item)" type="primary" icon="el-icon-edit" round>修改</el-button>
+          <el-button v-if="item.principal != null" @click="update(item)" type="primary" icon="el-icon-edit" round>修改</el-button>
         </td>
       </tr>
     </table>
@@ -63,7 +63,7 @@
           <td>
             <el-button @click="endPage()" id="endPage" round>最后一页</el-button>
           </td>
-          <td>转到<input type="text" style="width: 50px" v-model="pageResult.forward">页
+          <td>转到<el-input type="text" style="width: 50px" v-model="pageResult.forward"/>页
             <el-button @click="forward()" round>Go</el-button>
           </td>
         </tr>

@@ -97,7 +97,8 @@ export default {
         name: null,
         workId: null,
         identity: null,
-        accountLevel: null
+        accountLevel: null,
+        email:null
       },
 
       pageResult: {

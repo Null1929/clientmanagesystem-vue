@@ -83,7 +83,7 @@
     <table>
       <tr>
         <td>
-          <el-button @click="save()" round>保存</el-button>
+          <el-button @click="save()" round style="width: 150px">保存</el-button>
         </td>
       </tr>
     </table>

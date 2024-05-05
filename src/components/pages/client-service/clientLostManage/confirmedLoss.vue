@@ -3,7 +3,7 @@
         <table>
             <tr>
                 <td>编号</td>
-                <td>{{ catcheClientLost.index + 1 }}</td>
+                <td>{{ catcheClientLost.clientId  }}</td>
             </tr>
             <tr>
                 <td>客户</td>
@@ -23,10 +23,10 @@
             </tr>
             <tr>
                 <td>流失原因</td>
-                <td><input type="text" v-model="catcheClientLost.lostReason"></td>
+                <td><el-input type="text" v-model="catcheClientLost.lostReason"/></td>
             </tr>
             <tr>
-                <td><button @click="save()">保存</button></td>
+                <td colspan="2"><el-button @click="save()"style="width: 150px;" round>保存</el-button></td>
             </tr>
         </table>
     </div>
@@ -54,14 +54,8 @@ export default {
     },
 
     mounted() {
-        httpRequest.get('/clientservice/clientLost/getCatcheData', {
-            params: {
 
-            }
-        })
-            .then((response) => {
-                this.catcheClientLost = response.data
-            });
+      this.catcheClientLost  = this.$route.query
     },
 
     methods: {
@@ -80,7 +74,7 @@ export default {
                 lostReason: this.catcheClientLost.lostReason
             })
                 .then((response) => {
-                    alert(response.data.msg);
+                    alert(response.data.resDesc);
                     this.$router.push('/client/ClientLost/pageClientLost')
                 });
         }

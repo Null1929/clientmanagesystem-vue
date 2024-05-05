@@ -19,6 +19,14 @@
       </tr>
       <tr>
         <td>
+          <label>邮箱:</label>
+        </td>
+        <td>
+          <el-input v-model="user.email" placeholder="请输入邮箱"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
           <label>密码:</label>
         </td>
         <td>
@@ -80,7 +88,8 @@ export default {
         name: '',
         workId: null,
         identity: null,
-        accountLevel: null
+        accountLevel: null,
+        email:null
       }
     };
   },

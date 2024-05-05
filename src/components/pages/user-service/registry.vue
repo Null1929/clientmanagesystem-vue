@@ -2,7 +2,6 @@
   <div>
     <div id="main">
       <h1 style="color: #494950">用户注册</h1>
-      <br><br>
       <table>
         <tr>
           <td class="text-modern">
@@ -27,7 +26,7 @@
             <label style="color: #494950">密码:</label>
           </td>
           <td>
-            <el-input class="input" v-model="user.password" placeholder="请输入密码"></el-input>
+            <el-input class="input" v-model="user.password" placeholder="请输入密码" show-password></el-input>
           </td>
         </tr>
         <br>
@@ -37,7 +36,7 @@
             <label style="color: #494950">确认密码:</label>
           </td>
           <td>
-            <el-input class="input" v-model="password" placeholder="请输入密码"></el-input>
+            <el-input class="input" v-model="password" placeholder="确认密码" show-password></el-input>
           </td>
         </tr>
         <br>

@@ -16,9 +16,9 @@
           <table style="height: 50px">
             <tr>
               <td>
-<!--                <el-avatar :size="70" src="https://empty" @error="errorHandler">-->
-<!--                  <img :src="profileImg" @click="userProfilePage()"/>-->
-<!--                </el-avatar>-->
+                <!--                <el-avatar :size="70" src="https://empty" @error="errorHandler">-->
+                <!--                  <img :src="profileImg" @click="userProfilePage()"/>-->
+                <!--                </el-avatar>-->
               </td>
               <td><font style="color: yellow">{{ user.name }} 《 {{ user.identity }} 》</font></td>
               <td>
@@ -28,6 +28,7 @@
                   </el-button>
                   <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item command="userProfile">个人信息</el-dropdown-item>
+                    <el-dropdown-item command="showChat">智能客服</el-dropdown-item>
                     <el-dropdown-item command="exit">退出</el-dropdown-item>
                   </el-dropdown-menu>
                 </el-dropdown>
@@ -53,7 +54,7 @@
                  background-color="#ece9c6"
                  text-color="black"
                  active-text-color="#0c53d5">
-          <el-submenu index="1">
+          <el-submenu index="1" v-if="accountLevel>0">
             <template slot="title">
               <i class="el-icon-location"></i>
               <span>营销管理</span>
@@ -67,7 +68,7 @@
               </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
-          <el-submenu index="2">
+          <el-submenu index="2" v-if="accountLevel>0">
             <template slot="title">
               <i class="el-icon-location"></i>
               <span>客户管理</span>
@@ -81,7 +82,7 @@
               </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
-          <el-submenu index="3">
+          <el-submenu index="3" v-if="accountLevel>0">
             <template slot="title">
               <i class="el-icon-location"></i>
               <span>服务管理</span>
@@ -104,7 +105,7 @@
               </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
-          <el-submenu index="4">
+          <el-submenu index="4" v-if="accountLevel>0">
             <template slot="title">
               <i class="el-icon-location"></i>
               <span>统计报表</span>
@@ -124,7 +125,7 @@
               </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
-          <el-submenu index="5">
+          <el-submenu index="5" v-if="accountLevel>0">
             <template slot="title">
               <i class="el-icon-location"></i>
               <span>基础数据</span>
@@ -141,12 +142,12 @@
               </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
-          <el-submenu index="6">
+          <el-submenu index="6" v-if="accountLevel>4">
             <template slot="title">
               <i class="el-icon-location"></i>
               <span>用户管理</span>
             </template>
-            <el-menu-item-group>
+            <el-menu-item-group >
               <el-menu-item index="6-1">
                 <router-link to="/userAdmin/userInfo/pageUserInfo">用户信息管理</router-link>
               </el-menu-item>
@@ -157,6 +158,37 @@
           </el-submenu>
         </el-menu>
       </el-col>
+      <el-drawer
+          title="我是标题"
+          :visible.sync="drawer"
+          :with-header="false">
+        <div style="margin: 2px 2px;overflow: scroll;height:  93%">
+          <table style="margin: 5px 1px">
+            <tr v-for="(item,index) in message">
+
+              <td v-if="index%2===0" class="wrap-text"
+                  style="font-family: 微软雅黑;font-size: x-large;color: #078def;line-height: 25px;text-align: left;font-weight: bold">
+                {{ item }}
+              </td>
+              <td v-if="index%2!==0" class="wrap-text"
+                  style="font-family: 微软雅黑;color:#000000;font-size: initial;line-height: 25px;text-align: left;font-weight: bolder">
+                {{ item }}
+              </td>
+              <hr>
+            </tr>
+          </table>
+        </div>
+        <table style="position:absolute;top: 90%;left:0px;width: 100%" v-loading="chatLoading">
+          <tr>
+            <td style="width: 90%;">
+              <el-input type="text" v-model="content"></el-input>
+            </td>
+            <td style="width: 10%">
+              <el-button @click="sendMessage()">发送</el-button>
+            </td>
+          </tr>
+        </table>
+      </el-drawer>
       <el-col :span="20" style="background-color: #ece9c6;height: 620px">
         <router-view></router-view>
       </el-col>
@@ -178,7 +210,13 @@ export default {
       user: {
         name: null,
         identity: null,
-      }
+      },
+      accountLevel: Number(sessionStorage.getItem('accountLevel')),
+      drawer: false,
+
+      content: null,
+      message: ['欢迎使用千帆智能客服！', '请在下面的对话框中输入您需要查询的问题！'],
+      chatLoading: false
     };
   },
 
@@ -187,9 +225,25 @@ export default {
   },
   beforeUpdate() {
     this.index();
+    this.accountLevel = Number(sessionStorage.getItem('accountLevel'))
   },
 
   methods: {
+    sendMessage() {
+      var item = window.sessionStorage.getItem("userInfo");
+      var parse = JSON.parse(item);
+
+      var content = this.content;
+      this.content = ''
+      this.message.push(content)
+      this.chatLoading = true
+      httpRequest.post("/userservice/chat", {
+        content: content,
+      }).then(response => {
+        this.chatLoading = false
+        this.message.push(response.data.data)
+      })
+    },
     errorHandler() {
       return true
     },
@@ -200,9 +254,7 @@ export default {
       console.log(key, keyPath);
     },
     exit() {
-      httpRequest.get('/userservice/logout', {
-
-      })
+      httpRequest.get('/userservice/logout', {})
           .then((response) => {
             console.log(response.data)
           });
@@ -230,11 +282,14 @@ export default {
     },
 
     handleCommand(command) {
-      if(command==='userProfile'){
+      if (command === 'userProfile') {
         this.userProfilePage();
       }
-      if(command==='exit'){
-          this.exit();
+      if (command === 'exit') {
+        this.exit();
+      }
+      if (command === 'showChat') {
+        this.drawer = true;
       }
     }
   },

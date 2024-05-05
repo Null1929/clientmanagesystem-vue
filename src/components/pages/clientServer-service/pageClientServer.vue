@@ -4,11 +4,11 @@
       <tr>
         <td>客户:</td>
         <td>
-          <el-input type="text" v-model="clientServer.clientName"/>
+          <el-input style="width: 150px;" type="text" v-model="clientServer.clientName"/>
         </td>
         <td>概要:</td>
         <td>
-          <el-input type="text" v-model="clientServer.outline"/>
+          <el-input style="width: 100px;" type="text" v-model="clientServer.outline"/>
         </td>
         <td>服务类型:</td>
         <td>
@@ -45,7 +45,7 @@
       </tr>
     </table>
     <br>
-    <table style="width: auto;border-spacing: 50px 0">
+    <table style="width: auto;border-spacing: 30px 10px">
       <tr>
         <td>编号</td>
         <td>客户</td>
@@ -70,8 +70,7 @@
           </el-select>
         </td>
         <td>
-          <el-button @click="distributionBtn(item)" round>分配</el-button>
-          <el-button @click="del(item.serverId)" round>删除</el-button>
+          <el-button @click="distributionBtn(item)" round>分配</el-button><el-button @click="del(item.serverId)" round>删除</el-button>
         </td>
       </tr>
     </table>
@@ -92,7 +91,7 @@
           <td>
             <el-button @click="endPage()" id="endPage" round>最后一页</el-button>
           </td>
-          <td>转到<input type="text" style="width: 50px" v-model="pageResult.forward">页
+          <td>转到<el-input type="text" style="width: 50px" v-model="pageResult.forward"/>页
             <el-button @click="forward()" round>Go</el-button>
           </td>
         </tr>
